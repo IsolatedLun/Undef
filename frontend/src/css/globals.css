@@ -1,0 +1,26 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: var(--fs-400);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Stick footer at the bottom */
+    min-height: 100vh;
+}
+
+:root {
+    --fs-400: 1rem;
+    --fs-450: 1.5rem;
+    --fs-00: 2rem;
+
+    --txt-primary: black;
+    --bg-primary: white;
+}
+
+@media(prefers-color-scheme: dark) {
+    
+}
