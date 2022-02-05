@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -6,21 +8,28 @@
 
 body {
     font-size: var(--fs-400);
+    font-family: 'Open Sans', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Stick footer at the bottom */
     min-height: 100vh;
+    color: var(--txt-primary);
+    background-color: hsl(var(--bg-primary));
 }
 
 :root {
     --fs-400: 1rem;
     --fs-450: 1.5rem;
-    --fs-00: 2rem;
+    --fs-500: 2rem;
 
     --txt-primary: black;
-    --bg-primary: white;
+    --bg-primary: 0, 0%, 100%;
 }
 
 @media(prefers-color-scheme: dark) {
-    
+    :root {
+        --txt-primary: white;
+        --bg-primary: 217, 12%, 13%;
+        --bg-secondary: 217, 12%, 6%;
+    }
 }

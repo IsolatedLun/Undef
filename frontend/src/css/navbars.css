@@ -1,0 +1,12 @@
+.primary-nav {
+    display: flex;
+    align-items: center;
+    padding: 0.5em 2em;
+    max-height: 3.5rem;
+    background-color: hsl(var(--bg-secondary));
+}
+
+.primary-nav .nav__title {
+    font-size: var(--fs-500);
+    font-weight: normal;
+}

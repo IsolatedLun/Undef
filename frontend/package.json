@@ -5,11 +5,12 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "postcss-run": ""
+    "postcss-run": "postcss src/css/imports.css -o ./index.css --watch"
   },
   "dependencies": {
     "cssnano": "^5.0.16",
     "postcss": "^8.4.6",
+    "postcss-cli": "^9.1.0",
     "postcss-import": "^14.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
