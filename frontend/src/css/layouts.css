@@ -1,0 +1,22 @@
+/* Flex */
+.flex {
+    display: flex;
+}
+
+.flex--center--between {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex--start--between {
+    justify-content: space-between;
+}
+
+.flex--center--gap--1 {
+    align-items: center;
+    gap: 1em;
+}
+
+.flex--g--1 {
+    flex-grow: 1;
+}

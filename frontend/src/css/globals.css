@@ -17,12 +17,39 @@ body {
     background-color: hsl(var(--bg-primary));
 }
 
+ul {
+    list-style: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+    object-fit: contain;
+    border-radius: inherit;
+}
+
+button {
+    font-size: var(--fs-450);
+    color: var(--txt-primary);
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+input {
+    color: var(--txt-primary);
+    border: 0;
+    background-color: transparent;
+}
+
 :root {
     --fs-400: 1rem;
+    --fs-420: 1.2rem;
     --fs-450: 1.5rem;
     --fs-500: 2rem;
 
     --txt-primary: black;
+    --txt-muted: hsl(0, 0%, 80%);
     --bg-primary: 0, 0%, 100%;
 }
 

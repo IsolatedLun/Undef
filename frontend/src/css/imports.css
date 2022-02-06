@@ -1,3 +1,6 @@
 @import url('globals.css');
+@import url('layouts.css');
+@import url('utils.css');
+@import url('interactibles.css');
 
 @import url('navbars.css');

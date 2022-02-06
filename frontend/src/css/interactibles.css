@@ -1,0 +1,51 @@
+/* Buttons */
+.button--primary,
+.button--icon {
+    transition: background-color 90ms ease-out, color 90ms ease-out;
+}
+
+.button--icon {
+    color: var(--txt-muted);
+}
+
+.button--icon:is(:hover) {
+    color: var(--txt-primary);
+}
+
+/* Inputs */
+.input--primary {
+    font-size: var(--fs-420);
+    padding: 0.3em 1em;
+    border: 1px solid var(--txt-muted);
+}
+
+.input--primary:not(.cust) {
+    width: 100%;
+}
+
+/* Tooltip */
+.tooltip {
+    position: relative;
+    
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    font-size: var(--fs-400);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    padding: 0.3em;
+    background-color: black;
+    border-radius: 6px;
+    top: 200%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 120ms ease-out;
+    pointer-events: none;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+}
