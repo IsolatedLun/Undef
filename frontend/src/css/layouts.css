@@ -17,6 +17,18 @@
     gap: 1em;
 }
 
+.flex--col {
+    flex-direction: column;
+}
+
+.gap--1 {
+    gap: 1em;
+}
+
+.gap--05 {
+    gap: 0.5em;
+}
+
 .flex--g--1 {
     flex-grow: 1;
 }

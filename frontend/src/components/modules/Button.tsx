@@ -1,6 +1,7 @@
 import React from 'react';
 
 interface ButtonProps {
+    id?: string;
     content: string;
     action: Function; // Execute function on click
     isIcon?: boolean;
@@ -18,6 +19,7 @@ const Button = ({ props } : { props: ButtonProps }) => {
       <button 
         onClick={(e) => props.action(e)}
 
+        id={props.id}
         className={`${props.cls} ${props.isIcon === true && 'fa'} ${props.tooltip && 'tooltip'}`}
         data-tooltip={props.tooltip}  >
           { props.content }

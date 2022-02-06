@@ -1,0 +1,48 @@
+.videos {
+    display: grid;
+    place-content: center;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, 290px);
+    margin: 1em;
+    gap: 0.5em;
+    row-gap: 1em;
+}
+
+.video .video__thumbnail {
+    width: 100%;
+    background-color: black;
+    aspect-ratio: 16 / 9;
+}
+
+.video .video__details {
+    margin-top: 0.5em;
+    
+}
+
+.video .video__channel-profile {
+    flex-shrink: 0;
+}
+
+.video__inner-details {
+    max-width: 100%;
+}
+
+.video .video__info {
+    max-width: 90%;
+}
+
+.video .video__title {
+    max-width: calc(100% - 2em);
+}
+
+.video .video__channel-name {
+    width: max-content;
+}
+
+.video #home-video-options {
+    visibility: hidden;
+}
+
+.video:hover #home-video-options {
+    visibility: visible;
+}
