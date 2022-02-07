@@ -8,6 +8,10 @@
     row-gap: 1em;
 }
 
+.video {
+    cursor: pointer;
+}
+
 .video .video__thumbnail {
     width: 100%;
     background-color: black;

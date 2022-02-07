@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrimaryNav from './components/layouts/PrimaryNav';
 import Home from './components/main/Home';
+import VideoTab from './components/main/VideoTab';
 
 function App() {
 
@@ -8,9 +9,12 @@ function App() {
     <Router>
       <PrimaryNav />
 
-      <Routes>
-        <Route path='' element={<Home />} />
-      </Routes>
+      <div className="main-container">
+        <Routes>
+          <Route path='' element={<Home />} />
+          <Route path='/watch' element={<VideoTab />} />
+        </Routes>
+      </div>
     </Router>
   )
 }

@@ -1,0 +1,37 @@
+.video-player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: black;
+}
+
+.video-player .player__controls {
+    position: absolute;
+    width: 100%;
+    height: 3rem;
+    bottom: 0;
+}
+
+.video-player .controls__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 0.5em;
+    height: 100%;
+    margin-inline: 1rem;
+}
+
+.video-player .controls__bar {
+    width: 100%;
+    height: 4px;
+    background-color: var(--txt-muted);
+    cursor: pointer;
+}
+
+.video-player .controls__bar .bar__progress {
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0.65);
+    transform-origin: left;
+    background-color: red;
+}

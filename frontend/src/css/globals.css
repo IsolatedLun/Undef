@@ -21,6 +21,11 @@ ul {
     list-style: none;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 img {
     display: block;
     width: 100%;
@@ -40,6 +45,12 @@ input {
     color: var(--txt-primary);
     border: 0;
     background-color: transparent;
+}
+
+:focus {
+    outline: 2px solid var(--txt-primary);
+    outline-offset: 6px;
+    border-radius: 6px;
 }
 
 :root {

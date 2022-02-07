@@ -11,3 +11,10 @@
 }
 
 /* Side Navbar */
+
+/* Media Queries */
+@media(max-width: 768px) {
+    .primary-nav #nav-search {
+        display: none;
+    }
+}

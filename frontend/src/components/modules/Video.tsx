@@ -2,7 +2,15 @@ import React from 'react';
 import { ELLIPSE_V_ICO } from '../../consts';
 import Button from './Button';
 
-const Video = () => {
+export interface INF_Video {
+    title: string;
+}
+
+interface Video {
+    video: INF_Video
+}
+
+const Video = ({ props } : { props : Video }) => {
   return(
     <div className="video">
         <div className="video__thumbnail skel">
@@ -10,7 +18,7 @@ const Video = () => {
         </div>
 
         <div className="video__details flex flex--center--gap--1 flex--g--1">
-            <div className="video__channel-profile round profile">
+            <div className="video__channel-profile round profile ">
                 <img src="" alt="" />
             </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { BARS_ICO, SEARCH_ICO } from '../../consts';
 import { toggleElement } from '../funcs/utilFuncs';
 import Button from '../modules/Button';
-import Input from '../modules/input';
+import Input from '../modules/Input';
 
 const PrimaryNav = () => {
   return(
@@ -14,7 +14,7 @@ const PrimaryNav = () => {
 
           <div className='flex flex--center--gap--1 flex--g--1 m--inl--1'>
             <Input props={{ setter: () => null, data: '', type: 'text',
-            placeholder: 'Search', cls: 'input--primary w--40 cust' }} />
+            placeholder: 'Search', cls: 'input--primary w--40 cust', id: 'nav-search' }} />
             <Button props={{ content: SEARCH_ICO, action: () => null, isIcon: true, default: true,
               tooltip: 'Search' }} />
           </div>
