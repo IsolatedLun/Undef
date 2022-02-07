@@ -1,6 +1,7 @@
 import React from 'react';
 import VideoComments from '../combines/VideoComments';
 import Videos from '../combines/Videos';
+import VideoDetails from './VideoDetails';
 import VideoPlayer from './VideoPlayer';
 
 const VideoTab = () => {
@@ -8,6 +9,7 @@ const VideoTab = () => {
       <div className="video-tab-container">
           <div>
               <VideoPlayer />
+              <VideoDetails />
               <VideoComments />
           </div>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FULLSCREEN_ICO } from '../../consts';
+import { FULLSCREEN_ICO, SETTINGS_ICO } from '../../consts';
 import Button from '../modules/Button';
 
 const VideoPlayer = () => {
@@ -21,8 +21,8 @@ const VideoPlayer = () => {
                 </div>
                 
                 <div>
-                  <Button props={{ content: FULLSCREEN_ICO, isIcon: true, default: true, 
-                    tooltip: 'Fullscreen', action: () => null }} />
+                  <Button props={{ content: SETTINGS_ICO, isIcon: true, default: true, 
+                    tooltip: 'Settings', action: () => null }} />
                 </div>
               </div>
 

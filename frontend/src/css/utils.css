@@ -29,15 +29,24 @@
 
 /* Text */
 .text--elliptic {
-    max-width: max-content;
-    text-overflow: ellipsis;
+    max-width: 100%;
     overflow: hidden;
+    line-height: 1.2;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 /* Paddings & Margins */
 .m--inl--1 {
     margin-inline: 1em;
+}
+
+/* Elements */
+.dot--split {
+    width: 0.5em;
+    height: 0.5em;
+    background-color: var(--txt-primary);
+    border-radius: 50%;
 }
 
 /* Misc */
