@@ -9,3 +9,15 @@
     grid-template-columns: 2fr 1fr;
     gap: 2em;
 }
+
+.video-tab-container .other-videos {
+    margin-inline: 1em;
+}
+
+@media(max-width: 768px) {
+    .video-tab-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2em;
+    }
+}

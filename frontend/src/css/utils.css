@@ -43,10 +43,14 @@
 
 /* Elements */
 .dot--split {
-    width: 0.5em;
-    height: 0.5em;
-    background-color: var(--txt-primary);
+    width: 0.25em;
+    height: 0.25em;
+    background-color: var(--txt-muted);
     border-radius: 50%;
+}
+
+.link--muted:hover {
+    border-bottom: 1px solid var(--txt-muted);
 }
 
 /* Misc */

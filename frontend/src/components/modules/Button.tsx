@@ -16,11 +16,12 @@ const Button = ({ props } : { props: ButtonProps }) => {
     }
 
   return(
-      <button 
+      <button
         onClick={(e) => props.action(e)}
 
         id={props.id}
         className={`${props.cls} ${props.isIcon === true && 'fa'} ${props.tooltip && 'tooltip'}`}
+        aria-label={props.tooltip}
         data-tooltip={props.tooltip}  >
           { props.content }
       </button>

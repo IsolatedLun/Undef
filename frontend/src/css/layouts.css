@@ -26,6 +26,10 @@
     flex-direction: column;
 }
 
+.flex--al--end {
+    align-items: flex-end;
+}
+
 .gap--1 {
     gap: 1em;
 }

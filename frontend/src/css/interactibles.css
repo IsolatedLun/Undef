@@ -4,6 +4,13 @@
     transition: background-color 90ms ease-out, color 90ms ease-out;
 }
 
+.button--primary {
+    font-size: var(--fs-420);
+    padding: 0.3em 0.75em;
+    background-color: var(--btn-main);
+    border-radius: 1px;
+}
+
 .button--icon {
     color: var(--txt-muted);
 }
@@ -15,8 +22,11 @@
 /* Inputs */
 .input--primary {
     font-size: var(--fs-420);
+    font-weight: 100;
     padding: 0.3em 1em;
     border: 1px solid var(--txt-muted);
+    background-color: hsl(var(--bg-secondary));
+    border-radius: 3px;
 }
 
 .input--primary:not(.cust) {
@@ -36,6 +46,7 @@
     font-family: 'Open Sans', sans-serif;
     font-weight: lighter;
     padding: 0.3em;
+    white-space: nowrap;
     background-color: black;
     border-radius: 6px;
     top: 60px;

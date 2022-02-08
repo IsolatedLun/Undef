@@ -1,5 +1,5 @@
 import React from 'react';
-import { ELLIPSE_V_ICO, SETTINGS_ICO } from '../../consts';
+import { CLOCK_ICO, ELLIPSE_V_ICO, SETTINGS_ICO } from '../../consts';
 import Button from '../modules/Button';
 
 const VideoDetails = () => {
@@ -18,15 +18,17 @@ const VideoDetails = () => {
                         tooltip: 'Settings', action: () => null }} />
                 <Button props={{ content: SETTINGS_ICO, isIcon: true, default: true, 
                         tooltip: 'Settings', action: () => null }} />
-                <Button props={{ content: SETTINGS_ICO, isIcon: true, default: true, 
-                        tooltip: 'Settings', action: () => null }} />
+                <Button props={{ content: CLOCK_ICO, isIcon: true, default: true, 
+                        tooltip: 'Add to watch later', action: () => null }} />
                 <Button props={{ content: ELLIPSE_V_ICO, isIcon: true, default: true, 
-                        tooltip: 'Options', action: () => null }} />
+                        tooltip: 'More', action: () => null }} />
               </div>
 
               <div className="controls__rating-bar"></div>
             </div>
         </div>
+
+        <p className="details__desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem tempore inventore maxime minima obcaecati cumque totam, magnam quos ipsa dolorum?</p>
       </div>
   )
 };

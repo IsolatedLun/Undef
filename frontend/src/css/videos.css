@@ -36,11 +36,13 @@
 }
 
 .video .video__title {
+    font-size: var(--fs-420);
     max-width: calc(100% - 2em);
 }
 
 .video .video__channel-name {
     width: max-content;
+    color: var(--txt-muted);
 }
 
 .video #home-video-options {

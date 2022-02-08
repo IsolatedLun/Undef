@@ -16,13 +16,14 @@ const VideoPlayer = () => {
 
               <div className="controls__options flex flex--center--between">
                 <div>
-                  <Button props={{ content: FULLSCREEN_ICO, isIcon: true, default: true, 
-                    tooltip: 'Fullscreen', action: () => null }} />
+                  
                 </div>
                 
                 <div>
                   <Button props={{ content: SETTINGS_ICO, isIcon: true, default: true, 
                     tooltip: 'Settings', action: () => null }} />
+                  <Button props={{ content: FULLSCREEN_ICO, isIcon: true, default: true, 
+                    tooltip: 'Fullscreen', action: () => null }} />
                 </div>
               </div>
 

@@ -1,19 +1,25 @@
 import React from 'react';
 import VideoComments from '../combines/VideoComments';
 import Videos from '../combines/Videos';
+import Video from '../modules/Video';
 import VideoDetails from './VideoDetails';
 import VideoPlayer from './VideoPlayer';
 
 const VideoTab = () => {
   return(
       <div className="video-tab-container">
-          <div>
+          <section>
               <VideoPlayer />
               <VideoDetails />
-              <VideoComments />
-          </div>
+              <VideoComments props={{ id: 'desktop-comments' }} />
+          </section>
 
-          <Videos props={{ videos: [] }} />
+          {/* <Videos props={{ videos: [] }} /> */}
+          <section className="other-videos flex flex--col gap--1">
+            <Video props={{ title: 'Ll' }} />
+            <VideoComments props={{ id: 'mobile-comments' }} />
+          </section>
+          
       </div>
   )
 };

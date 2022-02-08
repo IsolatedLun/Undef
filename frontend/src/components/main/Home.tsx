@@ -3,7 +3,11 @@ import Video from '../modules/Video';
 
 const Home = () => {
   return(
-      <>esh</>
+    <div className="home-container">
+      <div className="videos">
+        <Video props={{ title: 'esh' }} />  
+      </div> 
+    </div>   
   )
 };
 

@@ -13,6 +13,7 @@ body {
     flex-direction: column;
     justify-content: space-between; /* Stick footer at the bottom */
     min-height: 100vh;
+    overflow-x: hidden;
     color: var(--txt-primary);
     letter-spacing: 0.5px;
     background-color: hsl(var(--bg-primary));
@@ -45,12 +46,11 @@ button {
 input {
     color: var(--txt-primary);
     border: 0;
-    background-color: transparent;
 }
 
 :focus {
     outline: 2px solid var(--txt-primary);
-    outline-offset: 6px;
+    outline-offset: 4px;
     border-radius: 6px;
 }
 
@@ -63,6 +63,8 @@ input {
     --txt-primary: black;
     --txt-muted: hsl(0, 0%, 80%);
     --bg-primary: 0, 0%, 100%;
+
+    --btn-main: hsl(221, 96%, 45%);
 }
 
 @media(prefers-color-scheme: dark) {

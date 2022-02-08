@@ -6,11 +6,7 @@ export interface INF_Video {
     title: string;
 }
 
-interface Video {
-    video: INF_Video
-}
-
-const Video = ({ props } : { props : Video }) => {
+const Video = ({ props } : { props : INF_Video }) => {
   return(
     <div className="video">
         <div className="video__thumbnail skel">
@@ -22,10 +18,10 @@ const Video = ({ props } : { props : Video }) => {
                 <img src="" alt="" />
             </div>
 
-            <div className='video__inner-details flex flex--center'>
+            <div className='video__inner-details flex flex--g--1 flex--center--between'>
                 <div className='video__info flex flex--col gap--05'>
                     <p className="video__title text--elliptic">asdsasdasdasddsaaasdssdssd</p>
-                    <p className="video__channel-name">isolated</p>
+                    <p className="video__channel-name link--muted">isolated</p>
                 </div>
 
                 <Button props={{ content: ELLIPSE_V_ICO, action: () => null, default: true,
