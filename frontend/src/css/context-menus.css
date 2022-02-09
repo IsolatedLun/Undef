@@ -1,0 +1,21 @@
+.context-menu {
+    position: absolute;
+    visibility: hidden;
+    font-family: 'Poppins', sans-serif;
+    color: var(--txt-primary);
+    padding: 0.2em;
+    background-color: hsl(var(--bg-secondary));
+}
+
+.context-menu-container:is(:hover, :focus, :focus-within) > .context-menu {
+    visibility: visible;
+}
+
+.context-menu .menu__option {
+    font-size: var(--fs-400);
+    padding: 0.5em;
+}
+
+.context-menu .menu__option:is(:hover) {
+    background-color: var(--bg-hov);
+}

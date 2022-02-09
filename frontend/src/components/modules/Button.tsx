@@ -1,13 +1,19 @@
-import React from 'react';
+import { focusElement } from "../funcs/utilFuncs";
 
 interface ButtonProps {
     id?: string;
     content: string;
-    action: Function; // Execute function on click
+    action?: Function; // Execute function on click
     isIcon?: boolean;
     cls?: string;
     default?: boolean;
     tooltip?: string;
+    contextMenu ?: JSX.Element;
+}
+
+function focusContextMenu(e: Event) {
+  const menu = (e.target as HTMLElement).lastChild as HTMLElement;
+  menu.focus()
 }
 
 const Button = ({ props } : { props: ButtonProps }) => {
@@ -15,15 +21,20 @@ const Button = ({ props } : { props: ButtonProps }) => {
       props.cls = props.isIcon ? 'button--icon' : 'button--primary'
     }
 
+    if(props.contextMenu !== undefined) {
+      props.action = focusContextMenu
+    }
+
   return(
       <button
-        onClick={(e) => props.action(e)}
+        onClick={(e) => props.action !== undefined ? props.action(e) : null}
 
         id={props.id}
         className={`${props.cls} ${props.isIcon === true && 'fa'} ${props.tooltip && 'tooltip'}`}
         aria-label={props.tooltip}
         data-tooltip={props.tooltip}  >
           { props.content }
+          { props.contextMenu }
       </button>
   )
 };

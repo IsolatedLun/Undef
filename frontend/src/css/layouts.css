@@ -30,6 +30,14 @@
     align-items: flex-end;
 }
 
+.gap--2-5 {
+    gap: 2.5em;
+}
+
+.gap--2 {
+    gap: 2em;
+}
+
 .gap--1 {
     gap: 1em;
 }

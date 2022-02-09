@@ -61,8 +61,10 @@ input {
     --fs-500: 2rem;
 
     --txt-primary: black;
-    --txt-muted: hsl(0, 0%, 80%);
+    --txt-muted: hsl(0, 0%, 20%);
+
     --bg-primary: 0, 0%, 100%;
+    --bg-hov: hsla(0, 0%, 100%, 0.12);
 
     --btn-main: hsl(221, 96%, 45%);
 }
@@ -72,5 +74,6 @@ input {
         --txt-primary: white;
         --bg-primary: 217, 12%, 13%;
         --bg-secondary: 217, 12%, 6%;
+        --txt-muted: hsl(0, 0%, 60%);
     }
 }

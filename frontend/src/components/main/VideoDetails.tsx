@@ -1,8 +1,14 @@
 import React from 'react';
-import { CLOCK_ICO, ELLIPSE_V_ICO, SETTINGS_ICO } from '../../consts';
+import { CLOCK_ICO, ELLIPSE_V_ICO, FLAG_ICO, FULLSCREEN_ICO, SETTINGS_ICO } from '../../consts';
 import Button from '../modules/Button';
+import Contextmenu from '../modules/Contextmenu';
 
 const VideoDetails = () => {
+
+  const videoOptionsMenu = <Contextmenu props={{ id: 'options-menu', options: [
+    { action: () => null, icon: FLAG_ICO, text: 'esh' },
+  ] }} />
+
   return(
       <div className="main-video__details">
         <p className="details__title">The first fucking video ever...!</p>
@@ -15,13 +21,16 @@ const VideoDetails = () => {
             <div className="details__controls flex flex--col gap--075">
               <div className='flex gap--1'>
                 <Button props={{ content: SETTINGS_ICO, isIcon: true, default: true, 
-                        tooltip: 'Settings', action: () => null }} />
+                        tooltip: 'Settings' }} />
+
                 <Button props={{ content: SETTINGS_ICO, isIcon: true, default: true, 
-                        tooltip: 'Settings', action: () => null }} />
+                        tooltip: 'Settings' }} />
+
                 <Button props={{ content: CLOCK_ICO, isIcon: true, default: true, 
-                        tooltip: 'Add to watch later', action: () => null }} />
+                        tooltip: 'Add to watch later' }} />
+
                 <Button props={{ content: ELLIPSE_V_ICO, isIcon: true, default: true, 
-                        tooltip: 'More', action: () => null }} />
+                  contextMenu: videoOptionsMenu }} />
               </div>
 
               <div className="controls__rating-bar"></div>

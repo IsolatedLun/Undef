@@ -1,6 +1,7 @@
 import Input  from '../modules/Input';
 import React from 'react';
 import Button from '../modules/Button';
+import VideoComment from '../modules/VideoComment';
 
 interface INF_VideoComments {
   id: string;
@@ -15,6 +16,10 @@ const VideoComments = ({ props }: { props: INF_VideoComments }) => {
             <Input props={{ setter: () => null, data: '', placeholder: 'Add a comment',
             type: 'text', default: true }} />
             <Button props={{ content: 'Post', default: true, isIcon: false, action: () => null }} />
+          </div>
+
+          <div className="flex flex--col gap--2-5">
+            <VideoComment />
           </div>
       </div>
   )
