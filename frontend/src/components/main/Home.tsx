@@ -6,6 +6,9 @@ const Home = () => {
     <div className="home-container">
       <div className="videos">
         <Video props={{ title: 'esh' }} />  
+        <Video props={{ title: 'esh' }} />
+        <Video props={{ title: 'esh' }} />
+        <Video props={{ title: 'esh' }} />
       </div> 
     </div>   
   )

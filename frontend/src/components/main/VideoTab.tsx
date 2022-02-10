@@ -11,13 +11,12 @@ const VideoTab = () => {
           <section>
               <VideoPlayer />
               <VideoDetails />
-              <VideoComments props={{ id: 'desktop-comments' }} />
+              <VideoComments props={{ id: 'desktop-comments', comments: [] }} />
           </section>
 
           {/* <Videos props={{ videos: [] }} /> */}
           <section className="other-videos flex flex--col gap--1">
-            <Video props={{ title: 'Ll' }} />
-            <VideoComments props={{ id: 'mobile-comments' }} />
+            <VideoComments props={{ id: 'mobile-comments', comments: [] }} />
           </section>
           
       </div>

@@ -29,11 +29,13 @@
 
 /* Text */
 .text--elliptic {
-    max-width: 100%;
+    display: -moz-box;
+    max-height: 4rem;
     overflow: hidden;
-    line-height: 1.2;
+    line-height: 2rem;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
+    line-clamp: 2;
 }
 
 .txt--muted {
@@ -51,6 +53,10 @@
     height: 0.25em;
     background-color: var(--txt-muted);
     border-radius: 50%;
+}
+
+.link--muted {
+    border-bottom: 1px solid transparent;
 }
 
 .link--muted:hover {

@@ -37,7 +37,12 @@
 
 .main-video__comments .video__comment {
     width: 100%;
-    flex-basis: 100%;
+}
+
+.main-video__comments .comment__profile {
+    width: 2.5rem;
+    height: 2.5rem;
+    aspect-ratio: 1;
 }
 
 .main-video__comments .comment__date {

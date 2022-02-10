@@ -13,7 +13,7 @@ const VideoDetails = () => {
       <div className="main-video__details">
         <p className="details__title">The first fucking video ever...!</p>
         <div className="details__options flex flex--start--between">
-            <div className='flex flex--center gap--05'>
+            <div className='flex flex--center gap--05 txt--muted'>
                 <p className="options__views">232,312 views</p>
                 <div className="dot--split"></div>
                 <p className="options__date">Feb 7, 2022</p>

@@ -13,15 +13,21 @@ const Video = ({ props } : { props : INF_Video }) => {
             <img src="" alt="" />
         </div>
 
-        <div className="video__details flex flex--center--gap--1 flex--g--1">
-            <div className="video__channel-profile round profile ">
+        <div className="video__details flex">
+            <div className="video__channel-profile round profile">
                 <img src="" alt="" />
             </div>
 
-            <div className='video__inner-details flex flex--g--1 flex--center--between'>
+            <div className='video__inner-details'>
                 <div className='video__info flex flex--col gap--05'>
-                    <p className="video__title text--elliptic">asdsasdasdasddsaaasdssdssd</p>
+                    <p className="video__title">{ props.title }</p>
                     <p className="video__channel-name link--muted">isolated</p>
+                </div>
+
+                <div className='video__stats flex flex--center txt--muted'>
+                    <p>100,000 views</p>
+                    <div className="dot--split"></div>
+                    <p>2 days ago</p>
                 </div>
 
                 <Button props={{ content: ELLIPSE_V_ICO, action: () => null, default: true,
