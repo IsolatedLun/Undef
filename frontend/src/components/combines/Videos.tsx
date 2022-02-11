@@ -8,7 +8,7 @@ interface Videos {
 const Videos = ({ props } : { props: Videos }) => {
     return <>{
         props.videos.map((video, idx) => (
-            <Video key={idx} props={{ ...video }} />
+            <Video key={idx} props={video} />
         ))
     }</>
 };

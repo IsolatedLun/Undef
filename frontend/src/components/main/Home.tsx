@@ -1,14 +1,15 @@
 import React from 'react';
+import { useGetVideosQuery } from '../../services/videoApi';
+import Videos from '../combines/Videos';
 import Video from '../modules/Video';
 
 const Home = () => {
+  const { data } = useGetVideosQuery();
+
   return(
     <div className="home-container">
       <div className="videos">
-        <Video props={{ title: 'esh' }} />  
-        <Video props={{ title: 'esh' }} />
-        <Video props={{ title: 'esh' }} />
-        <Video props={{ title: 'esh' }} />
+        { data !== undefined && <Videos props={{ videos: data }} /> }
       </div> 
     </div>   
   )

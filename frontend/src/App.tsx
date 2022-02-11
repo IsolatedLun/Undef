@@ -12,7 +12,7 @@ function App() {
       <div className="main-container">
         <Routes>
           <Route path='' element={<Home />} />
-          <Route path='/watch' element={<VideoTab />} />
+          <Route path='watch/:video_id' element={<VideoTab />} />
         </Routes>
       </div>
     </Router>

@@ -13,3 +13,10 @@ class VideoPreview(APIView):
         previews = serializers.VideoPreviewSerializer(videos, many=True).data
 
         return Response(previews, OK)
+
+class Video(APIView):
+    def get(self, req, video_id):
+        video = models.Video.objects.get(id=video_id)
+        serializer = serializers.VideoSerializer(video).data
+
+        return Response(serializer, OK)

@@ -5,3 +5,5 @@ export const FULLSCREEN_ICO = '\uf2d0';
 export const SETTINGS_ICO = '\uf013';
 export const CLOCK_ICO = '\uf017';
 export const FLAG_ICO = '\uf024';
+
+export const API_URL = 'http://localhost:8000'

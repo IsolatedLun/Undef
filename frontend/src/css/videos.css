@@ -54,6 +54,7 @@
     position: absolute;
     inset: 10px 10px auto auto;
     visibility: hidden;
+    mix-blend-mode: difference;
 }
 
 .video:hover #home-video-options {
