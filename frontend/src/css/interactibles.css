@@ -19,6 +19,10 @@
     color: var(--txt-primary);
 }
 
+.button--icon:scope(.context-menu-container) {
+    color: pink;
+}
+
 /* Inputs */
 .input--primary {
     font-size: var(--fs-420);
