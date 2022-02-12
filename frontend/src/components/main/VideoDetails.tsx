@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLOCK_ICO, ELLIPSE_V_ICO, FLAG_ICO, FULLSCREEN_ICO, SETTINGS_ICO } from '../../consts';
+import { CLOCK_ICO, DISLIKE_ICO, ELLIPSE_V_ICO, FLAG_ICO, FULLSCREEN_ICO, LIKE_ICO, SETTINGS_ICO } from '../../consts';
 import Button from '../modules/Button';
 import Contextmenu from '../modules/Contextmenu';
 import { VideoData } from './VideoTab';
@@ -24,12 +24,21 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
                 <Button props={{ content: CLOCK_ICO, isIcon: true, default: true, 
                         tooltip: 'Add to watch later' }} />
 
+                <Button props={{ content: LIKE_ICO, isIcon: true, default: true, 
+                        tooltip: 'Like' }} />
+                
+                <Button props={{ content: DISLIKE_ICO, isIcon: true, default: true, 
+                        tooltip: 'Dislike' }} />
+
                 <Button props={{ content: ELLIPSE_V_ICO, isIcon: true, default: true, 
                   contextMenu: videoOptionsMenu }} />
               </div>
+              <div className="controls__rating-bar">
 
-              <div className="controls__rating-bar" style={{ transform: `scaleX(${videoDetails.ratio})` }}>
-                <div className="tooltip" 
+                <div style={{ transform: `scaleX(${videoDetails.ratio})` }}
+                  className="rating-bar__display"></div>
+
+                <div className="tooltip span" 
                   data-tooltip={`${videoDetails.likes} / ${videoDetails.dislikes}`}></div>
               </div>
             </div>

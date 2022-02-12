@@ -40,6 +40,9 @@
 /* Tooltip */
 .tooltip {
     position: relative;
+}
+
+.tooltip.span {
     width: 100%;
     height: 100%;
 }

@@ -6,6 +6,8 @@ class VideoSerializer(serializers.ModelSerializer):
     profile =  serializers.ReadOnlyField(source='user.profile.url')
     created_at = serializers.ReadOnlyField(source='format_date')
     duration = serializers.ReadOnlyField(source='get_duration')
+    ratio = serializers.ReadOnlyField(source='calculate_ratio')
+    views = serializers.ReadOnlyField(source='format_views')
 
     class Meta:
         model = models.Video
@@ -15,10 +17,8 @@ class VideoPreviewSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source='user.username')
     profile =  serializers.ReadOnlyField(source='user.profile.url')
     created_at = serializers.ReadOnlyField(source='format_date')
-    ratio = serializers.ReadOnlyField(source='calculate_ratio')
-    
+    views = serializers.ReadOnlyField(source='format_views')
 
     class Meta:
         model = models.Video
-        fields = ['id', 'thumbnail', 'title', 'views', 'user', 'username', 'profile', 'created_at',
-            'ratio']
+        fields = ['id', 'thumbnail', 'title', 'views', 'user', 'username', 'profile', 'created_at']

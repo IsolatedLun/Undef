@@ -19,9 +19,12 @@ class Video(models.Model):
         from django.utils.timesince import timesince
         return timesince(self.created_at, depth=1)
 
+    def format_views(self):
+        return f'{self.views:,}'
+
     def calculate_ratio(self):
         try:
-            return (self.likes - self.dislikes) / (self.likes + self.dislikes)
+            return ((self.likes - self.dislikes) / (self.likes + self.dislikes)).__round__(2)
         except:
             return 0
 

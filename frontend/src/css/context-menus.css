@@ -5,6 +5,7 @@
     color: var(--txt-primary);
     padding: 0.2em;
     background-color: hsl(var(--bg-secondary));
+    z-index: 999999;
 }
 
 .context-menu-container:is(:hover, :focus, :focus-within) > .context-menu {

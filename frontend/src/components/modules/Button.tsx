@@ -26,6 +26,9 @@ const Button = ({ props } : { props: ButtonProps }) => {
       props.action = focusContextMenu
     }
 
+    if(props.params === undefined)
+      props.params = []
+
   return(
       <button
         onClick={(e) => props.action !== undefined ? props.action(e, ...props.params) : null}
