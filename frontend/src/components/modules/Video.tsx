@@ -11,43 +11,47 @@ export interface INF_Video {
     thumbnail: string;
     profile: string;
     views: string;
+    duration: number;
+    description: string;
     created_at: string;
+}
 
-    url?: string
+export interface I_INF_Video {
+    [key: string]: INF_Video
 }
 
 const Video = ({ props } : { props : INF_Video }) => {
   return(
-    <Link to={`/watch/${props.id}`}>
-        <div className="video">
+    <div className="video">
+        <Link to={'/watch/' + props.id}>
             <div className="video__thumbnail skel">
                 <img src={ API_URL + props.thumbnail } alt={`${props.title}'s thumbnails`} />
             </div>
+        </Link>
 
-            <div className="video__details flex">
-                <div className="video__channel-profile round profile">
-                    <img src={API_URL + props.profile} alt={`${props.username}'s profile`} />
+        <div className="video__details flex">
+            <div className="video__channel-profile round profile">
+                <img src={API_URL + props.profile} alt={`${props.username}'s profile`} />
+            </div>
+
+            <div className='video__inner-details'>
+                <div className='video__info flex flex--col gap--05'>
+                    <p className="video__title">{ props.title }</p>
+                    <Link className='video__channel-name link--muted'
+                        to={`/channels/${props.user}`}>{ props.username }</Link>
                 </div>
 
-                <div className='video__inner-details'>
-                    <div className='video__info flex flex--col gap--05'>
-                        <p className="video__title">{ props.title }</p>
-                        <a href={`/channels/${props.user}`}
-                        className="video__channel-name link--muted">{ props.username }</a>
-                    </div>
-
-                    <div className='video__stats flex flex--center txt--muted'>
-                        <p>{ props.views } views</p>
-                        <div className="dot--split"></div>
-                        <p>{ props.created_at } ago</p>
-                    </div>
-
-                    <Button props={{ content: ELLIPSE_V_ICO, action: () => null, default: true,
-                        id: 'home-video-options', tooltip: 'Options', isIcon: true }} />
+                <div className='video__stats flex flex--center txt--muted'>
+                    <p>{ props.views } views</p>
+                    <div className="dot--split"></div>
+                    <p>{ props.created_at } ago</p>
                 </div>
+
+                <Button props={{ content: ELLIPSE_V_ICO, action: () => null, default: true,
+                    id: 'home-video-options', tooltip: 'Options', isIcon: true }} />
             </div>
         </div>
-    </Link>
+    </div>
   )
 };
 

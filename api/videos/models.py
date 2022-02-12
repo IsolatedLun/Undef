@@ -4,6 +4,7 @@ from users import models as userModels
 class Video(models.Model):
     user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
+    descritpion = models.CharField(max_length=512, default='')
 
     views = models.PositiveBigIntegerField(default=0)
     likes = models.PositiveBigIntegerField(default=0)
@@ -23,6 +24,11 @@ class Video(models.Model):
             return (self.likes - self.dislikes) / (self.likes + self.dislikes)
         except:
             return 0
+
+    def get_duration(self):
+        from moviepy import editor
+
+        return editor.VideoFileClip(self.video.path).duration
 
     def delete(self, using=None, keep_parents=False):
         self.thumbnail.storage.delete(self.thumbnail.path)

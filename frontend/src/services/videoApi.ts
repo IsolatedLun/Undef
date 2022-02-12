@@ -4,7 +4,7 @@ import { INF_Video } from "../components/modules/Video";
 import { API_URL } from "../consts";
 
 export const VideoApi = createApi({
-    reducerPath: 'AlbumApi',
+    reducerPath: 'VideoApi',
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL + '/api/videos', 
         prepareHeaders: (headers, { getState }) => {

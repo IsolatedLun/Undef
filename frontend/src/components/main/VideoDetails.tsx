@@ -21,12 +21,6 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
             </div>
             <div className="details__controls flex flex--col gap--075">
               <div className='flex gap--1'>
-                <Button props={{ content: SETTINGS_ICO, isIcon: true, default: true, 
-                        tooltip: 'Settings' }} />
-
-                <Button props={{ content: SETTINGS_ICO, isIcon: true, default: true, 
-                        tooltip: 'Settings' }} />
-
                 <Button props={{ content: CLOCK_ICO, isIcon: true, default: true, 
                         tooltip: 'Add to watch later' }} />
 
@@ -34,11 +28,14 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
                   contextMenu: videoOptionsMenu }} />
               </div>
 
-              <div className="controls__rating-bar"></div>
+              <div className="controls__rating-bar" style={{ transform: `scaleX(${videoDetails.ratio})` }}>
+                <div className="tooltip" 
+                  data-tooltip={`${videoDetails.likes} / ${videoDetails.dislikes}`}></div>
+              </div>
             </div>
         </div>
 
-        <p className="details__desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem tempore inventore maxime minima obcaecati cumque totam, magnam quos ipsa dolorum?</p>
+        <p className="details__desc">{ videoDetails.description }</p>
       </div>
   )
 };

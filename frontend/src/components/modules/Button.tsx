@@ -3,7 +3,8 @@ import { focusElement } from "../funcs/utilFuncs";
 interface ButtonProps {
     id?: string;
     content: string;
-    action?: Function; // Execute function on click
+    action?: Function | void; // Execute function on click
+    params?: any | object;
     isIcon?: boolean;
     cls?: string;
     default?: boolean;
@@ -27,7 +28,7 @@ const Button = ({ props } : { props: ButtonProps }) => {
 
   return(
       <button
-        onClick={(e) => props.action !== undefined ? props.action(e) : null}
+        onClick={(e) => props.action !== undefined ? props.action(e, ...props.params) : null}
 
         id={props.id}
         className={`${props.cls} ${props.isIcon === true && 'fa'} ${props.tooltip && 'tooltip'}`}
