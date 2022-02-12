@@ -34,7 +34,7 @@ const Button = ({ props } : { props: ButtonProps }) => {
         onClick={(e) => props.action !== undefined ? props.action(e, ...props.params) : null}
 
         id={props.id}
-        className={`${props.cls} ${props.isIcon === true && 'fa'} ${props.tooltip && 'tooltip'}`}
+        className={`${props.cls} ${props.isIcon === true && 'fa'} ${props.tooltip && 'tooltip btn--tooltip'}`}
         aria-label={props.tooltip}
         data-tooltip={props.tooltip}  >
           { props.content }

@@ -66,6 +66,10 @@
     z-index: 9999999999999;
 }
 
+.tooltip.goto--bottom::after {
+    top: -30px;
+}
+
 .tooltip:hover::after {
     opacity: 1;
 }
