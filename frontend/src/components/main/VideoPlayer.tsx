@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef, useEffect } from 'react';
 import { API_URL, FULLSCREEN_ICO, SETTINGS_ICO } from '../../consts';
 import Button from '../modules/Button';
 
@@ -8,8 +8,8 @@ interface VideoData {
 }
 
 const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
-  const innerBar = document.getElementById('bar-progress')!;
-  const videoEl = document.getElementById('video-el')! as HTMLVideoElement;
+  let videoRef = createRef<HTMLVideoElement>();
+  let barRef = createRef<HTMLDivElement>();
 
   function toggleVideo(videoEl: HTMLVideoElement): void {
       if(videoEl.paused)
@@ -22,17 +22,22 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
     innerBarEl.style.transform = `scaleX(${currTime / duration})`;
   }
 
+  useEffect(() => {
+    
+  })
+
+
   return(
       <div className="video-player">
           <video 
-            onClick={() => toggleVideo(videoEl)}
-            onTimeUpdate={() => handleVideoBar(innerBar, videoEl.currentTime, videoEl.duration)}
-            onCanPlay={() => videoEl.currentTime = 1}
+            onClick={() => toggleVideo(videoRef.current!)}
+            onTimeUpdate={() => 
+              handleVideoBar(barRef.current!, videoRef.current!.currentTime, videoRef.current!.duration)}
             
             id='video-el'
+            ref={videoRef}
             className="player__el" 
             poster={API_URL + videoData.thumbnailUrl}
-            autoPlay
             src={API_URL + videoData.videoUrl}
             >
 
@@ -43,7 +48,7 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
             <div className="controls__inner">
 
               <div className="controls__bar">
-                <div className="bar__progress" id='bar-progress'></div>
+                <div ref={barRef} className="bar__progress" id='bar-progress'></div>
               </div>
 
               <div className="controls__options flex flex--center--between">

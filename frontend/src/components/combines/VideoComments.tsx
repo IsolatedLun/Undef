@@ -21,8 +21,8 @@ const VideoComments = ({ props }: { props: INF_VideoComments }) => {
 
           <div className="flex flex--col gap--2-5">
             {
-              props.comments.map((comment) => (
-                <VideoComment props={comment} />
+              props.comments.map((comment, idx) => (
+                <VideoComment key={idx} props={comment} />
               ))
             }
           </div>

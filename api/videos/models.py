@@ -14,10 +14,15 @@ class Video(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)
 
-    @property
     def format_date(self):
         from django.utils.timesince import timesince
         return timesince(self.created_at, depth=1)
+
+    def calculate_ratio(self):
+        try:
+            return (self.likes - self.dislikes) / (self.likes + self.dislikes)
+        except:
+            return 0
 
     def delete(self, using=None, keep_parents=False):
         self.thumbnail.storage.delete(self.thumbnail.path)
