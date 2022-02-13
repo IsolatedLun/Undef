@@ -1,5 +1,5 @@
 .channel .channel__banner {
-    width: 100%;
+    min-width: 100%;
     max-height: 14rem;
     aspect-ratio: 16 / 9;
     background-color: black;
