@@ -23,6 +23,8 @@ class cUser(AbstractUser):
     email = models.EmailField(max_length=128, unique=True)
     password = models.CharField(max_length=128)
 
+    subscribers = models.PositiveBigIntegerField(default=0)
+
     profile = models.ImageField(upload_to='profiles/', default='profiles/def.png')
 
     joined_at = models.DateTimeField(auto_now_add=True)

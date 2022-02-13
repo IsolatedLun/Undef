@@ -69,6 +69,7 @@ input {
     --bg-hov: hsla(0, 0%, 100%, 0.12);
 
     --btn-main: hsl(221, 96%, 45%);
+    --btn-hov: hsl(221, 96%, 55%);
 }
 
 @media(prefers-color-scheme: dark) {

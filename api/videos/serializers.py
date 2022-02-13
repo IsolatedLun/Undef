@@ -9,7 +9,8 @@ class VideoSerializer(serializers.ModelSerializer):
     ratio = serializers.ReadOnlyField(source='calculate_ratio')
     views = serializers.ReadOnlyField(source='format_views')
     likes = serializers.ReadOnlyField(source='format_likes')
-    dislikes = serializers.ReadOnlyField(source='format_dislikes',)
+    dislikes = serializers.ReadOnlyField(source='format_dislikes')
+    subscribers = serializers.ReadOnlyField(source='get_subscribers')
 
     class Meta:
         model = models.Video
@@ -23,4 +24,5 @@ class VideoPreviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Video
-        fields = ['id', 'thumbnail', 'title', 'views', 'user', 'username', 'profile', 'created_at']
+        fields = ['id', 'thumbnail', 'title', 'views', 'user', 'channel',
+            'username', 'profile', 'created_at']

@@ -7,6 +7,7 @@ export interface INF_Video {
     id: number
     title: string;
     user: number;
+    channel: number;
     username: string;
     thumbnail: string;
     profile: string;
@@ -38,7 +39,7 @@ const Video = ({ props } : { props : INF_Video }) => {
                 <div className='video__info flex flex--col gap--05'>
                     <p className="video__title">{ props.title }</p>
                     <Link className='video__channel-name link--muted'
-                        to={`/channels/${props.user}`}>{ props.username }</Link>
+                        to={`/channels/${props.channel}`}>{ props.username }</Link>
                 </div>
 
                 <div className='video__stats flex flex--center txt--muted'>

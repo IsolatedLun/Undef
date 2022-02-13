@@ -1,8 +1,10 @@
 from django.db import models
-from users import models as userModels
+from users.models import cUser
+from channels.models import Channel
 
 class Video(models.Model):
-    user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=120)
     descritpion = models.CharField(max_length=512, default='')
 
@@ -36,6 +38,9 @@ class Video(models.Model):
         from moviepy import editor
 
         return editor.VideoFileClip(self.video.path).duration
+
+    def get_subscribers(self):
+        return self.user.subscribers
 
     def increment_views(self):
         self.views += 1

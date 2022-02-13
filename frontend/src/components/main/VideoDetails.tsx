@@ -1,5 +1,6 @@
 import React from 'react';
-import { CLOCK_ICO, DISLIKE_ICO, ELLIPSE_V_ICO, FLAG_ICO, FULLSCREEN_ICO, LIKE_ICO, SETTINGS_ICO } from '../../consts';
+import { Link } from 'react-router-dom';
+import { API_URL, CLOCK_ICO, DISLIKE_ICO, ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../consts';
 import Button from '../modules/Button';
 import Contextmenu from '../modules/Contextmenu';
 import { VideoData } from './VideoTab';
@@ -11,7 +12,8 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
   ] }} />
 
   return(
-      <div className="main-video__details">
+      <>
+        <div className="main-video__details">
         <p className="details__title">{ videoDetails.title }</p>
         <div className="details__options flex flex--center--between">
             <div className='flex flex--center gap--05 txt--muted'>
@@ -47,6 +49,23 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
 
         <p className="details__desc">{ videoDetails.description }</p>
       </div>
+
+      <div className="user__details flex flex--center gap--1">
+        <div className="user__profile profile round">
+          <img src={API_URL + videoDetails.profile} alt="" />
+        </div>
+        <div>
+          <div className="user__stats txt--center flex flex--col gap--025">
+            <Link className="username btn--tooltip tooltip" 
+              to={`/channels/${videoDetails.channel}`} data-tooltip={videoDetails.username}>
+                { videoDetails.username }
+              </Link>
+
+            <p className="subscribers txt--sm txt--muted">{ videoDetails.subscribers } subscribers</p>
+          </div>
+        </div>
+      </div>
+      </>
   )
 };
 

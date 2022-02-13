@@ -50,6 +50,10 @@
     gap: 0.5em;
 }
 
+.gap--025 {
+    gap: 0.25em;
+}
+
 .flex--g--1 {
     flex-grow: 1;
 }

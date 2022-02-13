@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useGetVideoQuery, useGetVideosQuery } from '../../services/videoApi';
 import VideoComments from '../combines/VideoComments';import Videos from '../combines/Videos';
+import Loader from '../layouts/Loader';
 import { INF_Video } from '../modules/Video';
 ;
 import VideoDetails from './VideoDetails';
@@ -10,13 +11,14 @@ export interface VideoData extends INF_Video {
   video: string;
   likes: number;
   dislikes: number;
+  subscribers: number;
   ratio: number;
 }
 
 const VideoTab = () => {
   const { video_id } = useParams();
-  const { data: video } = useGetVideoQuery(Number(video_id)!);
-  const { data: nextVideos } = useGetVideosQuery();
+  const { data: video, isFetching: hasRecVideo } = useGetVideoQuery(Number(video_id)!);
+  const { data: nextVideos, isFetching: hasRecVideos } = useGetVideosQuery();
 
   if(video && nextVideos)
     return(
@@ -40,7 +42,7 @@ const VideoTab = () => {
         </div>
     )
   else
-      return(<></>)
+      return(<Loader />)
 };
 
 export default VideoTab;

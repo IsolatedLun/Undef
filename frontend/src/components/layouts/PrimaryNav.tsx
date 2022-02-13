@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BARS_ICO, SEARCH_ICO } from '../../consts';
 import { toggleElement } from '../funcs/utilFuncs';
 import Button from '../modules/Button';
@@ -29,8 +30,8 @@ const PrimaryNav = () => {
             </div>
             :
             <div className='nav__btn-group flex gap--1'>
-              <Button props={{ content: 'Sign Up', action: () => null, default: true }} />
-              <Button props={{ content: 'Log In', action: () => null, default: true }} />
+              <Link className='button--primary' to='/login'>Log In</Link>
+              <Link className='button--primary btn--hollow' to='/sign-up'>Sign Up</Link>
             </div>
           }
       </nav>
