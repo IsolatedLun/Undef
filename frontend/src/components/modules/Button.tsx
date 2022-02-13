@@ -10,6 +10,8 @@ interface ButtonProps {
     default?: boolean;
     tooltip?: string;
     contextMenu ?: JSX.Element;
+    childEl?: JSX.Element;
+    extraAfter?: string | number;
 }
 
 function focusContextMenu(e: Event) {
@@ -34,10 +36,15 @@ const Button = ({ props } : { props: ButtonProps }) => {
         onClick={(e) => props.action !== undefined ? props.action(e, ...props.params) : null}
 
         id={props.id}
-        className={`${props.cls} ${props.isIcon === true && 'fa'} ${props.tooltip && 'tooltip btn--tooltip'}`}
+
+        className={`${props.cls} ${props.isIcon === true && 'fa'} 
+          ${props.tooltip && 'tooltip btn--tooltip'} ${props.extraAfter && 'show--after mb--015'}`}
+        
         aria-label={props.tooltip}
-        data-tooltip={props.tooltip}  >
+        data-tooltip={props.tooltip}
+        data-after={props.extraAfter}  >
           { props.content }
+          { props.childEl && props.childEl }
           { props.contextMenu }
       </button>
   )

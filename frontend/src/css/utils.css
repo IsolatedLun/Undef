@@ -46,6 +46,10 @@
     text-align: center;
 }
 
+.txt--sm {
+    font-size: calc(var(--fs-400) * 0.8);
+}
+
 /* Paddings & Margins */
 .m--inl--1 {
     margin-inline: 1em;
@@ -53,6 +57,14 @@
 
 .mb--1 {
     margin-bottom: 1em;
+}
+
+.mb--015 {
+    margin-bottom: 0.15em;
+}
+
+.mt--1 {
+    margin-top: 1em;
 }
 
 /* Elements */
@@ -69,6 +81,11 @@
 
 .link--muted:hover {
     border-bottom: 1px solid var(--txt-muted);
+}
+
+/* Fonts */
+.font--def {
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Misc */

@@ -13,33 +13,34 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
   return(
       <div className="main-video__details">
         <p className="details__title">{ videoDetails.title }</p>
-        <div className="details__options flex flex--start--between">
+        <div className="details__options flex flex--center--between">
             <div className='flex flex--center gap--05 txt--muted'>
                 <p className="options__views">{ videoDetails.views } views</p>
                 <div className="dot--split"></div>
                 <p className="options__date">{ videoDetails.created_at } ago</p>
             </div>
+
             <div className="details__controls flex flex--col gap--075">
               <div className='flex gap--1'>
                 <Button props={{ content: CLOCK_ICO, isIcon: true, default: true, 
                         tooltip: 'Add to watch later' }} />
 
                 <Button props={{ content: LIKE_ICO, isIcon: true, default: true, 
-                        tooltip: 'Like' }} />
+                    tooltip: 'Like', extraAfter: videoDetails.likes}} />
                 
                 <Button props={{ content: DISLIKE_ICO, isIcon: true, default: true, 
-                        tooltip: 'Dislike' }} />
+                        tooltip: 'Dislike', extraAfter: videoDetails.dislikes }} />
 
                 <Button props={{ content: ELLIPSE_V_ICO, isIcon: true, default: true, 
                   contextMenu: videoOptionsMenu }} />
               </div>
-              <div className="controls__rating-bar">
+              <div className="controls__rating-bar btn--tooltip">
 
                 <div style={{ transform: `scaleX(${videoDetails.ratio})` }}
                   className="rating-bar__display"></div>
 
                 <div className="tooltip span" 
-                  data-tooltip={`${videoDetails.likes} / ${videoDetails.dislikes}`}></div>
+                  data-tooltip={`${videoDetails.ratio * 100}% of people like this`}></div>
               </div>
             </div>
         </div>

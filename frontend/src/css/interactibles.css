@@ -12,6 +12,7 @@
 }
 
 .button--icon {
+    position: relative;
     color: var(--txt-muted);
 }
 
@@ -19,8 +20,14 @@
     color: var(--txt-primary);
 }
 
-.button--icon:scope(.context-menu-container) {
-    color: pink;
+.button--icon.show--after::before {
+    content: attr(data-after);
+    position: absolute;
+    font-size: calc(var(--fs-400) * 0.75);
+    font-family: 'Poppins', sans-serif;
+    top: 34px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* Inputs */
