@@ -1,6 +1,6 @@
 .videos {
     display: grid;
-    place-content: center;
+    place-content: start;
     width: 100%;
     grid-template-columns: repeat(auto-fit, 280px);
     margin: 1em;
@@ -59,4 +59,10 @@
 
 .video:hover #home-video-options {
     visibility: visible;
+}
+
+@media(max-width: 768px) {
+    .videos {
+        place-content: center;
+    }
 }

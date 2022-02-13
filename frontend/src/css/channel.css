@@ -6,7 +6,6 @@
 }
 
 .channel .videos {
-    place-content: start;
     margin: 0;
     margin-block: 1em;
 }

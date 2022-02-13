@@ -4,7 +4,7 @@
     font-family: 'Poppins', sans-serif;
     color: var(--txt-primary);
     padding: 0.2em;
-    background-color: hsl(var(--bg-secondary));
+    background-color: var(--bg-secondary);
     z-index: 999999;
 }
 
