@@ -11,6 +11,10 @@ export function handleVideoBar(innerBarEl: HTMLElement, currTime: number, durati
   innerBarEl.style.transform = `scaleX(${currTime / duration})`;
 }
 
+export function handleBufferBar(videoEl: HTMLVideoElement, barEl: HTMLElement) {
+  barEl.style.transform = `scaleX(${calculateBufferPct(videoEl)})`;
+}
+
 export function calculateDuration(t: number): string {
   if (t < 3600) {
     return new Date(t * 1000).toISOString().substr(14, 5);
@@ -23,12 +27,28 @@ export function updateCurrentTime(el: HTMLElement, t: number) {
   el.textContent = calculateDuration(t);
 }
 
-export function updateVideoData(videoEl: HTMLVideoElement, barEl: HTMLElement, currDurationEl: HTMLElement) {
+export function updateVideoData(videoEl: HTMLVideoElement, barEl: HTMLElement, currDurationEl: HTMLElement,
+    bufferBarEl: HTMLElement) {
   handleVideoBar(barEl, videoEl.currentTime, videoEl.duration);
+  handleBufferBar(videoEl, bufferBarEl);
   updateCurrentTime(currDurationEl, videoEl.currentTime);
 }
 
 export function changeTime(e: React.MouseEvent<HTMLDivElement>, videoEl: HTMLVideoElement): void {
     const pct: number = e.nativeEvent.offsetX / (e.target as HTMLDivElement).offsetWidth;
     videoEl.currentTime = pct * videoEl.duration;
+}
+
+export function calculateBufferPct(videoEl: HTMLVideoElement) {
+    let range = 0;
+    const bf = videoEl.buffered;
+    const time = videoEl.currentTime;
+
+    while(!(bf.start(range) <= time && time <= bf.end(range))) {
+        range += 1;
+    }
+
+    const loadStartPercentage = bf.start(range) / videoEl.duration;
+    const loadEndPercentage = bf.end(range) / videoEl.duration;
+    return loadEndPercentage - loadStartPercentage;
 }

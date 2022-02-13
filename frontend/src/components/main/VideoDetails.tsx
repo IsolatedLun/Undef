@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { API_URL, CLOCK_ICO, DISLIKE_ICO, ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../consts';
+import { positionTooltip } from '../funcs/accessibilityFuncs';
 import Button from '../modules/Button';
 import Contextmenu from '../modules/Contextmenu';
 import { VideoData } from './VideoTab';
@@ -56,7 +57,8 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
         </div>
         <div>
           <div className="user__stats txt--center flex flex--col gap--025">
-            <Link className="username btn--tooltip tooltip" 
+            <Link onMouseOver={(e) => positionTooltip(e.target as HTMLElement)}
+              className="username btn--tooltip tooltip" 
               to={`/channels/${videoDetails.channel}`} data-tooltip={videoDetails.username}>
                 { videoDetails.username }
               </Link>

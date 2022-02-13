@@ -1,3 +1,4 @@
+import { positionTooltip } from "../funcs/accessibilityFuncs";
 import { focusElement } from "../funcs/utilFuncs";
 
 interface ButtonProps {
@@ -51,6 +52,11 @@ const Button = ({ props } : { props: ButtonProps }) => {
         onClick={(e) => props.action !== undefined ? props.action(e, ...props.params) : null}
 
         id={props.id}
+
+        onMouseOver={(e) => {
+          if(props.tooltip)
+            positionTooltip(e.target as HTMLElement)
+        }}
 
         className={`${props.cls} ${props.isIcon === true && 'fa'} 
           ${props.tooltip && 'tooltip btn--tooltip'} ${props.extraAfter && 'show--after mb--015'}`}

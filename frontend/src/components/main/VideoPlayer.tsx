@@ -13,6 +13,7 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
   let videoRef = createRef<HTMLVideoElement>();
   let barRef = createRef<HTMLDivElement>();
   let currDurationRef = createRef<HTMLParagraphElement>();
+  let bufferBarRef = createRef<HTMLDivElement>();
 
   const [mouseDown, setMouseDown] = useState(false);
 
@@ -30,7 +31,8 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
           <video 
             onClick={() => toggleVideo(videoRef.current!)}
             onTimeUpdate={() => 
-              updateVideoData(videoRef.current!, barRef.current!, currDurationRef.current!)}
+              updateVideoData(videoRef.current!, barRef.current!, 
+                currDurationRef.current!, bufferBarRef.current!)}
             onEnded={() => alert('ended')}
             
             id='video-el'
@@ -57,6 +59,7 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
                 >
 
                 <div ref={barRef} className="bar__progress" id='bar-progress'></div>
+                <div ref={bufferBarRef} className="bar__progress" id='buffer-progress'></div>
               </div>
 
               <div className="controls__options flex flex--center--between">

@@ -7,13 +7,6 @@ import VideoTab from './components/main/VideoTab';
 
 function App() {
 
-  useEffect(() => {
-    document.querySelectorAll('.btn--tooltip').forEach(tooltipEl => {
-      (tooltipEl as HTMLElement).addEventListener('mouseover', 
-        (e) => positionTooltip(e.target as HTMLElement))
-    })
-  })
-
   return (
     <Router>
       <PrimaryNav />
