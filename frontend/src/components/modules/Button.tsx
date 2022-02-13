@@ -19,7 +19,22 @@ function focusContextMenu(e: Event) {
   menu.focus()
 }
 
+function isUnicode(str: string) {
+  for (var i = 0, n = str.length; i < n; i++) {
+      if (str.charCodeAt( i ) > 255) 
+        return true;
+  }
+  
+  return false;
+}
+
 const Button = ({ props } : { props: ButtonProps }) => {
+    if(isUnicode(props.content))
+      props.isIcon = true
+
+    else
+      props.isIcon = false;
+
     if(props.cls === undefined && props.default) {
       props.cls = props.isIcon ? 'button--icon' : 'button--primary'
     }

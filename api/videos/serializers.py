@@ -8,6 +8,8 @@ class VideoSerializer(serializers.ModelSerializer):
     duration = serializers.ReadOnlyField(source='get_duration')
     ratio = serializers.ReadOnlyField(source='calculate_ratio')
     views = serializers.ReadOnlyField(source='format_views')
+    likes = serializers.ReadOnlyField(source='format_likes')
+    dislikes = serializers.ReadOnlyField(source='format_dislikes',)
 
     class Meta:
         model = models.Video

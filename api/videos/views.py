@@ -17,6 +17,8 @@ class VideoPreview(APIView):
 class Video(APIView):
     def get(self, req, video_id):
         video = models.Video.objects.get(id=video_id)
+        video.increment_views()
+        
         serializer = serializers.VideoSerializer(video).data
 
         return Response(serializer, OK)

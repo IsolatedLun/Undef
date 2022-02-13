@@ -22,16 +22,16 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
 
             <div className="details__controls flex flex--col gap--075">
               <div className='flex gap--1'>
-                <Button props={{ content: CLOCK_ICO, isIcon: true, default: true, 
+                <Button props={{ content: CLOCK_ICO, default: true, 
                         tooltip: 'Add to watch later' }} />
 
-                <Button props={{ content: LIKE_ICO, isIcon: true, default: true, 
+                <Button props={{ content: LIKE_ICO, default: true, 
                     tooltip: 'Like', extraAfter: videoDetails.likes}} />
                 
-                <Button props={{ content: DISLIKE_ICO, isIcon: true, default: true, 
+                <Button props={{ content: DISLIKE_ICO, default: true, 
                         tooltip: 'Dislike', extraAfter: videoDetails.dislikes }} />
 
-                <Button props={{ content: ELLIPSE_V_ICO, isIcon: true, default: true, 
+                <Button props={{ content: ELLIPSE_V_ICO, default: true, 
                   contextMenu: videoOptionsMenu }} />
               </div>
               <div className="controls__rating-bar btn--tooltip">

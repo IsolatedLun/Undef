@@ -3,7 +3,7 @@ from users import models as userModels
 
 class Video(models.Model):
     user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
-    title = models.CharField(max_length=64)
+    title = models.CharField(max_length=120)
     descritpion = models.CharField(max_length=512, default='')
 
     views = models.PositiveBigIntegerField(default=0)
@@ -21,6 +21,10 @@ class Video(models.Model):
 
     def format_views(self):
         return f'{self.views:,}'
+    def format_likes(self):
+        return f'{self.likes:,}'
+    def format_dislikes(self):
+        return f'{self.dislikes:,}'
 
     def calculate_ratio(self):
         try:
@@ -32,6 +36,10 @@ class Video(models.Model):
         from moviepy import editor
 
         return editor.VideoFileClip(self.video.path).duration
+
+    def increment_views(self):
+        self.views += 1
+        self.save()
 
     def delete(self, using=None, keep_parents=False):
         self.thumbnail.storage.delete(self.thumbnail.path)

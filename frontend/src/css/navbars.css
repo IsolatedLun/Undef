@@ -14,7 +14,8 @@
 
 /* Media Queries */
 @media(max-width: 768px) {
-    .primary-nav #nav-search {
+    .primary-nav #nav-search,
+    .nav__btn-group {
         display: none;
     }
 }

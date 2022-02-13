@@ -38,6 +38,7 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
             className="player__el" 
             poster={API_URL + videoData.thumbnailUrl}
             src={API_URL + videoData.videoUrl}
+            preload='none'
             >
 
           </video>
@@ -67,9 +68,9 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
                 </div>
                 
                 <div>
-                  <Button props={{ content: SETTINGS_ICO, isIcon: true, default: true, 
+                  <Button props={{ content: SETTINGS_ICO, default: true, 
                     tooltip: 'Settings', action: () => null }} />
-                  <Button props={{ content: FULLSCREEN_ICO, isIcon: true, default: true, 
+                  <Button props={{ content: FULLSCREEN_ICO, default: true, 
                     tooltip: 'Fullscreen', action: fullscreen, params: ['video-el'] }} />
                 </div>
               </div>
