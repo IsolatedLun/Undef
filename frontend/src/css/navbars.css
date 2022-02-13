@@ -12,6 +12,23 @@
 
 /* Side Navbar */
 
+/* Channel Navbar */
+.channel .channel__links {
+    font-size: var(--fs-420);
+    align-items: center;
+    justify-content: center;
+}
+
+.channel .channel__links .channel__link {
+    padding: 0.4em 0.8em;
+    transition: background-color 95ms ease-out;
+    cursor: pointer;
+}
+
+.channel .channel__links .channel__link:hover {
+    background-color: var(--bg-hov);
+}
+
 /* Media Queries */
 @media(max-width: 768px) {
     .primary-nav #nav-search,
