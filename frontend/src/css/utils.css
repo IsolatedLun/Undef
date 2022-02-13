@@ -4,7 +4,11 @@
 
 /* Profiles */
 .profile {
-    width: clamp(2.5em, 6vw, 3em);
+    --_min: 2.5em;
+    --_between: 6vw;
+    --_max: 3em;
+    
+    width: clamp(var(--_min), var(--_between), var(--_max));
     aspect-ratio: 1;
     background-color: black;
     cursor: pointer;
@@ -86,6 +90,11 @@
 /* Fonts */
 .font--def {
     font-family: 'Poppins', sans-serif;
+}
+
+/* Positions */
+.pos--relative {
+    position: relative;
 }
 
 /* Misc */

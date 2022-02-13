@@ -5,10 +5,11 @@
 }
 
 .button--primary {
+    --_bg: var(--btn-main);
     font-size: var(--fs-420);
-    padding: 0.25em 0.75em;
-    background-color: var(--btn-main);
-    border-radius: 1px;
+    padding: 0.2em 0.75em;
+    background-color: var(--_bg);
+    border-radius: 3px;
     transition: background-color 95ms ease-out;
 }
 
@@ -72,7 +73,7 @@
     font-weight: bold;
     padding: 0.3em;
     white-space: nowrap;
-    background-color: black;
+    background-color: var(--bg-tooltip);
     border-radius: 6px;
     top: 60px;
     left: 50%;
@@ -80,7 +81,7 @@
     opacity: 0;
     transition: opacity 120ms ease-out;
     pointer-events: none;
-    z-index: 9999999999999;
+    z-index: 99999999999999999;
 }
 
 .tooltip.goto--bottom::after {
@@ -89,4 +90,18 @@
 
 .tooltip:hover::after {
     opacity: 1;
+}
+
+@media(prefers-color-scheme: light) {
+    .button--primary:not(.btn--hollow) {
+        color: white;
+    }
+
+    .button--primary.btn--hollow:hover {
+        color: white;
+    }
+
+    .tooltip::after {
+        color: white;
+    }
 }

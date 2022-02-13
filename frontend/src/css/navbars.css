@@ -2,7 +2,7 @@
 .primary-nav {
     padding: 0.5em 2em;
     max-height: 4.5rem;
-    background-color: hsl(var(--bg-secondary));
+    background-color: var(--bg-secondary);
 }
 
 .primary-nav .nav__title {
@@ -13,6 +13,15 @@
 /* Side Navbar */
 
 /* Channel Navbar */
+.channel .channel__nav {
+    background-color: var(--bg-secondary);
+    border-radius: 6px;
+}
+
+.channel .channel__details {
+    margin-inline: 1.5em;
+}
+
 .channel .channel__links {
     font-size: var(--fs-420);
     align-items: center;

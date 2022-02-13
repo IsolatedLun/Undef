@@ -14,9 +14,9 @@ body {
     justify-content: space-between; /* Stick footer at the bottom */
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: var(--bg-primary);
     color: var(--txt-primary);
     letter-spacing: 0.5px;
-    background-color: hsl(var(--bg-primary));
 }
 
 ul {
@@ -63,20 +63,23 @@ input {
     --fs-500: 2rem;
 
     --txt-primary: black;
-    --txt-muted: hsl(0, 0%, 20%);
+    --txt-muted: hsl(0, 0%, 4%);
 
-    --bg-primary: 0, 0%, 100%;
+    --bg-primary: white;
     --bg-hov: hsla(0, 0%, 100%, 0.12);
+    --bg-tooltip: black;
 
-    --btn-main: hsl(221, 96%, 45%);
-    --btn-hov: hsl(221, 96%, 55%);
+    --btn-main: hsl(243, 89%, 54%);
+    --btn-hov: hsl(243, 89%, 59%);
 }
 
 @media(prefers-color-scheme: dark) {
     :root {
         --txt-primary: white;
-        --bg-primary: 217, 12%, 13%;
-        --bg-secondary: 217, 12%, 6%;
-        --txt-muted: hsl(0, 0%, 60%);
+        --txt-muted: hsl(0, 0%, 70%);
+
+        --bg-primary: hsl(240, 2%, 7%);
+        --bg-secondary: hsl(240, 2%, 14%);
+        --bg-tooltip: hsl(0, 0%, 26%);
     }
 }

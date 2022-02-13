@@ -35,9 +35,9 @@ const Channel = () => {
       <div className="channel">
         <nav className="channel__nav" role='channel navigation'>
           <Profile props={{ cls: 'channel__banner', 
-            url: channel.channel.banner, alt: '' }} />
+            url: channel.channel.banner, alt: '', loaderId: 'channel-banner-loader' }} />
 
-          <div className="flex flex--center--between mt--1">
+          <div className="channel__details flex flex--center--between mt--1">
 
             <div className='flex gap--1'>
               <Profile props={{ cls: 'channel__user-profile profile', 
