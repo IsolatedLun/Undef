@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-
 import { useGetChannelQuery } from '../../../services/channelApi';
 import Loader from '../../layouts/Loader';
 import { INF_Video } from '../../modules/Video';
+import ChannelAbout from './ChannelAbout';
 import ChannelHeader from './ChannelHeader';
 import ChannelVideos from './ChannelVideos';
 
@@ -17,6 +18,7 @@ export interface INF_Channel {
     banner: string;
     channel_description: string;
     business_email: string;
+    total_views: number;
     created_at: string;
     
     user_data: {
@@ -37,7 +39,7 @@ const ChannelRouter = () => {
                 <ChannelHeader channel={channel.channel} />
                 <Routes>
                     <Route path='' element={<ChannelVideos videos={channel.videos} />} />
-                    <Route path='about' element={<p>About</p>} />
+                    <Route path='about' element={<ChannelAbout channel={channel.channel} />} />
                 </Routes>
             </div>
         )

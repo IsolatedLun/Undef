@@ -44,6 +44,8 @@ class Video(models.Model):
 
     def increment_views(self):
         self.views += 1
+        self.channel.total_views += 1
+        self.channel.save()
         self.save()
 
     def delete(self, using=None, keep_parents=False):
