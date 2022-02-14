@@ -33,13 +33,9 @@
 
 /* Text */
 .text--elliptic {
-    display: -moz-box;
-    max-height: 4rem;
-    overflow: hidden;
-    line-height: 2rem;
+    max-width: 100%;
     text-overflow: ellipsis;
-    white-space: normal;
-    line-clamp: 2;
+    white-space: nowrap;
 }
 
 .txt--muted {

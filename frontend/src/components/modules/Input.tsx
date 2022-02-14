@@ -22,6 +22,7 @@ const Input = ({ props } : { props: InputProps }) => {
         id={props.id}
         placeholder={props.placeholder}
         className={props.cls}
+        value={props.data}
         type={props.type} />
   )
 };

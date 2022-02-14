@@ -16,8 +16,15 @@ const PrimaryNav = () => {
           </div>
 
           <div className='flex flex--center--gap--1 flex--g--1 m--inl--1'>
-            <Input props={{ setter: () => null, data: '', type: 'text',
-            placeholder: 'Search', cls: 'input--primary w--40 cust', id: 'nav-search' }} />
+            <div className="search-container">
+              <Input props={{ setter: () => null, data: '', type: 'text',
+              placeholder: 'Search', default: true, id: 'nav-search' }} />
+
+              <ul className="search__results">
+                <Link className='search__result text--elliptic' to='/search?s=esh'>minecraft</Link>
+              </ul>
+            </div>
+
             <Button props={{ content: SEARCH_ICO, action: () => null, default: true,
               tooltip: 'Search' }} />
           </div>
