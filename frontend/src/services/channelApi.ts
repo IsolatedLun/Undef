@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { ChannelData } from "../components/main/Channel";
-import { VideoData } from "../components/main/VideoTab";
+import { ChannelData } from "../components/main/channel/ChannelRouter";
 import { INF_Video } from "../components/modules/Video";
 import { API_URL } from "../consts";
 
