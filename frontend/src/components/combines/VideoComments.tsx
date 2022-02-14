@@ -1,4 +1,4 @@
-import Input  from '../modules/Input';
+import Input  from '../modules/inputs/Input';
 import React from 'react';
 import Button from '../modules/Button';
 import VideoComment, { Comment } from '../modules/VideoComment';
@@ -15,7 +15,7 @@ const VideoComments = ({ props }: { props: INF_VideoComments }) => {
           
           <div className="comments__form flex flex--col gap--05 flex--al--end">
             <Input props={{ setter: () => null, data: '', placeholder: 'Add a comment',
-            type: 'text', default: true }} />
+            type: 'text', name: 'text', realType: 'string', id: 'comment-input' }} />
             <Button props={{ content: 'Post', default: true, isIcon: false, action: () => null }} />
           </div>
 
