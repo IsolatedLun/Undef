@@ -7,7 +7,7 @@ import { INF_Channel } from './ChannelRouter'
 
 const ChannelHeader = ({ channel } : { channel: INF_Channel }) => {
     return (
-        <nav className="channel__nav" role='channel navigation'>
+        <nav className="channel__nav flex flex--col gap--1" role='channel navigation'>
           <Profile props={{ cls: 'channel__banner', 
             url: channel.banner, alt: '', loaderId: 'channel-banner-loader' }} />
 
@@ -29,13 +29,9 @@ const ChannelHeader = ({ channel } : { channel: INF_Channel }) => {
 
           </div>
 
-          <ul className="channel__links flex">
-            <li className="channel__link">
-              <Link to=''>Videos</Link>
-            </li>
-            <li className="channel__link">
-              <Link to='about'>About</Link>
-            </li>
+          <ul className="channel__links flex gap--025">
+              <Link className="channel__link" to=''>Videos</Link>
+              <Link className="channel__link" to='about'>About</Link>
           </ul>
         </nav>
   )

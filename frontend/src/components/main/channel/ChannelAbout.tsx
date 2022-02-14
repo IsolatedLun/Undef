@@ -18,6 +18,7 @@ const ChannelAbout = ({ channel } : { channel: INF_Channel }) => {
 
         <div className="channel__stats flex flex--col gap--05">
             <p className="txt--muted">Joined at { channel.created_at }</p>
+            <div className="line--split"></div>
             <p>{ channel.total_views } views</p>
         </div>
     </div>

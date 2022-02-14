@@ -79,6 +79,13 @@
     border-radius: 50%;
 }
 
+.line--split {
+    margin: 0.25em;
+    width: 100%;
+    height: 1px;
+    background-color: var(--txt-muted);
+}
+
 .link--muted {
     border-bottom: 1px solid transparent;
 }

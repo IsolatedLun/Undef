@@ -13,6 +13,7 @@
 .channel .channel__description {
     margin: 1em;
 }
+
 .channel .channel__user-links {
     margin-block: 1em;
 }
@@ -21,4 +22,18 @@
     padding: 1em;
     background-color: var(--bg-secondary);
     border-radius: 6px;
+}
+
+/* Media Queries */
+@media(max-width: 768px) {
+    .channel .channel__details {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .channel .channel__about {
+        text-align: center;
+        flex-direction: column;
+        gap: 1em;
+    }
 }
