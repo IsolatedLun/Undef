@@ -7,7 +7,8 @@
 .button--primary {
     --_bg: var(--btn-main);
     font-size: var(--fs-420);
-    padding: 0.2em 0.75em;
+    text-transform: capitalize;
+    padding: 0.1em 0.55em;
     background-color: var(--_bg);
     border-radius: 3px;
     transition: background-color 95ms ease-out;
@@ -49,6 +50,12 @@
     border: 1px solid var(--txt-muted);
     background-color: hsl(var(--bg-secondary));
     border-radius: 3px;
+    outline: 0;
+}
+
+.input--primary:is(:hover, :focus) {
+    border-color: var(--inpt-main);
+    box-shadow: 0 0 0.5px 3px var(--inpt-shadow);
 }
 
 .input--primary:not(.cust) {

@@ -63,6 +63,7 @@ input {
 
     --txt-primary: black;
     --txt-muted: hsl(0, 0%, 4%);
+    --txt-err: hsl(0, 70%, 51%);
 
     --bg-primary: white;
     --bg-hov: hsla(0, 0%, 100%, 0.12);
@@ -70,6 +71,9 @@ input {
 
     --btn-main: hsl(243, 89%, 54%);
     --btn-hov: hsl(243, 89%, 59%);
+
+    --inpt-main: hsl(220, 97%, 45%);
+    --inpt-shadow: hsla(220, 97%, 45%, 0.36);
 }
 
 @media(prefers-color-scheme: dark) {

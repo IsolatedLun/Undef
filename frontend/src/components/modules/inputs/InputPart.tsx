@@ -1,4 +1,6 @@
 import React from 'react'
+import { createStructuredSelector } from 'reselect'
+import { changeTime } from '../../funcs/videoPlayerFuncs'
 import Input, { INF_Input } from './Input'
 
 interface INF_InputPart {

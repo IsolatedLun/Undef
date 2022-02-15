@@ -15,8 +15,8 @@ const PrimaryNav = () => {
             <h1 className="nav__title">Undef</h1>
           </div>
 
-          <div className='flex flex--center--gap--1 flex--g--1 m--inl--1'>
-            <div className="search-container">
+          <div className='nav__search-part flex flex--center--gap--1 flex--g--1 m--inl--1'>
+            <div className="search-inpt__container">
               <Input props={{ setter: () => null, data: '', type: 'text',
               placeholder: 'Search', id: 'nav-search', name: 'search', realType: 'string' }} />
 

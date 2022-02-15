@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './components/auth/SignUp';
-import { positionTooltip } from './components/funcs/accessibilityFuncs';
 import PrimaryNav from './components/layouts/PrimaryNav';
-import Channel from './components/main/channel/ChannelHeader';
 import ChannelRouter from './components/main/channel/ChannelRouter';
 import Home from './components/main/Home';
 import VideoTab from './components/main/VideoTab';

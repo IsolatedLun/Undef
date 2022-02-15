@@ -10,7 +10,7 @@
     font-weight: normal;
 }
 
-.primary-nav .search-container {
+.primary-nav .search-inpt__container {
     position: relative;
     width: 40%;
 }
@@ -70,7 +70,7 @@
 
 /* Media Queries */
 @media(max-width: 768px) {
-    .primary-nav #nav-search,
+    .primary-nav .nav__search-part,
     .nav__btn-group {
         display: none;
     }

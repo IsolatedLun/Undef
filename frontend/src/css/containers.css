@@ -14,7 +14,17 @@
     margin-inline: 1em;
 }
 
+.auth-form-container {
+    display: grid;
+    grid-template-columns: minmax(30%, 500px);
+    place-content: center;
+}
+
 @media(max-width: 768px) {
+    .main-container {
+        margin-inline: 0.75em;
+    }
+
     .video-tab-container {
         display: grid;
         grid-template-columns: 1fr;
