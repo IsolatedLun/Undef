@@ -12,7 +12,7 @@ interface NewUser {
 }
 
 const SignUp = () => {
-  const [index, setIndex] = useState<number>(1);
+  const [index, setIndex] = useState<number>(0);
 
   const [newUser, setNewUser] = useState<NewUser>({
     email_address: '',
@@ -29,12 +29,15 @@ const SignUp = () => {
   const forms: INF_Form[] = [
     { form: (<><InputPart props={{ id: 'email', inputData: inputs[0], label: 'Email Address' }} />
     <InputPart props={{ id: 'email', inputData: inputs[1], label: 'Password' }} />
-    <Button props={{ content: 'Next', default: true, action: () => setIndex(index + 1) }} /></>), index: 1 },
-    { form: <h1>meow</h1>, index: 2 }
+    <Button props={{ content: 'Next', default: true, action: () => setIndex(index + 1) }} /></>), index: 0 },
+    { form: <h1>meow</h1>, index: 1 }
   ]
 
   const completions: INF_FomrCompletion[] = 
-    [{ text: 'Registration', idx: 1 }, { text: 'Channel', idx: 2 }]
+    [ { text: 'Registration', idx: 1 }, 
+      { text: 'Channel', idx: 2 },
+      { text: 'Profile', idx: 3 },
+    ]
 
   return (
     <form className="auth-form-container form__container">

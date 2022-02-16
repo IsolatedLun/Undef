@@ -5,11 +5,11 @@ export interface INF_FomrCompletion {
     idx: number;
 }
 
-const FormCompletion = 
-    ({ completions, currIdx } : { completions: INF_FomrCompletion[], currIdx: number }) => {
+const FormCompletion = ({ completions, currIdx } : { completions: INF_FomrCompletion[], currIdx: number }) => {
+    const customVars = {'--complete': currIdx, '--completed': completions.length} as React.CSSProperties;
 
-  return (
-    <div className="form__completions tooltip btn--tooltip" 
+    return (
+    <div className="form__completions tooltip btn--tooltip" style={customVars}
         data-tooltip={`Completed ${currIdx}/${completions.length}`}>
         {
             completions.map(completion => (
@@ -20,7 +20,7 @@ const FormCompletion =
             ))
         }
     </div>
-  )
+    )
 }
 
 export default FormCompletion

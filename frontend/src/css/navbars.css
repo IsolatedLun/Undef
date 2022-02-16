@@ -1,8 +1,29 @@
 /* Main Navbar */
 .primary-nav {
+    position: relative;
     padding: 0.5em 2em;
     max-height: 4.5rem;
     background-color: var(--bg-secondary);
+}
+
+.primary-nav .nav__skip {
+    position: absolute;
+    padding: 0.35em 0.75em;
+    background-color: var(--bg-hov);
+    transform: translateX(-900px);
+    transition: transform 90ms ease-in-out;
+}
+
+.primary-nav .nav__skip:focus {
+    transform: translateX(5px);
+}
+
+.primary-nav > *:not(.nav__static) {
+    transition: transform 120ms ease-in-out;
+}
+
+.primary-nav .nav__skip:focus ~ *:not(.nav__static) {
+    transform: translateX(150px);
 }
 
 .primary-nav .nav__title {

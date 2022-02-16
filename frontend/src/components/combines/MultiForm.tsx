@@ -9,7 +9,7 @@ const MultiForm =
     <>
     { forms.filter(form => form.index === index)[0].form }
     
-    { index > 1 && 
+    { index > 0 && 
       <Button props={{ action: () => setter(index - 1), default: true, content: 'Back' }} /> 
     }
     </>

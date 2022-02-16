@@ -37,11 +37,23 @@
     position: relative;
     align-items: center;
     text-align: center;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-block: 2.5em;
     width: 100%;
     height: 8px;
     background-color: var(--txt-muted);
+    border-radius: 7px;
+}
+
+.form__completions::before {
+    --pct: calc(var(--complete) / var(--completed));
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--inpt-main);
+    transform: scaleX(var(--pct));
+    transform-origin: left;
+    transition: transform 150ms ease-in-out;
 }
 
 .form__completions .form__completion {
