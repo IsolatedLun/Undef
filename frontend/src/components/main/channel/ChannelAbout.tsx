@@ -5,7 +5,10 @@ const ChannelAbout = ({ channel } : { channel: INF_Channel }) => {
   return (
     <div className="channel__about flex flex--center--between">
         <div>
+            <h2>Description</h2>
             <p className="channel__description">{ channel.channel_description }</p>
+
+            <h3>Details</h3>
             <div className="channel__user-links flex gap--1">
                 <div>
                     <p className="txt--muted upper btn--muted">Business email</p>
