@@ -1,14 +1,12 @@
 import { FormEvent } from "react";
 
-export function useAutoState
-    (e: FormEvent<HTMLInputElement>, setter: Function, obj: any | null , data: any, setType: string) {
+export function useAutoState(e: FormEvent<HTMLInputElement>, setter: Function, data: any) {
+    const target = e.target as HTMLInputElement;
+    const value: any = target.value;
+    const file: File | null = target.files![0];
 
-    const target = e.target as HTMLInputElement
-
-    if(obj !== null) {
-        setter({ ...obj, [target.name]: target.value });
-    }
-
-    else if(setType === 'oneWord')
-        setter(target.value);
+    if(file === null)
+        setter({ ...data, [target.name]: value });
+    else
+        setter({ ...data, [target.name]: file });
 }
