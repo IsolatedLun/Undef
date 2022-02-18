@@ -1,19 +1,17 @@
 import React from 'react'
-import { INF_Input_State } from './inputs/Input'
+import { INF_Input_State, InputState } from './inputs/Input'
 import InputPart, { INF_InputPart } from './inputs/InputPart'
 
-interface INF_Form extends INF_Input_State {
+interface INF_Form extends InputState {
     id: string;
-    inputPartsData: INF_InputPart[];
+    children: JSX.Element[];
 }
 
 const Form = ({ props } : { props: INF_Form }) => {
   return (
-      <div id={'form-' + props.id}>
+      <div className='multiform__form' id={'form-' + props.id} data-idx={props.id}>
           {
-              props.inputPartsData.map(inputPart => (
-                  <InputPart props={{ ...inputPart, setter: props.setter, data: props.data }} />
-              ))
+              props.children
           }
       </div>
   )

@@ -12,8 +12,8 @@ export interface INF_Input {
 }
 
 export interface InputState {
-  setter: Function;
-  data: any;
+  setter?: Function;
+  data?: any;
 }
 
 export interface INF_Input_State extends InputState, INF_Input {}

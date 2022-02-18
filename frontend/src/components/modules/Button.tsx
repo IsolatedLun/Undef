@@ -4,10 +4,12 @@ import { focusElement } from "../funcs/utilFuncs";
 interface ButtonProps {
     id?: string;
     content: string;
-    action?: Function | void; // Execute function on click
+    action: Function; // Execute function on click
+
     params?: any | object;
     isIcon?: boolean;
     cls?: string;
+    modifiers?: string;
     default?: boolean;
     tooltip?: string;
     contextMenu ?: JSX.Element;
@@ -37,7 +39,7 @@ const Button = ({ props } : { props: ButtonProps }) => {
       props.isIcon = false;
 
     if(props.cls === undefined && props.default) {
-      props.cls = props.isIcon ? 'button--icon' : 'button--primary'
+      props.cls = props.isIcon ? 'button--icon' : 'button--primary';
     }
 
     if(props.contextMenu !== undefined) {
@@ -47,9 +49,12 @@ const Button = ({ props } : { props: ButtonProps }) => {
     if(props.params === undefined)
       props.params = []
 
+    if(props.modifiers)
+      props.cls = `${props.cls} ${props.modifiers}`;
+
   return(
       <button
-        onClick={(e) => props.action !== undefined ? props.action(e, ...props.params) : null}
+        onClick={(e) => { e.preventDefault(); props.action(e, ...props.params) }}
 
         id={props.id}
 
@@ -59,7 +64,7 @@ const Button = ({ props } : { props: ButtonProps }) => {
         }}
 
         className={`${props.cls} ${props.isIcon === true && 'fa'} 
-          ${props.tooltip && 'tooltip btn--tooltip'} ${props.extraAfter && 'show--after mb--015'}`}
+          ${props.tooltip ? 'tooltip btn--tooltip' : ''} ${props.extraAfter ?'show--after mb--015' : ''}`}
         
         aria-label={props.tooltip}
         data-tooltip={props.tooltip}
