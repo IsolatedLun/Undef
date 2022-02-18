@@ -45,9 +45,16 @@ button {
     cursor: pointer;
 }
 
-input {
+input,
+textarea {
+    font-family: 'Poppins', sans-serif;
+    max-width: 100%;
     color: var(--txt-primary);
     border: 0;
+}
+
+textarea {
+    height: 2.25rem;
 }
 
 :focus {

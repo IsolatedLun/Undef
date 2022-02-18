@@ -17,11 +17,14 @@
 .multiform__form {
     flex-direction: column;
     gap: 0.35em;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
 }
 
 .form__part .part__label {
-    font-size: var(--fs-400);
+    font-size: var(--fs-420);
+    font-weight: lighter;
+    margin-bottom: 0.25em;
+    border-bottom: 1px solid var(--txt-muted);
 }
 
 .form__part .part__help-list {

@@ -67,6 +67,10 @@
     margin-top: 1em;
 }
 
+.mi-inline {
+    margin-inline: auto;
+}
+
 /* Elements */
 .dot--split {
     width: 0.25em;
