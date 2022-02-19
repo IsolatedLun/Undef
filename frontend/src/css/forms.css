@@ -17,7 +17,7 @@
 .multiform__form {
     flex-direction: column;
     gap: 0.35em;
-    margin-block: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 .form__part .part__label {

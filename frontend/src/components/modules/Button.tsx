@@ -10,7 +10,6 @@ interface ButtonProps {
     isIcon?: boolean;
     cls?: string;
     modifiers?: string;
-    default?: boolean;
     tooltip?: string;
     contextMenu ?: JSX.Element;
     childEl?: JSX.Element;
@@ -38,8 +37,8 @@ const Button = ({ props } : { props: ButtonProps }) => {
     else
       props.isIcon = false;
 
-    if(props.cls === undefined && props.default) {
-      props.cls = props.isIcon ? 'button--icon' : 'button--primary';
+    if(props.cls === undefined) {
+      props.cls = props.isIcon ? `button--icon ${props.modifiers}` : `button--primary ${props.modifiers}`;
     }
 
     if(props.contextMenu !== undefined) {
@@ -48,9 +47,6 @@ const Button = ({ props } : { props: ButtonProps }) => {
 
     if(props.params === undefined)
       props.params = []
-
-    if(props.modifiers)
-      props.cls = `${props.cls} ${props.modifiers}`;
 
   return(
       <button

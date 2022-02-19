@@ -3,10 +3,12 @@ import { useAutoState } from '../../../hooks/useAutoState';
 
 export interface INF_Input {
     id?: string;
-    type: 'text' | 'file' | 'email' | 'password' | 'textarea';
+    type: 'text' | 'file' | 'email' | 'password' | 'textarea' | 'range';
     realType: 'string' | 'oneWord' | 'file' | 
         'select' | 'checkbox' | 'email' | 'password' | 'image';
     name: string;
+    action?: Function;
+    params?: any[];
 
     modifiers?: string;
     cls?: string;
@@ -27,7 +29,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
         props.cls = props.type === 'file' ? `input--file ${props.modifiers}` : `input--primary ${props.modifiers}`;
     }
 
-    if(props.type !== 'file' && props.type !== 'textarea')
+    if(props.type !== 'file' && props.type !== 'textarea' && props.type !== 'range')
         return(
             <input 
             onInput={(e) => useAutoState(e, props.setter!, props.data)}
@@ -79,6 +81,22 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                     data-real-type={props.realType}
                 />
             )
+    else if(props.type === 'range' && props.action !== undefined && props.params !== undefined)
+            return(
+                <input 
+                    onChange={(e) => props.action!(e, ...props.params!)}
+
+                    id={props.id}
+                    placeholder={props.placeholder ? props.placeholder : ''}
+                    className={props.cls}
+                    type='range'
+                    min='0'
+                    max='100'
+        
+                    name={props.name}
+                />
+            )
+
     else
         return(<></>)
 };

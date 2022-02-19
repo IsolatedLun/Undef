@@ -39,16 +39,27 @@ export function changeTime(e: React.MouseEvent<HTMLDivElement>, videoEl: HTMLVid
     videoEl.currentTime = pct * videoEl.duration;
 }
 
-export function calculateBufferPct(videoEl: HTMLVideoElement) {
-    let range = 0;
-    const bf = videoEl.buffered;
-    const time = videoEl.currentTime;
+export function changeVolume(e: React.ChangeEvent<any>, videoElStr: string): void {
+    const videoEl = document.getElementById(videoElStr) as HTMLVideoElement;
+    videoEl.volume = Number((e.target as HTMLInputElement).value) / 100;
+}
 
-    while(!(bf.start(range) <= time && time <= bf.end(range))) {
-        range += 1;
+export function calculateBufferPct(videoEl: HTMLVideoElement): number {
+    try {
+      let range = 0;
+      const bf = videoEl.buffered;
+      const time = videoEl.currentTime;
+
+      while(!(bf.start(range) <= time && time <= bf.end(range))) {
+          range += 1;
+      }
+
+      const loadStartPercentage = bf.start(range) / videoEl.duration;
+      const loadEndPercentage = bf.end(range) / videoEl.duration;
+      return loadEndPercentage - loadStartPercentage;
     }
 
-    const loadStartPercentage = bf.start(range) / videoEl.duration;
-    const loadEndPercentage = bf.end(range) / videoEl.duration;
-    return loadEndPercentage - loadStartPercentage;
+    catch {
+      return 0;
+    }
 }

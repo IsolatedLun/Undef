@@ -46,8 +46,7 @@ const SignUp = () => {
           setter: setNewUser, data: newUser, inputData: 
           {name: 'business_email', type: 'email', realType: 'email'}}} />,
 
-      <Button props={{ content: 'Next', action: () => setIndex(index + 1), default: true, 
-          modifiers: 'w--100' }} />,
+      <Button props={{ content: 'Next', action: () => setIndex(index + 1), modifiers: 'w--100' }} />,
       ]
 
     const channelElements: JSX.Element[] = 
@@ -58,8 +57,7 @@ const SignUp = () => {
           <InputPart props={{id: 'description', label: 'Channel Descritpion', setter: setNewUser, data: newUser,
       inputData: {name: 'channel__description', type: 'textarea', realType: 'string'}}} />,
 
-      <Button props={{ content: 'Next', action: () => setIndex(index + 1), default: true, 
-          modifiers: 'w--100' }} />,
+      <Button props={{ content: 'Next', action: () => setIndex(index + 1), modifiers: 'w--100' }} />,
       ]
 
     const profileElements: JSX.Element[] = 
@@ -71,8 +69,7 @@ const SignUp = () => {
         <Button props={{ content: 'Create Account', action: () => {
           if(validateForm('form__inpt', null))
             alert('wow')
-        }, 
-        default: true, modifiers: 'w--100' }} />,
+        }, modifiers: 'w--100' }} />,
         ]
 
     const registerForm = <Form props={{ id: '0', setter: setNewUser, data: newUser,

@@ -1,7 +1,8 @@
 import React, { createRef, useEffect, useState } from 'react';
-import { API_URL, FULLSCREEN_ICO, SETTINGS_ICO } from '../../consts';
-import { calculateDuration, changeTime, toggleVideo, updateVideoData } from '../funcs/videoPlayerFuncs';
+import { API_URL, FULLSCREEN_ICO, SETTINGS_ICO, VOLUME_ICO } from '../../consts';
+import { calculateDuration, changeTime, changeVolume, toggleVideo, updateVideoData } from '../funcs/videoPlayerFuncs';
 import Button from '../modules/Button';
+import Input from '../modules/inputs/Input';
 
 interface VideoData {
   videoUrl: string;
@@ -67,13 +68,17 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
                   <p>
                     <span ref={currDurationRef} id='current-duration'>{ calculateDuration(0) }</span> / 
                     <span className="duration"> { calculateDuration(videoData.duration) }</span>
-                    </p>
+                  </p>
+                  <Button props={{ content: VOLUME_ICO,
+                    tooltip: 'Settings', action: () => null, modifiers: 'video__volume-button' }} />
+                  <Input props={{ type: 'range', id: 'video__volume', realType: 'string', name: 'volume',
+                    action: changeVolume, params: ['video-el'] }} />
                 </div>
                 
                 <div>
-                  <Button props={{ content: SETTINGS_ICO, default: true, 
+                  <Button props={{ content: SETTINGS_ICO, 
                     tooltip: 'Settings', action: () => null }} />
-                  <Button props={{ content: FULLSCREEN_ICO, default: true, 
+                  <Button props={{ content: FULLSCREEN_ICO,
                     tooltip: 'Fullscreen', action: fullscreen, params: ['video-el'] }} />
                 </div>
               </div>

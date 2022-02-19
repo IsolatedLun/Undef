@@ -39,7 +39,6 @@
     flex-direction: column;
     justify-content: space-evenly;
     gap: 0.5em;
-    height: 100%;
     margin-inline: 1em;
 }
 
@@ -70,4 +69,16 @@
     display: flex;
     align-items: center;
     gap: 1em;
+}
+
+.video-player #video__volume {
+    max-width: 25%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 95ms ease-in-out;
+}
+
+.video-player .video__volume-button:is(:focus) + #video__volume,
+.video-player #video__volume:is(:hover, :focus) {
+    transform: scaleX(1);
 }
