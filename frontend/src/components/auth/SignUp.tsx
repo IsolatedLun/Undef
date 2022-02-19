@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import MultiForm from '../combines/MultiForm'
+import { validateForm } from '../funcs/formFuncs';
 import Button from '../modules/Button';
 import Form from '../modules/Form';
 import FormCompletion, { INF_FomrCompletion } from '../modules/FormCompletion'
@@ -52,7 +53,7 @@ const SignUp = () => {
     const channelElements: JSX.Element[] = 
       [
       <InputPart props={{id: 'channel-banner', label: 'Channel Banner', setter: setNewUser, data: newUser,
-          inputData: {name: 'banner', type: 'file', realType: 'file', placeholder: 'Upload Banner'}}} />,
+          inputData: {name: 'banner', type: 'file', realType: 'image', placeholder: 'Upload Banner'}}} />,
 
           <InputPart props={{id: 'description', label: 'Channel Descritpion', setter: setNewUser, data: newUser,
       inputData: {name: 'channel__description', type: 'textarea', realType: 'string'}}} />,
@@ -64,11 +65,14 @@ const SignUp = () => {
     const profileElements: JSX.Element[] = 
         [
         <InputPart props={{id: 'profile', label: 'Profile', setter: setNewUser, data: newUser,
-            inputData: {name: 'profile', type: 'file', realType: 'file', 
+            inputData: {name: 'profile', type: 'file', realType: 'image', 
             placeholder: 'Upload Profile', labelCls: 'cust label--profile mi-inline'}}} />,
 
-        <Button props={{ content: 'Next', action: () => setIndex(index + 1), default: true, 
-            modifiers: 'w--100' }} />,
+        <Button props={{ content: 'Create Account', action: () => {
+          if(validateForm('form__inpt', null))
+            alert('wow')
+        }, 
+        default: true, modifiers: 'w--100' }} />,
         ]
 
     const registerForm = <Form props={{ id: '0', setter: setNewUser, data: newUser,

@@ -4,9 +4,11 @@ import { useAutoState } from '../../../hooks/useAutoState';
 export interface INF_Input {
     id?: string;
     type: 'text' | 'file' | 'email' | 'password' | 'textarea';
-    realType: 'string' | 'oneWord' | 'file' | 'select' | 'checkbox' | 'email' | 'password';
+    realType: 'string' | 'oneWord' | 'file' | 
+        'select' | 'checkbox' | 'email' | 'password' | 'image';
     name: string;
 
+    modifiers?: string;
     cls?: string;
     labelCls?: string;
     placeholder?: string;
@@ -22,7 +24,7 @@ export interface INF_Input_State extends InputState, INF_Input {}
 const Input = ({ props } : { props: INF_Input_State }) => {
 
     if(props.cls === undefined) {
-        props.cls = props.type === 'file' ? 'input--file' : 'input--primary';
+        props.cls = props.type === 'file' ? `input--file ${props.modifiers}` : `input--primary ${props.modifiers}`;
     }
 
     if(props.type !== 'file' && props.type !== 'textarea')
@@ -77,6 +79,8 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                     data-real-type={props.realType}
                 />
             )
+    else
+        return(<></>)
 };
 
 export default Input;

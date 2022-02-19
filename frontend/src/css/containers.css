@@ -17,6 +17,7 @@
 .auth-form-container {
     display: grid;
     grid-template-columns: minmax(30%, 500px);
+    padding-block: 1.5em;
     place-content: center;
 }
 

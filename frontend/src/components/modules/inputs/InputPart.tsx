@@ -15,9 +15,9 @@ const InputPart = ({ props } : { props: INF_InputPart }) => {
         <label className='part__label'>{ props.label }</label>
 
         <Input props={{ ...props.inputData, setter: props.setter, 
-          data: props.data, id: props.id + '-input' }} />
+          data: props.data, id: props.id + '-input', modifiers: 'form__inpt' }} />
 
-        <ul className="part__help-list" id={props.id + '-help-list'}></ul>
+        <ul className="part__help-list" id={props.id + '-input-help-list'}></ul>
     </div>
   )
 }

@@ -54,7 +54,7 @@ const Button = ({ props } : { props: ButtonProps }) => {
 
   return(
       <button
-        onClick={(e) => { e.preventDefault(); props.action(e, ...props.params) }}
+        onClick={(e) => { e.preventDefault(); props.action(...props.params) }}
 
         id={props.id}
 
