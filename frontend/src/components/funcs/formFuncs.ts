@@ -10,33 +10,30 @@ export function validateForm(inputsCls: string, callback?: Function | null): voi
     if(valid === inputs.length && callback)
         callback();
     else
-        return valid === inputs.length - 1;
+        return valid === inputs.length;
 }
 
 export function validateInput(input: HTMLInputElement) {
     const type: string = input.type;
     const realType: string = input.getAttribute('data-real-type') as string;
     const inputVal: any = input.value;
-    const errors: string[] = [];
+    let errors: string[] = [];
 
     clearHelpText(input);
     if(realType === 'string' || realType === 'email' || type ===  'textarea') {
-        const res = isValidateText(inputVal) as any;
+        const res = isValidateText(inputVal);
+        errors = handleValidator(res, errors)
+    }
 
-        if(res === true)   
-            return res
-        else
-            errors.push(res as string)
+    else if(realType === 'password') {
+        const res = isValidPassword(inputVal) as any;
+        errors = handleValidator(res, errors)
     }
 
     else if(realType === 'image') {
         try {
             const res = isValidFile(input.files![0], 'image') as any;
-
-            if(res === true)   
-                return res
-            else
-                errors.push(res as string)
+            errors = handleValidator(res, errors)
         }
 
         catch {
@@ -46,6 +43,8 @@ export function validateInput(input: HTMLInputElement) {
 
     if(errors.length > 0)
         addHelpText(input, errors);
+    else
+        return true;
 }
 
 // Validators
@@ -56,11 +55,27 @@ function isValidateText(val: string): boolean | string {
         return 'Must contain atleast 2 or more characters.'
 }
 
-function isValidPassword(val: string) {
-    if(val.length > 7 && /^[a-zA-Z0-9 !@#$%&*]+$/.test(val))
+function isValidPassword(val: string): string | string[] | boolean {
+    let invalids: string[] = [];
+
+    const hasLetters = val.match(/[a-z]/g);
+    const hasNums = val.match(/[0-9]/g);
+    const hasSpecials = val.match(/[#$%&*]/g);
+
+    if(val.length > 7 && hasLetters && hasNums && hasSpecials)
         return true
     else
-        return 'Must contain atleast 7 or more characters.'
+        invalids.push('Must contain atleast 7 or more characters.');
+    
+    if(!hasLetters)
+        invalids.push('Must contain letters.')
+    if(!hasNums)
+        invalids.push('Must contain numbers.')
+    if(!hasSpecials)
+        invalids.push('Must contain atleast 1 of these special characters [#$%&*].')
+    
+    return invalids;
+    
 }
 
 function isValidFile(f: File, type: string) {
@@ -89,4 +104,19 @@ function clearHelpText(input: HTMLInputElement) {
 // Misc
 function getExt(f: File) {
     return f.type.split('/')[0];
+}
+
+function handleValidator(res: any, errors: string[]) {
+    if(res === true)
+        return errors;
+
+    else if(res instanceof Array) {
+        res.forEach(err => errors.push(err));
+    }
+
+    else {
+        errors.push(res);
+    }
+
+    return errors;
 }

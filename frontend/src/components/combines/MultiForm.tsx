@@ -22,7 +22,7 @@ const MultiForm = ({ forms, index, indexFunc } : { forms: JSX.Element[], index: 
     }
 
     { index > 0 && 
-      <Button props={{ action: () => indexFunc(index - 1), default: true, content: 'Back',
+      <Button props={{ action: () => indexFunc(index - 1), content: 'Back',
       modifiers: 'mt--1' }} /> 
     }
     </>
