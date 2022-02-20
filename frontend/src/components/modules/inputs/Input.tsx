@@ -88,7 +88,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
 
                     id={props.id}
                     placeholder={props.placeholder ? props.placeholder : ''}
-                    className={props.cls}
+                    className={props.cls + ' input--range'}
                     type='range'
                     min='0'
                     max='100'

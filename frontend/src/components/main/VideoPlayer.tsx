@@ -70,7 +70,7 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
                     <span className="duration"> { calculateDuration(videoData.duration) }</span>
                   </p>
                   <Button props={{ content: VOLUME_ICO,
-                    tooltip: 'Settings', action: () => null, modifiers: 'video__volume-button' }} />
+                    tooltip: 'Volume', action: () => null, modifiers: 'video__volume-button' }} />
                   <Input props={{ type: 'range', id: 'video__volume', realType: 'string', name: 'volume',
                     action: changeVolume, params: ['video-el'] }} />
                 </div>

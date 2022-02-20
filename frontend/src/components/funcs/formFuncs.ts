@@ -20,10 +20,10 @@ export function validateInput(input: HTMLInputElement) {
     const errors: string[] = [];
 
     clearHelpText(input);
-    if(realType === 'string' || realType === 'email') {
+    if(realType === 'string' || realType === 'email' || type ===  'textarea') {
         const res = isValidateText(inputVal) as any;
 
-        if(res)   
+        if(res === true)   
             return res
         else
             errors.push(res as string)
@@ -33,7 +33,7 @@ export function validateInput(input: HTMLInputElement) {
         try {
             const res = isValidFile(input.files![0], 'image') as any;
 
-            if(res)   
+            if(res === true)   
                 return res
             else
                 errors.push(res as string)
