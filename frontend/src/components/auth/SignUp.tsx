@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
+import { useRegisterMutation } from '../../services/authApi';
 import MultiForm from '../combines/MultiForm'
-import { validateForm } from '../funcs/formFuncs';
+import { constructFormData, validateForm } from '../funcs/formFuncs';
 import Button from '../modules/Button';
 import Form from '../modules/Form';
 import FormCompletion, { INF_FomrCompletion } from '../modules/FormCompletion'
 import InputPart, { INF_InputPart } from '../modules/inputs/InputPart';
 
-interface NewUser {
+export interface NewUser {
   username: string;
   email_address: string;
   password: string;
@@ -15,6 +16,7 @@ interface NewUser {
 }
 
 const SignUp = () => {
+  const [register, { isSuccess }] = useRegisterMutation()
   const [index, setIndex] = useState<number>(0);
 
   const [newUser, setNewUser] = useState<NewUser>({
@@ -34,7 +36,7 @@ const SignUp = () => {
     const registerElements: JSX.Element[] = 
       [
       <InputPart props={{id: 'email', label: 'Email Address', setter: setNewUser, data: newUser,
-          inputData: {name: 'email', type: 'email', realType: 'email'}}} />,
+          inputData: {name: 'email_address', type: 'email', realType: 'email'}}} />,
 
       <InputPart props={{id: 'password', label: 'Password', setter: setNewUser, data: newUser,
       inputData: {name: 'password', type: 'password', realType: 'password'}}} />,
@@ -44,7 +46,7 @@ const SignUp = () => {
 
       <InputPart props={{id: 'business_email', label: 'Business Email Address', 
           setter: setNewUser, data: newUser, inputData: 
-          {name: 'business_email', type: 'email', realType: 'email'}}} />,
+          {name: 'business_email', type: 'email', realType: 'email', isOptional: true}}} />,
 
       <Button props={{ content: 'Next', action: () => setIndex(index + 1), modifiers: 'w--100' }} />,
       ]
@@ -55,7 +57,7 @@ const SignUp = () => {
           inputData: {name: 'banner', type: 'file', realType: 'image', placeholder: 'Upload Banner'}}} />,
 
           <InputPart props={{id: 'description', label: 'Channel Descritpion', setter: setNewUser, data: newUser,
-      inputData: {name: 'channel__description', type: 'textarea', realType: 'string'}}} />,
+      inputData: {name: 'channel_description', type: 'textarea', realType: 'string'}}} />,
 
       <Button props={{ content: 'Next', action: () => setIndex(index + 1), modifiers: 'w--100' }} />,
       ]
@@ -66,9 +68,9 @@ const SignUp = () => {
             inputData: {name: 'profile', type: 'file', realType: 'image', 
             placeholder: 'Upload Profile', labelCls: 'cust label--profile mi-inline'}}} />,
 
-        <Button props={{ content: 'Create Account', action: () => {
+        <Button props={{ content: 'Create Account', action: async() => {
           if(validateForm('form__inpt', null))
-            alert('wow')
+            await register(constructFormData(newUser)!).then(req => console.log(req))
         }, modifiers: 'w--100' }} />,
         ]
 

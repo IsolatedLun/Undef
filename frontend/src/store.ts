@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { videosSlice } from "./slices/videos-slice";
 import { VideoApi } from './services/videoApi'
 import { ChannelApi } from "./services/channelApi";
+import { AuthApi } from "./services/authApi";
 
 export const store = configureStore({
     reducer: {
@@ -9,11 +10,12 @@ export const store = configureStore({
 
         [VideoApi.reducerPath]: VideoApi.reducer,
         [ChannelApi.reducerPath]: ChannelApi.reducer,
+        [AuthApi.reducerPath]: AuthApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(VideoApi.middleware, ChannelApi.middleware)
+    }).concat(VideoApi.middleware, ChannelApi.middleware, AuthApi.middleware,)
 })
 
 export type RootState = ReturnType<typeof store.getState>

@@ -17,7 +17,11 @@ export function validateInput(input: HTMLInputElement) {
     const type: string = input.type;
     const realType: string = input.getAttribute('data-real-type') as string;
     const inputVal: any = input.value;
+    const isOptional: string = input.getAttribute('data-optional') as string;
     let errors: string[] = [];
+
+    if(isOptional === 'true')
+        return true;
 
     clearHelpText(input);
     if(realType === 'string' || realType === 'email' || type ===  'textarea') {
@@ -110,13 +114,25 @@ function handleValidator(res: any, errors: string[]) {
     if(res === true)
         return errors;
 
-    else if(res instanceof Array) {
+    else if(res instanceof Array) 
         res.forEach(err => errors.push(err));
-    }
-
-    else {
+        
+    else 
         errors.push(res);
-    }
 
     return errors;
+}
+
+export function constructFormData(obj: object): FormData | null {
+    if(obj instanceof Object) {
+        let formData = new FormData();
+
+        Object.entries(obj).forEach(tup => {
+            formData.append(tup[0], tup[1])
+        })
+
+        return formData
+    }
+
+    return null;
 }

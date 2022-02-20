@@ -14,6 +14,7 @@ export interface INF_Input {
     cls?: string;
     labelCls?: string;
     placeholder?: string;
+    isOptional?: boolean;
 }
 
 export interface InputState {
@@ -42,6 +43,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
             type={props.type} 
         
             data-real-type={props.realType}
+            data-optional={props.isOptional}
             />
         )
 

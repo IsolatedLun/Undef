@@ -10,11 +10,12 @@ export interface INF_Form extends InputState {
 const Form = ({ props } : { props: INF_Form }) => {
 
   return (
-      <div className='multiform__form' id={'form-' + props.id} data-idx={props.id}>
+      <form encType='multipart/form-data'
+        className='multiform__form' id={'form-' + props.id} data-idx={props.id}>
           {
               props.children
           }
-      </div>
+      </form>
   )
 }
 
