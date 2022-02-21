@@ -11,12 +11,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 0.35em;
+    gap: 0.65em;
 }
 
 .multiform__form {
     flex-direction: column;
-    gap: 0.35em;
     margin-bottom: 1.5em;
 }
 

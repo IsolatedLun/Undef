@@ -74,14 +74,11 @@ const SignUp = () => {
         }, modifiers: 'w--100' }} />,
         ]
 
-    const registerForm = <Form props={{ id: '0', setter: setNewUser, data: newUser,
-        children: registerElements }} key={0} />
+    const registerForm = <Form props={{ id: '0', children: registerElements }} key={0} />
 
-    const channelForm = <Form props={{ id: '1', setter: setNewUser, data: newUser,
-        children: channelElements }} key={1} />
+    const channelForm = <Form props={{ id: '1', children: channelElements }} key={1} />
 
-    const profileForm = <Form props={{ id: '2', setter: setNewUser, data: newUser,
-        children: profileElements }} key={2} />
+    const profileForm = <Form props={{ id: '2', children: profileElements }} key={2} />
 
   return (
     <form className="auth-form-container form__container">

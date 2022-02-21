@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { LoginUser } from "../components/auth/Login";
 import { NewUser } from "../components/auth/SignUp";
+import { JWT_Tokens } from "../components/funcs/authFuncs";
 import { API_URL } from "../consts";
 
 export const AuthApi = createApi({
@@ -20,10 +22,18 @@ export const AuthApi = createApi({
                 url: '/register',
                 method: 'POST',
                 body: registerData,
-            }),
+            })
 
+        }),
+
+        login: builder.mutation<LoginResponse, LoginUser>({
+            query: (loginData) => ({
+                url: '/token',
+                method: 'POST',
+                body: loginData
+            })
         })
     })
 })
 
-export const { useRegisterMutation } = AuthApi;
+export const { useRegisterMutation, useLoginMutation } = AuthApi;
