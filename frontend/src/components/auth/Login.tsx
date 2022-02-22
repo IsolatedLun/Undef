@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useLoginMutation } from "../../services/authApi"
 import Button from "../modules/Button"
 import Form from "../modules/Form"
@@ -11,10 +12,11 @@ export interface LoginUser {
 
 const Login = () => {
     const [login] = useLoginMutation();
+    const navigate = useNavigate();
     const [loginUser, setLoginUser] = useState<LoginUser>({
         email_address: '',
         password: '',
-      })
+    })
 
     const loginElements = [
         <InputPart props={{id: 'email', label: 'Email Address', setter: setLoginUser, data: loginUser,
@@ -24,8 +26,8 @@ const Login = () => {
             inputData: {name: 'password', type: 'password', realType: 'password'}}} />,
 
         <Button props={{ content: 'Login', action: async() => {
-           await login(loginUser)
-            .then(res => console.log(res))
+           await login(loginUser).unwrap()
+            .then(res => navigate('/'))
         }, modifiers: 'w--100' }} />
     ]
 

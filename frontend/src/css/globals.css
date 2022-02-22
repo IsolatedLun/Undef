@@ -68,6 +68,7 @@ textarea {
     --fs-420: 1.2rem;
     --fs-450: 1.5rem;
     --fs-500: 2rem;
+    --fs-600: 2.5rem;
 
     --txt-primary: black;
     --txt-muted: hsl(0, 0%, 4%);

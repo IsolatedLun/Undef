@@ -1,12 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BARS_ICO, SEARCH_ICO } from '../../consts';
+import { useAppDispatch } from '../../hooks/state';
+import { useAuth } from '../../hooks/useAuth';
+import { logout } from '../../slices/auth-slice';
 import { toggleElement } from '../funcs/utilFuncs';
 import Button from '../modules/Button';
 import Input from '../modules/inputs/Input';
+import Profile from './Profile';
 
 const PrimaryNav = () => {
-  const isLogged = false;
+  const user = useAuth();
+  const dispatch = useAppDispatch();
+
+  const logoutCommence = () => {
+    dispatch(logout())
+  }
 
   return(
       <nav className='primary-nav flex flex--center--between' role='primary nav'>
@@ -31,18 +40,23 @@ const PrimaryNav = () => {
           </div>
 
           <div className="nav__static">
-            {
-              isLogged 
-              ?
-              <div className="nav__user-profile profile round skel">
-                <img src="" alt="" />
-              </div>
-              :
-              <div className='nav__btn-group flex gap--1'>
-                <Link className='button--primary' to='/auth/login'>Log In</Link>
-                <Link className='button--primary btn--hollow' to='/auth/sign-up'>Sign Up</Link>
-              </div>
-            }
+              { user.isLogged && (
+                <div className='flex flex--center gap--1'>
+                  <Profile props={{ url: user.user.profile, alt: user.user.username, 
+                    cls: 'nav__user-profile profile round skel', to: '/channels/' + user.user.id }} />
+                    
+                  <Button props={{ content: 'Logout', action: () => logoutCommence(), 
+                    modifiers: 'btn--hollow' }} />
+                </div>
+              ) }
+
+              { !user.isLogged && (
+                <div className='nav__btn-group flex gap--1'>
+                  <Link className='button--primary' to='/auth/login'>Log In</Link>
+                  <Link className='button--primary btn--hollow' to='/auth/sign-up'>Sign Up</Link>
+                </div>
+              ) }
+
           </div>
       </nav>
   )

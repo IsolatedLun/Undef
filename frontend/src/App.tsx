@@ -1,12 +1,24 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
+import { refreshTokens } from './components/funcs/authFuncs';
 import PrimaryNav from './components/layouts/PrimaryNav';
 import ChannelRouter from './components/main/channel/ChannelRouter';
 import Home from './components/main/Home';
 import VideoTab from './components/main/VideoTab';
+import { useAuth } from './hooks/useAuth';
+import { useAuthenticateMutation } from './services/authApi';
 
 function App() {
+  const [authenticate] = useAuthenticateMutation();
+  const { isLogged } = useAuth();
+
+  useEffect(() => {
+    if(!isLogged) {
+      authenticate()
+    }
+  }, [])
 
   return (
     <Router>

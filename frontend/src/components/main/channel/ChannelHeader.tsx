@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { SETTINGS_ICO } from '../../../consts'
+import { UserState } from '../../../slices/auth-slice'
 import Loader from '../../layouts/Loader'
 import Profile from '../../layouts/Profile'
 import Button from '../../modules/Button'
 import { INF_Channel } from './ChannelRouter'
 
-const ChannelHeader = ({ channel } : { channel: INF_Channel }) => {
+const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserState }) => {
     return (
         <nav className="channel__nav flex flex--col gap--1" role='channel navigation'>
           <Profile props={{ cls: 'channel__banner', 
@@ -24,8 +26,23 @@ const ChannelHeader = ({ channel } : { channel: INF_Channel }) => {
               </div>
             </div>
 
-            <Button props={{ content: 'Subscribe', cls: 'button--primary btn--hollow',
-              action: () => null }} />
+            {
+              user.user.id !== channel.user_data.id && 
+              (
+                <Button props={{ content: 'Subscribe', cls: 'button--primary btn--hollow',
+                  action: () => null }} />
+              )
+            }
+
+            {
+              user.user.id === channel.user_data.id && 
+              (
+                <div className="btn--group">
+                  <Button props={{ content: 'Upload', action: () => null }} />
+                  <Button props={{ content: SETTINGS_ICO, action: () => null, tooltip: 'Edit channel' }} />
+                </div>
+              )
+            }
 
           </div>
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom'
+import { useAuth } from '../../../hooks/useAuth';
 import { useGetChannelQuery } from '../../../services/channelApi';
 import Loader from '../../layouts/Loader';
 import { INF_Video } from '../../modules/Video';
@@ -31,16 +32,23 @@ export interface INF_Channel {
 
 const ChannelRouter = () => {
     const { channel_id } = useParams();
-    const { data: channel, isFetching } = useGetChannelQuery(Number(channel_id!));
+    const { data: channel, isFetching, isSuccess } = useGetChannelQuery(Number(channel_id!));
+    const user = useAuth();
 
     if(channel !== undefined)
         return(
-            <div className='channel'>  
-                <ChannelHeader channel={channel.channel} />
+            <section aria-labelledby='channel' id='channel' className='channel'>  
+                <ChannelHeader channel={channel.channel} user={user} />
                 <Routes>
                     <Route path='' element={<ChannelVideos videos={channel.videos} />} />
                     <Route path='about' element={<ChannelAbout channel={channel.channel} />} />
                 </Routes>
+            </section>
+        )
+    else if(!isSuccess && !isFetching)
+        return(
+            <div className="primary-loader loader-404">
+                <p className='txt--err loader__text'>404. Couldn't find the requested page :(</p>
             </div>
         )
     else

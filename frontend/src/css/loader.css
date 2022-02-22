@@ -8,3 +8,9 @@
 .pos--relative > .primary-loader {
     position: absolute;
 }
+
+.loader-404 .loader__text {
+    font-size: var(--fs-500);
+    color: var(--txt-err);
+    white-space: nowrap;
+}

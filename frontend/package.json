@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
+    "axios": "^0.26.0",
     "cssnano": "^5.0.16",
     "postcss": "^8.4.6",
     "postcss-cli": "^9.1.0",

@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { JWT_Tokens, updateTokens } from "../components/funcs/authFuncs";
+import { JWT_Tokens, refreshTokens, updateTokens } from "../components/funcs/authFuncs";
 import { API_URL } from "../consts";
 import { AuthApi } from "../services/authApi";
 
-interface UserState {
+export interface UserState {
     isLogged: boolean;
     user: {
         id: number;
@@ -17,14 +17,14 @@ export interface LoginResponse {
     user: UserState;
 }
 
-const initialState: UserState = {
+const initialState: UserState = Object.freeze({
     isLogged: false,
     user: {
         id: -1,
         username: '',
         profile: ''
     }
-}
+})
 
 const fetchUser = createAsyncThunk(
     'fetchUser',
@@ -37,15 +37,31 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        
+        logout(state) {
+            state.isLogged = false;
+            state.user = initialState.user;
+            localStorage.removeItem('access');
+            localStorage.removeItem('refresh');
+        }
     },
     extraReducers: (builder) => {
         builder.addMatcher(AuthApi.endpoints.login.matchFulfilled, (state, action) => {
             updateTokens(action.payload.tokens);
+            state.isLogged = true;
             state.user = action.payload.user as any;
+        }),
+
+        builder.addMatcher(AuthApi.endpoints.authenticate.matchFulfilled, (state, action) => {
+            state.isLogged = true;
+            state.user = action.payload.data as any;
+        }),
+
+        builder.addMatcher(AuthApi.endpoints.authenticate.matchRejected, () => {
+            refreshTokens();
+            AuthApi.endpoints.authenticate.useMutation();
         })
     }
 })
 
-export const {  } = authSlice.actions;
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;

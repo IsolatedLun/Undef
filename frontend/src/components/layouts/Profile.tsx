@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { API_URL } from "../../consts"
 import Loader from "./Loader"
 
@@ -6,6 +7,7 @@ interface ProfileState {
     cls: string;
     alt: string;
     loaderId?: string;
+    to?: string
 }
 
 function removeLoader(el: HTMLElement) {
@@ -13,19 +15,23 @@ function removeLoader(el: HTMLElement) {
 }
 
 const Profile = ({ props } : { props: ProfileState }) => {
-  return (
+  const element = 
+  (
     <div className={`${props.cls} pos--relative`}>
-        { props.loaderId && <Loader id={props.loaderId} /> }
-        <img 
+      { props.loaderId && <Loader id={props.loaderId} /> }
+      <img 
 
-        src={API_URL + props.url} 
-        alt={props.alt} 
+      src={API_URL + props.url} 
+      alt={props.alt} 
 
-        onLoad={() => {
-          if(props.loaderId)
-            removeLoader(document.getElementById(props.loaderId) as HTMLElement)
-        }} />
+      onLoad={() => {
+        if(props.loaderId)
+          removeLoader(document.getElementById(props.loaderId) as HTMLElement)
+      }} />
     </div>
+)
+  return (
+   props.to !== undefined ? <Link to={props.to}>{ element }</Link> : element
   )
 }
 

@@ -3,6 +3,7 @@ import { LoginUser } from "../components/auth/Login";
 import { NewUser } from "../components/auth/SignUp";
 import { JWT_Tokens } from "../components/funcs/authFuncs";
 import { API_URL } from "../consts";
+import { LoginResponse } from "../slices/auth-slice";
 
 export const AuthApi = createApi({
     reducerPath: 'AuthApi',
@@ -32,8 +33,15 @@ export const AuthApi = createApi({
                 method: 'POST',
                 body: loginData
             })
+        }),
+
+        authenticate: builder.mutation<any, void>({
+            query: () => ({
+                url: '/token/get',
+                method: 'GET',
+            })
         })
     })
 })
 
-export const { useRegisterMutation, useLoginMutation } = AuthApi;
+export const { useRegisterMutation, useLoginMutation, useAuthenticateMutation } = AuthApi;
