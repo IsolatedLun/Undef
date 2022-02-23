@@ -32,7 +32,7 @@ const Login = () => {
     ]
 
   return (
-    <div className="auth-form-container">
+    <div className="form--container">
         <h1 className='form__head txt--center'>Login</h1>
         <Form props={{ id: '0', children: loginElements }} />
     </div>

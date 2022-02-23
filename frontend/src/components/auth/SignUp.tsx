@@ -81,7 +81,7 @@ const SignUp = () => {
     const profileForm = <Form props={{ id: '2', children: profileElements }} key={2} />
 
   return (
-    <form className="auth-form-container form__container">
+    <form className="form--container form__container">
       <h1 className='form__head txt--center'>Sign up to Undef</h1>
         <FormCompletion currIdx={index}
           completions={completions} />

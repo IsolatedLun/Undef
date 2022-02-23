@@ -57,8 +57,10 @@ export const authSlice = createSlice({
         }),
 
         builder.addMatcher(AuthApi.endpoints.authenticate.matchRejected, () => {
-            refreshTokens();
-            AuthApi.endpoints.authenticate.useMutation();
+            async() => {
+                await refreshTokens();
+                AuthApi.endpoints.authenticate.useMutation();
+            }
         })
     }
 })

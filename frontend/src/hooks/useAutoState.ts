@@ -7,8 +7,13 @@ export function useAutoState(e: FormEvent<any>, setter: Function, data: any) {
     if(target.type !== 'file')
         setter({ ...data, [target.name]: value });
     else {
-        setter({ ...data, [target.name]: target.files![0] });
-        const fileUrl = window.URL.createObjectURL(target.files![0]);
-        (document.getElementById(target.id + '-preview') as HTMLImageElement).src = fileUrl;
+        const realType = target.getAttribute('data-real-type')!
+
+        if(realType === 'image') {
+            setter({ ...data, [target.name]: target.files![0] });
+            const fileUrl = window.URL.createObjectURL(target.files![0]);
+            (document.getElementById(target.id + '-preview') as HTMLImageElement).src = fileUrl;
+        }
+
     }
 }

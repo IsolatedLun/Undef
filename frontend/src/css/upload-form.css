@@ -1,0 +1,12 @@
+.upload--form .upload__split {
+    display: grid;
+    grid-template-columns: 512px 2fr;
+    margin-block: 0.65em;
+    gap: 1.5em;
+}
+
+@media(max-width: 768px) {
+    .upload--form .upload__split {
+        grid-template-columns: 1fr;
+    }
+}

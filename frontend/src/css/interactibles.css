@@ -73,6 +73,10 @@
     padding-inline: 0;
 }
 
+.input--textarea {
+    resize: vertical;
+}
+
 /* File Inputs */
 
 .input--file {
@@ -82,7 +86,7 @@
     height: 100%;
 }
 
-.input--label--image {
+.input--label {
     position: relative;
     padding: 0;
     width: 100%;
@@ -91,7 +95,7 @@
     cursor: pointer;
 }
 
-.input--label--image::after {
+.input--label::after {
     content: attr(data-label);
     position: absolute;
     font-weight: bold;
@@ -101,7 +105,7 @@
     opacity: 0;
 }   
 
-.input--label--image::before {
+.input--label::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -109,13 +113,13 @@
     opacity: 0;
 }
 
-.input--label--image::after,
-.input--label--image::before {
+.input--label::after,
+.input--label::before {
     transition: 100ms opacity ease-out;
 }
 
-.input--label--image:hover::after,
-.input--label--image:hover::before {
+.input--label:hover::after,
+.input--label:hover::before {
     opacity: 1;
 }
 

@@ -14,6 +14,12 @@
     gap: 0.65em;
 }
 
+.input__parts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
 .multiform__form {
     flex-direction: column;
     margin-bottom: 1.5em;

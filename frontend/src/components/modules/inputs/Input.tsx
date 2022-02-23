@@ -5,7 +5,7 @@ export interface INF_Input {
     id?: string;
     type: 'text' | 'file' | 'email' | 'password' | 'textarea' | 'range';
     realType: 'string' | 'oneWord' | 'file' | 
-        'select' | 'checkbox' | 'email' | 'password' | 'image';
+        'select' | 'checkbox' | 'email' | 'password' | 'image' | 'video';
     name: string;
     action?: Function;
     params?: any[];
@@ -50,9 +50,10 @@ const Input = ({ props } : { props: INF_Input_State }) => {
     else if(props.type === 'file')
         return(
             <label data-label={props.placeholder}
-                htmlFor={props.id} className={`input--label--image input--primary ${props.labelCls}`}>
+                htmlFor={props.id} 
+                className={`input--label input--primary ${props.labelCls}`}>
                 
-                <img src="" id={props.id + '-preview'} />
+                { props.realType === 'image' && <img src="" id={props.id + '-preview'} /> }
                     
                 <input 
                 onInput={(e) => useAutoState(e, props.setter!, props.data)}
@@ -60,7 +61,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 id={props.id}
                 className={props.cls}
                 type="file" 
-                accept='image/*'
+                accept={props.realType + '/*'}
                 name={props.name}
 
                 data-real-type={props.realType}
@@ -76,7 +77,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
 
                     id={props.id}
                     placeholder={props.placeholder ? props.placeholder : ''}
-                    className={props.cls}
+                    className={props.cls + ' input--textarea'}
         
                     name={props.name}
                 

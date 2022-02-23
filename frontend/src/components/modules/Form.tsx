@@ -4,7 +4,7 @@ import InputPart, { INF_InputPart } from './inputs/InputPart'
 
 export interface INF_Form extends InputState {
     id: string;
-    children: JSX.Element[];
+    children: JSX.Element[] | JSX.Element;
 }
 
 const Form = ({ props } : { props: INF_Form }) => {

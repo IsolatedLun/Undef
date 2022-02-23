@@ -38,7 +38,7 @@ const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserSta
               user.user.id === channel.user_data.id && 
               (
                 <div className="btn--group">
-                  <Button props={{ content: 'Upload', action: () => null }} />
+                  <Link to='upload' className='button--primary'>Upload</Link>
                   <Button props={{ content: SETTINGS_ICO, action: () => null, tooltip: 'Edit channel' }} />
                 </div>
               )
