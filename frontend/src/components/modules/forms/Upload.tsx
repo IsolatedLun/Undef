@@ -1,5 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useAutoState } from "../../../hooks/useAutoState"
 import MultiForm from "../../combines/MultiForm"
+import { generateThumbnail } from "../../funcs/utilFuncs"
 import Button from "../Button"
 import Form from "../Form"
 import FormCompletion, { INF_FomrCompletion } from "../FormCompletion"
@@ -16,6 +18,7 @@ interface INF_VideoUpload {
 
 const Upload = () => {
     const [index, setIndex] = useState(0)
+    const [videoTime, setVideoTime] = useState(1);
     const [newVideo, setNewVideo] = useState<INF_VideoUpload>({
       channel: -1,
       title: '',
@@ -29,19 +32,81 @@ const Upload = () => {
       {idx: 2, text: 'Publish'},
     ]
 
+
     const videoUpload = (
-        <div className="upload__split">
-          <Input props={{ name: 'video', realType: 'video', type: 'file', placeholder: 'Upload video' }} />
-          <div className="input__parts">
-            <InputPart props={{ label: 'Title', inputData: 
-              { name: 'title', realType: 'string', type: 'text', placeholder: 'Enter title' } , id: 'title'}} />
+        <>
+          <div className="upload__split">
+          <label data-label='Upload video'
+                htmlFor='video-input' 
+                className='input--label input--primary'>
+                
+                <img src="" id='video-preview' />
+                <video className='hidden' id='video-input-video'
+                  onLoadedData={(e) => (e.target as HTMLVideoElement).currentTime = videoTime}
+                  onSeeked={(e) => {
+                    const videoEl = e.target as HTMLVideoElement;
+                    generateThumbnail(videoEl, videoTime);
+      
+                    if(videoTime < 5) {
+                      setVideoTime(videoTime + 1);
+                      videoEl.currentTime = videoTime;
+                    }
+                  }} />
+                    
+                <input 
+                onInput={(e) => {
+                  useAutoState(e, setNewVideo, newVideo);
+                  setVideoTime(1);
+                }}
+                
+                id='video-input'
+                className='input--primary input--file'
+                type="file" 
+                accept='video/*'
+                name='video'
 
-            <InputPart props={{ label: 'Description', inputData: 
-              { name: 'description', realType: 'string', type: 'textarea' } , id: 'description'}} />
+                data-real-type='video'
+                />
 
-            <Button props={{ content: 'Next', action: () => null }} />
+            </label>
+
+            <div className="input__parts">
+              <InputPart props={{ label: 'Title', setter: setNewVideo, data: newVideo,
+              inputData: { name: 'title', realType: 'string', type: 'text', placeholder: 'Enter title' }, 
+                id: 'title'}} />
+
+              <InputPart props={{ label: 'Description', setter: setNewVideo, data: newVideo,
+              inputData: { name: 'description', realType: 'string', type: 'textarea' }, 
+                id: 'description'}} />
+
+              <Button props={{ content: 'Next', action: () => null }} />
+            </div>
           </div>
-        </div>
+
+          <div className="upload__thumbnail-previews">
+            <div className="thumbnail__preview input--primary cust">
+              <img id="thumbnail-preview-1" src=""/>
+            </div>
+
+            <div className="thumbnail__preview input--primary cust">
+              <img id="thumbnail-preview-2" src=""/>
+            </div>
+          
+            <div className="thumbnail__preview input--primary cust">
+              <img id="thumbnail-preview-3" src=""/>
+            </div>
+
+            <div className="thumbnail__preview input--primary cust">
+              <img id="thumbnail-preview-4" src=""/>
+            </div>
+          
+            <div className="thumbnail__preview input--primary cust">
+              <img id="thumbnail-preview-5" src=""/>
+            </div>
+          
+          
+          </div>
+        </>
     )
 
     const videoUploadForm = <Form props={{ id: '0', children: videoUpload }} />

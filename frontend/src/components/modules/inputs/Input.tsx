@@ -30,9 +30,9 @@ const Input = ({ props } : { props: INF_Input_State }) => {
         props.cls = props.type === 'file' ? `input--file ${props.modifiers}` : `input--primary ${props.modifiers}`;
     }
 
-    if(props.type !== 'file' && props.type !== 'textarea' && props.type !== 'range')
+    if(['text', 'email', 'password'].includes(props.type))
         return(
-            <input 
+            <input
             onInput={(e) => useAutoState(e, props.setter!, props.data)}
 
             id={props.id}
@@ -53,7 +53,8 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 htmlFor={props.id} 
                 className={`input--label input--primary ${props.labelCls}`}>
                 
-                { props.realType === 'image' && <img src="" id={props.id + '-preview'} /> }
+                <img src="" id={props.id + '-preview'} />
+                <video className='hidden' id={props.id + '-video'} />
                     
                 <input 
                 onInput={(e) => useAutoState(e, props.setter!, props.data)}

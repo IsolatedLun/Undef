@@ -2,6 +2,10 @@
     border-radius: 50%;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Profiles */
 .profile {
     --_min: 2.5em;

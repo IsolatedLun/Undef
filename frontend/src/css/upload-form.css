@@ -5,6 +5,21 @@
     gap: 1.5em;
 }
 
+.upload--form .upload__thumbnail-previews {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 256px);
+    place-items: center;
+    gap: 0.25em;
+    margin-block: 0.75em;
+    width: 100%;
+}
+
+.upload--form .thumbnail__preview {
+    width: 256px;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+}
+
 @media(max-width: 768px) {
     .upload--form .upload__split {
         grid-template-columns: 1fr;

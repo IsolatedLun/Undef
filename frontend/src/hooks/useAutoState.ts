@@ -15,5 +15,12 @@ export function useAutoState(e: FormEvent<any>, setter: Function, data: any) {
             (document.getElementById(target.id + '-preview') as HTMLImageElement).src = fileUrl;
         }
 
+        else {
+            setter({ ...data, [target.name]: target.files![0] });
+            const videoEl = document.getElementById(target.id + '-video')! as HTMLVideoElement;
+            const fileUrl = window.URL.createObjectURL(target.files![0]);
+            videoEl.src = fileUrl;
+        }
+
     }
 }
