@@ -10,8 +10,12 @@ export function useAutoState(e: FormEvent<any>, setter: Function, data: any,
         const target = e.target as HTMLInputElement;
         const value: any = target.value;
 
-        if(target.type !== 'file')
+        if(target.type !== 'file' && target.type !== 'radio')
             setter({ ...data, [target.name]: value });
+
+        else if(target.type === 'radio')
+            setter(value);
+
         else {
             const realType = target.getAttribute('data-real-type')!
 

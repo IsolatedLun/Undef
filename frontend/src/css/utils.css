@@ -6,6 +6,10 @@
     display: none;
 }
 
+.curs--point {
+    cursor: pointer;
+}
+
 /* Profiles */
 .profile {
     --_min: 2.5em;
@@ -71,7 +75,7 @@
     margin-top: 1em;
 }
 
-.mi-inline {
+.mi--inline {
     margin-inline: auto;
 }
 

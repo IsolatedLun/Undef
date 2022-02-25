@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useAutoState } from "../../../hooks/useAutoState"
 import MultiForm from "../../combines/MultiForm"
+import Radios from "../../combines/Radios"
 import ThumbnailPreviews from "../../combines/ThumbnailPreviews"
 import { generateThumbnail, previewImage, resetThumbnails } from "../../funcs/utilFuncs"
 import Button from "../Button"
@@ -109,8 +110,18 @@ const Upload = () => {
         </>
     )
 
+    const publish = (
+      <div className="input--radios flex flex--col gap--1 mi--inline">
+        <Radios props={{ name: 'esh', setter: () => null, radios: [
+          { value: 'public', title: 'Public', text: 'Your video is visible to everyone.' },
+          { value: 'private', title: 'Private', text: 'Your video is only visible to you.' },
+          { value: 'unlisted', title: 'Unlisted', text: 'Your video is only accessible by a link.' }
+        ] }} />
+      </div>
+    )
+
     const videoUploadForm = <Form props={{ id: '0', children: videoUpload }} />
-    const publishUploadForm = <Form props={{ id: '1', children: <>esh</> }} />
+    const publishUploadForm = <Form props={{ id: '1', children: publish }} />
 
   return (
     <div className="upload--form">
