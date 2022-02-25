@@ -14,3 +14,8 @@ export function generateThumbnail(videoEl: HTMLVideoElement, t: number= 0) {
     const thumbnailUrl = canvas.toDataURL();
     (document.getElementById('thumbnail-preview-' + t) as HTMLImageElement).src = thumbnailUrl;
 }
+
+export function resetThumbnails(t: number) {
+    for(let i= 1; i < t; i++)
+        (document.getElementById('thumbnail-preview-' + i) as HTMLImageElement).src = '';
+}

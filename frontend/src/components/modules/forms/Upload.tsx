@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useAutoState } from "../../../hooks/useAutoState"
 import MultiForm from "../../combines/MultiForm"
-import { generateThumbnail } from "../../funcs/utilFuncs"
+import ThumbnailPreviews from "../../combines/ThumbnailPreviews"
+import { generateThumbnail, resetThumbnails } from "../../funcs/utilFuncs"
 import Button from "../Button"
 import Form from "../Form"
 import FormCompletion, { INF_FomrCompletion } from "../FormCompletion"
@@ -17,7 +18,10 @@ interface INF_VideoUpload {
 }
 
 const Upload = () => {
+    const previewAmt: number = 4
+
     const [index, setIndex] = useState(0)
+    const [previewIdx, setPreviewIdx] = useState(1)
     const [videoTime, setVideoTime] = useState(1);
     const [newVideo, setNewVideo] = useState<INF_VideoUpload>({
       channel: -1,
@@ -38,17 +42,18 @@ const Upload = () => {
           <div className="upload__split">
           <label data-label='Upload video'
                 htmlFor='video-input' 
-                className='input--label input--primary'>
+                className='upload__input-label input--label input--primary'>
                 
-                <img src="" id='video-preview' />
-                <video className='hidden' id='video-input-video'
+                <img src="" id='thumbnail-preview-0' className="upload__selected-preview" />
+                <video className='' id='video-input-video'
                   onLoadedData={(e) => (e.target as HTMLVideoElement).currentTime = videoTime}
                   onSeeked={(e) => {
                     const videoEl = e.target as HTMLVideoElement;
-                    generateThumbnail(videoEl, videoTime);
+                    generateThumbnail(videoEl, previewIdx);
       
-                    if(videoTime < 5) {
-                      setVideoTime(videoTime + 1);
+                    if(previewIdx < previewAmt && videoTime < videoEl.duration) {
+                      setVideoTime(videoTime + previewIdx);
+                      setPreviewIdx(previewIdx + 1)
                       videoEl.currentTime = videoTime;
                     }
                   }} />
@@ -56,7 +61,9 @@ const Upload = () => {
                 <input 
                 onInput={(e) => {
                   useAutoState(e, setNewVideo, newVideo);
+                  resetThumbnails(previewAmt);
                   setVideoTime(1);
+                  setPreviewIdx(1);
                 }}
                 
                 id='video-input'
@@ -84,27 +91,8 @@ const Upload = () => {
           </div>
 
           <div className="upload__thumbnail-previews">
-            <div className="thumbnail__preview input--primary cust">
-              <img id="thumbnail-preview-1" src=""/>
-            </div>
-
-            <div className="thumbnail__preview input--primary cust">
-              <img id="thumbnail-preview-2" src=""/>
-            </div>
-          
-            <div className="thumbnail__preview input--primary cust">
-              <img id="thumbnail-preview-3" src=""/>
-            </div>
-
-            <div className="thumbnail__preview input--primary cust">
-              <img id="thumbnail-preview-4" src=""/>
-            </div>
-          
-            <div className="thumbnail__preview input--primary cust">
-              <img id="thumbnail-preview-5" src=""/>
-            </div>
-          
-          
+            <ThumbnailPreviews id={'video-input'} amt={previewAmt} name={'video'}
+              setter={setNewVideo} data={newVideo} />
           </div>
         </>
     )
