@@ -60,7 +60,8 @@
     outline: 0;
 }
 
-.input--primary:is(:hover, :focus) {
+.input--primary:is(:hover, :focus),
+.input--primary.active {
     border-color: var(--inpt-main);
     box-shadow: 0 0 0.5px 3px var(--inpt-shadow);
 }
@@ -99,6 +100,7 @@
     content: attr(data-label);
     position: absolute;
     font-weight: bold;
+    white-space: nowrap;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -163,6 +165,11 @@
 
 .tooltip:hover::after {
     opacity: 1;
+}
+
+/* Misc */
+.dashed {
+    border-style: dashed;
 }
 
 @media(prefers-color-scheme: light) {

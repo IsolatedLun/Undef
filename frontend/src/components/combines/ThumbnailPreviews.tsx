@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAutoState } from '../../hooks/useAutoState'
 
-const ThumbnailPreview = ({ id, idx, setter, data }: 
+const ThumbnailPreview = ({ id, idx, setter, data, name }: 
         { id: string, idx: number, setter: Function, data: any, name: string }) => {
 
     const currId: string = 'thumbnail-preview-' + idx;
@@ -12,13 +12,14 @@ const ThumbnailPreview = ({ id, idx, setter, data }:
         const imgFile: File = new File([target.src], 'any.png', {
             type: 'image/png'
         });
-        
+
        (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = target.src;
-       setter({ ...data, [target.getAttribute('data-name')!]: imgFile })
+       setter({ ...data, [target.getAttribute('data-name')!]: imgFile });
+       
     }
 
     return (
-        <div onClick={(e) => useAutoState(e, setter, data, setThumbnail, [e, setter, data])}
+        <div onClick={(e) => useAutoState(e, setter, data, setThumbnail, [setter, data], true)}
             className="thumbnail__preview input--primary cust">
             <img id={currId} src="" data-name={name}/>
         </div>

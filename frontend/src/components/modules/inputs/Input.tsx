@@ -10,6 +10,10 @@ export interface INF_Input {
     action?: Function;
     params?: any[];
 
+    cb?: Function;
+    cbParams?: any[];
+    cbOverride?: boolean;
+
     modifiers?: string;
     cls?: string;
     labelCls?: string;
@@ -33,7 +37,8 @@ const Input = ({ props } : { props: INF_Input_State }) => {
     if(['text', 'email', 'password'].includes(props.type))
         return(
             <input
-            onInput={(e) => useAutoState(e, props.setter!, props.data)}
+            onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb, props.cbParams, 
+                props.cbOverride)}
 
             id={props.id}
             placeholder={props.placeholder ? props.placeholder : ''}
@@ -57,7 +62,8 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 <video className='hidden' id={props.id + '-video'} />
                     
                 <input 
-                onInput={(e) => useAutoState(e, props.setter!, props.data)}
+                onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb, 
+                    props.cbParams, props.cbOverride)}
                 
                 id={props.id}
                 className={props.cls}
@@ -74,7 +80,8 @@ const Input = ({ props } : { props: INF_Input_State }) => {
     else if(props.type === 'textarea')
             return(
                 <textarea 
-                    onInput={(e) => useAutoState(e, props.setter!, props.data)}
+                    onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb, 
+                        props.cbParams, props.cbOverride)}
 
                     id={props.id}
                     placeholder={props.placeholder ? props.placeholder : ''}

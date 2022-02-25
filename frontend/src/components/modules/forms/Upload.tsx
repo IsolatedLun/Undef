@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useAutoState } from "../../../hooks/useAutoState"
 import MultiForm from "../../combines/MultiForm"
 import ThumbnailPreviews from "../../combines/ThumbnailPreviews"
-import { generateThumbnail, resetThumbnails } from "../../funcs/utilFuncs"
+import { generateThumbnail, previewImage, resetThumbnails } from "../../funcs/utilFuncs"
 import Button from "../Button"
 import Form from "../Form"
 import FormCompletion, { INF_FomrCompletion } from "../FormCompletion"
@@ -36,6 +36,9 @@ const Upload = () => {
       {idx: 2, text: 'Publish'},
     ]
 
+    function meow() {
+      console.log('meow')
+    }
 
     const videoUpload = (
         <>
@@ -60,6 +63,9 @@ const Upload = () => {
                     
                 <input 
                 onInput={(e) => {
+                  const target = e.target as HTMLVideoElement;
+                  (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = '';
+
                   useAutoState(e, setNewVideo, newVideo);
                   resetThumbnails(previewAmt);
                   setVideoTime(1);
@@ -86,23 +92,30 @@ const Upload = () => {
               inputData: { name: 'description', realType: 'string', type: 'textarea' }, 
                 id: 'description'}} />
 
-              <Button props={{ content: 'Next', action: () => null }} />
+              <Button props={{ content: 'Next', action: () => setIndex(index + 1) }} />
             </div>
           </div>
 
           <div className="upload__thumbnail-previews">
-            <ThumbnailPreviews id={'video-input'} amt={previewAmt} name={'video'}
+            <Input props={{ name: 'thumbnail', realType: 'image', 
+              type: 'file', setter: setNewVideo, data: newVideo, labelCls: 'dashed', 
+                placeholder: 'Upload thumbnail', id: 'thumbnail-input', 
+                cb: previewImage, cbParams: [document.getElementById('thumbnail-preview-0')], 
+                cbOverride: false }} />
+            
+            <ThumbnailPreviews id={'video-input'} amt={previewAmt} name={'thumbnail'}
               setter={setNewVideo} data={newVideo} />
           </div>
         </>
     )
 
     const videoUploadForm = <Form props={{ id: '0', children: videoUpload }} />
+    const publishUploadForm = <Form props={{ id: '1', children: <>esh</> }} />
 
   return (
     <div className="upload--form">
         <FormCompletion completions={completions} currIdx={index} />
-        <MultiForm forms={[videoUploadForm]} index={index} indexFunc={setIndex} />
+        <MultiForm forms={[videoUploadForm, publishUploadForm]} index={index} indexFunc={setIndex} />
     </div>
   )
 }

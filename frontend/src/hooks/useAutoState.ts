@@ -1,8 +1,10 @@
 import { FormEvent } from "react";
 
-export function useAutoState(e: FormEvent<any>, setter: Function, data: any, cb?: Function, params?: any[]) {
-    if(cb && params)
-        cb(...params)
+export function useAutoState(e: FormEvent<any>, setter: Function, data: any, 
+    cb?: Function, params?: any[], override: boolean=false) {
+
+    if(cb && params && override === true)
+        cb(e, ...params)
         
     else {
         const target = e.target as HTMLInputElement;
@@ -27,5 +29,8 @@ export function useAutoState(e: FormEvent<any>, setter: Function, data: any, cb?
             }
 
         }
+
+        if(cb && params)
+            cb(e, ...params)
     }
 }
