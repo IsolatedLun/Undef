@@ -46,8 +46,8 @@ const Radio = ({ props } : { props: RadioButton }) => {
 
 const Radios = ({ props } : { props: RadioButtons }) => {
   return <>{
-    props.radios.map(radio => (
-      <Radio props={{ ...radio, name: props.name, setter: props.setter }} />
+    props.radios.map((radio, idx) => (
+      <Radio key={idx} props={{ ...radio, name: props.name, setter: props.setter }} />
     ))
   }</>
 }

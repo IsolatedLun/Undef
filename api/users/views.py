@@ -13,6 +13,7 @@ ERR = status.HTTP_400_BAD_REQUEST
 
 class Register(APIView):
     permission_classes = [AllowAny]
+
     def post(self, req):
         user_data = {'email_address': req.data['email_address'], 'username': req.data['username'],
             'password': make_password(req.data['password']), 'profile': req.data['profile']}
@@ -31,6 +32,8 @@ class Register(APIView):
             return Response({'detail': str(e)}, ERR)
 
 class JWTLogin(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, req):
         user = cUser.objects.get(email_address=req.data['email_address'])
         refresh = RefreshToken.for_user(user)
@@ -45,6 +48,8 @@ class JWTLogin(APIView):
         }, OK)
 
 class JWTCredentials(APIView):
+    permission_classes = [AllowAny]
+    
     def get(self, req):
         from jwt import decode
         from django.conf import settings

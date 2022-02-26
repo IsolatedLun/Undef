@@ -10,10 +10,6 @@ export const AuthApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL + '/api/users', 
         prepareHeaders: (headers, { getState }) => {
-            const accessToken = localStorage.getItem('access');
-            const refreshToken = localStorage.getItem('refresh');
-
-            headers.set('authorization','Bearer ' + accessToken);
             return headers;
         }
     }),
@@ -31,7 +27,7 @@ export const AuthApi = createApi({
             query: (loginData) => ({
                 url: '/token',
                 method: 'POST',
-                body: loginData
+                body: loginData,
             })
         }),
 
@@ -39,6 +35,9 @@ export const AuthApi = createApi({
             query: () => ({
                 url: '/token/get',
                 method: 'GET',
+                headers: {
+                    'authorization': `Bearer: ${localStorage.getItem('access')!}`
+                }
             })
         })
     })

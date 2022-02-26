@@ -25,3 +25,9 @@ class ChannelView(APIView):
                 'videos': videos_serializer}, OK)
         except:
             return Response({'detail': 'Channel does not exist'}, NULL)
+
+class ChannelUpload(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, channel_id):
+        return Response({'data': 'meow'}, OK)
