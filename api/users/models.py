@@ -33,6 +33,11 @@ class cUser(AbstractUser):
 
     objects = cUserManager()
 
+    def get_channel_id(self):
+        from channels.models import Channel
+
+        return Channel.objects.get(user_id=self.id).id 
+
     def delete(self, using=None, keep_parents=False):
         self.profile.storage.delete(self.profile.path)
         super().delete()

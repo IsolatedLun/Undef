@@ -24,8 +24,19 @@ export const ChannelApi = createApi({
                 url: `/channel/${channel_id}`,
                 method: 'GET'
             })
+        }),
+
+        uploadVideo: builder.mutation<Response, any>({
+            query: ({ videoData, channel_id }) => ({
+                url: `/channel/${channel_id}/upload`,
+                method: 'POST',
+                body: videoData,
+                headers: {
+                    'authorization': `Bearer ${localStorage.getItem('access')}`
+                }
+            })
         })
     })
 })
 
-export const { useGetChannelQuery } = ChannelApi;
+export const { useGetChannelQuery, useUploadVideoMutation } = ChannelApi;

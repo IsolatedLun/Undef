@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { useAuth } from "../../../hooks/useAuth"
 import { useAutoState } from "../../../hooks/useAutoState"
+import { useUploadVideoMutation } from "../../../services/channelApi"
 import MultiForm from "../../combines/MultiForm"
 import Radios from "../../combines/Radios"
 import ThumbnailPreviews from "../../combines/ThumbnailPreviews"
-import { validateForm } from "../../funcs/formFuncs"
+import { constructFormData, validateForm } from "../../funcs/formFuncs"
 import { generateThumbnail, previewImage, resetThumbnails } from "../../funcs/utilFuncs"
 import Button from "../Button"
 import Form from "../Form"
@@ -13,7 +15,8 @@ import Input from "../inputs/Input"
 import InputPart from "../inputs/InputPart"
 
 interface INF_VideoUpload {
-  channel: number;
+  channel_id: number;
+  user_id: number;
   title: string;
   description: string;
   thumbnail: File | null;
@@ -22,15 +25,19 @@ interface INF_VideoUpload {
 }
 
 const Upload = () => {
+    const { user } = useAuth();
+    const [uploadVideo, { isSuccess }] = useUploadVideoMutation();
+    const navigate = useNavigate();
     const previewAmt: number = 4
     const { channel_id } = useParams();
-    const [visibility, setVisibility] = useState('public');
+    const [visibility, setVisibility] = useState('1');
 
     const [index, setIndex] = useState(0)
     const [previewIdx, setPreviewIdx] = useState(1)
     const [videoTime, setVideoTime] = useState(1);
     const [newVideo, setNewVideo] = useState<INF_VideoUpload>({
-      channel: Number(channel_id),
+      channel_id: Number(channel_id),
+      user_id: user.id,
       title: '',
       description: '',
       thumbnail: null,
@@ -117,15 +124,21 @@ const Upload = () => {
           className="input--radios form__inpt form__part flex flex--col gap--1">
 
           <Radios props={{ name: 'visibility', setter: setVisibility, radios: [
-            { value: 'public', title: 'Public', text: 'Your video is visible to everyone.' },
-            { value: 'private', title: 'Private', text: 'Your video is only visible to you.' },
-            { value: 'unlisted', title: 'Unlisted', text: 'Your video is only accessible by a link.' }
+            { value: '1', title: 'Public', text: 'Your video is visible to everyone.' },
+            { value: '2', title: 'Unlisted', text: 'Your video is only accessible by a link.' },
+            { value: '3', title: 'Private', text: 'Your video is only visible to you.' },
           ] }} />
           <ul id='visibility-input-help-list' className="part__help-list"></ul>
         </div>
         
-        <Button props={{ content: 'Publish', action: () => {
-          validateForm('form__inpt')
+        <Button props={{ content: 'Publish', action: async() => {
+          if(validateForm('form__inpt')) {
+            await uploadVideo({ videoData: constructFormData(newVideo), channel_id }).unwrap()
+              .then((res) => {
+                if(res.ok)
+                  navigate('/');
+              })
+          }
         }, modifiers: 'mt--1' }} />
       </>
     )

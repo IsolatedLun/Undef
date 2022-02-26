@@ -9,6 +9,7 @@ export interface UserState {
         id: number;
         username: string;
         profile: string;
+        channel_id: number;
     }
 }
 
@@ -22,7 +23,8 @@ const initialState: UserState = Object.freeze({
     user: {
         id: -1,
         username: '',
-        profile: ''
+        profile: '',
+        channel_id: -1
     }
 })
 

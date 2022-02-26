@@ -2,11 +2,21 @@ from django.db import models
 from users.models import cUser
 from channels.models import Channel
 
+video_choices = (
+
+)
+
 class Video(models.Model):
+    class Visibility(models.IntegerChoices):
+        PUBLIC = 1, 'Public'
+        UNLISTED = 2, 'Unlisted'
+        PRIVATE = 3, 'Private'
+    
     user = models.ForeignKey(cUser, on_delete=models.CASCADE)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=120)
-    descritpion = models.CharField(max_length=512, default='')
+    description = models.CharField(max_length=512, default='')
+    visibility = models.PositiveSmallIntegerField(choices=Visibility.choices, default=Visibility.PUBLIC)
 
     views = models.PositiveBigIntegerField(default=0)
     likes = models.PositiveBigIntegerField(default=0)

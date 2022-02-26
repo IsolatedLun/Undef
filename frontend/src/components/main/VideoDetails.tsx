@@ -13,7 +13,7 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
   ] }} />
 
   return(
-      <>
+      <section aria-label='Video details' className='video-details'>
         <div className="main-video__details">
         <p className="details__title">{ videoDetails.title }</p>
         <div className="details__options flex flex--center--between">
@@ -48,7 +48,11 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
             </div>
         </div>
 
-        <p className="details__desc">{ videoDetails.description }</p>
+        <br />
+      </div>
+
+      <div className="video__desc">
+      <p className="desc__text">{ videoDetails.description }</p>
       </div>
 
       <div className="user__details flex flex--center gap--1">
@@ -67,7 +71,7 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
           </div>
         </div>
       </div>
-      </>
+      </section>
   )
 };
 

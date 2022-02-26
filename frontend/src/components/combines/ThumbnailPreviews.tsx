@@ -1,27 +1,24 @@
 import React from 'react'
 import { useAutoState } from '../../hooks/useAutoState'
+import { dataUrlToFile } from '../funcs/utilFuncs';
 
 const ThumbnailPreview = ({ id, idx, setter, data, name }: 
         { id: string, idx: number, setter: Function, data: any, name: string }) => {
 
     const currId: string = 'thumbnail-preview-' + idx;
    
-    function setThumbnail(e: React.FormEvent<any>, setter: Function, data: any) {
-        const target = e.target as HTMLInputElement;
+    async function setThumbnail(e: React.FormEvent<any>, setter: Function, data: any) {
+        const imgEl = e.target as HTMLImageElement;
 
-        const imgFile: File = new File([target.src], 'any.png', {
-            type: 'image/png'
-        });
-
-       (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = target.src;
-       setter({ ...data, [target.getAttribute('data-name')!]: imgFile });
+       (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = imgEl.src;
+       setter({ ...data, [imgEl.getAttribute('data-name')!]: await dataUrlToFile(imgEl.src) });
        
     }
 
     return (
         <div onClick={(e) => useAutoState(e, setter, data, setThumbnail, [setter, data], true)}
             className="thumbnail__preview input--primary cust">
-            <img id={currId} src="" data-name={name}/>
+            <img id={currId} src="" data-name={name} />
         </div>
     )
 }

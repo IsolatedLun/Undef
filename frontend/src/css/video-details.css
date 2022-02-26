@@ -45,11 +45,15 @@
     transform-origin: left;
 }
 
-/* Video Comments */
-.main-video__details .details__desc {
-    padding: 0.45em;
+
+.video-details .video__desc {
+    padding: 0.75em 0.25em;
+    margin-inline: 1em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid var(--txt-muted);
 }
 
+/* Video Comments */
 .main-video__comments {
     margin-block: 1em;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BARS_ICO, SEARCH_ICO } from '../../consts';
 import { useAppDispatch } from '../../hooks/state';
 import { useAuth } from '../../hooks/useAuth';
@@ -10,11 +10,13 @@ import Input from '../modules/inputs/Input';
 import Profile from './Profile';
 
 const PrimaryNav = () => {
-  const user = useAuth();
+  const { user, isLogged } = useAuth();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const logoutCommence = () => {
-    dispatch(logout())
+    dispatch(logout());
+    window.location.href = '/'
   }
 
   return(
@@ -40,17 +42,17 @@ const PrimaryNav = () => {
           </div>
 
           <div className="nav__static">
-              { user.isLogged && (
+              { isLogged && (
                 <div className='flex flex--center gap--1'>
-                  <Profile props={{ url: user.user.profile, alt: user.user.username, 
-                    cls: 'nav__user-profile profile round skel', to: '/channels/' + user.user.id }} />
+                  <Profile props={{ url: user.profile, alt: user.username, 
+                    cls: 'nav__user-profile profile round skel', to: '/channels/' + user.channel_id }} />
                     
                   <Button props={{ content: 'Logout', action: () => logoutCommence(), 
                     modifiers: 'btn--hollow' }} />
                 </div>
               ) }
 
-              { !user.isLogged && (
+              { !isLogged && (
                 <div className='nav__btn-group flex gap--1'>
                   <Link className='button--primary' to='/auth/login'>Log In</Link>
                   <Link className='button--primary btn--hollow' to='/auth/sign-up'>Sign Up</Link>

@@ -33,7 +33,9 @@ const VideoTab = () => {
             
             <div>
               <h1 className='txt--center mb--1'>Watch Next</h1>
-              <Videos props={{ videos: nextVideos, filters: {'id': [Number(video_id), true]} }} />
+              <div className='flex flex--col gap--1'>
+                <Videos props={{ videos: nextVideos, filters: {'id': [Number(video_id), true]} }} />
+              </div>
             </div>
             <section className="other-videos flex flex--col gap--1">
               <VideoComments props={{ id: 'mobile-comments', comments: [] }} />
