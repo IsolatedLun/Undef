@@ -45,6 +45,11 @@ export function validateInput(input: HTMLInputElement) {
         }
     }
 
+    else if(realType === 'radios') {
+        const res = hasCheckedInput(input.querySelectorAll('input') as NodeListOf<HTMLInputElement>);
+        errors = handleValidator(res, errors);
+    }
+
     if(errors.length > 0)
         addHelpText(input, errors);
     else
@@ -87,6 +92,15 @@ function isValidFile(f: File, type: string) {
         return true
     else
         return `Invalid ${type}.`
+}
+
+function hasCheckedInput(inputs: NodeListOf<HTMLInputElement>): string | boolean {
+    for(let i= 0; i < inputs.length; i++) {
+        if(inputs[i].checked)
+            return true;
+    }
+
+    return 'Must select one of the choices above.';
 }
 
 // Helptext related

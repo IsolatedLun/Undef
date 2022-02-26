@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom'
 import { useAuth } from '../../../hooks/useAuth';
 import { useGetChannelQuery } from '../../../services/channelApi';
+import ProtectedRoute from '../../auth/ProtectedRoute';
 import Loader from '../../layouts/Loader';
 import Upload from '../../modules/forms/Upload';
 import { INF_Video } from '../../modules/Video';
@@ -43,7 +44,9 @@ const ChannelRouter = () => {
                 <Routes>
                     <Route path='' element={<ChannelVideos videos={channel.videos} />} />
                     <Route path='about' element={<ChannelAbout channel={channel.channel} />} />
-                    <Route path='upload' element={<Upload />} />
+                    
+                    <Route path='upload' 
+                        element={<ProtectedRoute redirectTo='/login' children={<Upload />} />} />
                 </Routes>
             </section>
         )

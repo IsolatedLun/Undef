@@ -7,6 +7,7 @@ import PrimaryNav from './components/layouts/PrimaryNav';
 import ChannelRouter from './components/main/channel/ChannelRouter';
 import Home from './components/main/Home';
 import VideoTab from './components/main/VideoTab';
+import PageNotFound from './components/modules/PageNotFound';
 import { useAuth } from './hooks/useAuth';
 import { useAuthenticateMutation } from './services/authApi';
 
@@ -32,6 +33,8 @@ function App() {
           <Route path='' element={<Home />} />
           <Route path='watch/:video_id' element={<VideoTab />} />
           <Route path='channels/:channel_id/*' element={<ChannelRouter />} />
+
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </div>
     </Router>
