@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { VideoData } from "../components/main/VideoTab";
+import { getAccess } from "../components/funcs/authFuncs";
+import { VideoData } from "../components/main/video/VideoTab";
 import { INF_Video } from "../components/modules/Video";
 import { API_URL } from "../consts";
 
@@ -24,8 +25,22 @@ export const VideoApi = createApi({
                 url: `/video/${video_id}`,
                 method: 'GET'
             })
+        }),
+
+        rateVideo: builder.mutation<Response, any>({
+            query: ({ video_id, type }) => ({
+                url: `/video/${video_id}/rate`,
+                method: 'POST',
+                body: {
+                    'type': type
+                },
+                headers: {
+                    'Authorization': `Bearer ${getAccess()}`
+                }
+            })
         })
+
     })
 })
 
-export const { useGetVideosQuery, useGetVideoQuery } = VideoApi;
+export const { useGetVideosQuery, useGetVideoQuery, useRateVideoMutation } = VideoApi;

@@ -39,6 +39,6 @@ class ChannelUpload(APIView):
             'video': req.data['video'],
             'thumbnail': req.data['thumbnail']
         }
-        print(req.data)
+
         new_video = Video.objects.create(**new_video_data)
-        return Response({'data': 'meow'}, OK)
+        return Response({'detail': 'Video uploaded'}, status=OK)

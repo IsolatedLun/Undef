@@ -1,16 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { API_URL, CLOCK_ICO, DISLIKE_ICO, ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../consts';
-import { positionTooltip } from '../funcs/accessibilityFuncs';
-import Button from '../modules/Button';
-import Contextmenu from '../modules/Contextmenu';
+import { API_URL, CLOCK_ICO, DISLIKE_ICO, 
+  ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../../consts';
+import { useRateVideoMutation } from '../../../services/videoApi';
+import { positionTooltip } from '../../funcs/accessibilityFuncs';
+import Button from '../../modules/Button';
+import Contextmenu from '../../modules/Contextmenu';
 import { VideoData } from './VideoTab';
 
 const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
+  const [rateSong, {  }] = useRateVideoMutation();
 
   const videoOptionsMenu = <Contextmenu props={{ id: 'options-menu', options: [
-    { action: () => null, icon: FLAG_ICO, text: 'esh' },
+    { action: () => null, icon: CLOCK_ICO, text: 'Add to watch later' },
+    { action: () => null, icon: FLAG_ICO, text: 'Report' },
   ] }} />
+
+  function rateSongWrapper(type: string) {
+    rateSong({ video_id: videoDetails.id, type: type }).unwrap()
+      .then(res => console.log(res))
+  }
 
   return(
       <section aria-label='Video details' className='video-details'>
@@ -28,10 +37,10 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
                 <Button props={{ content: CLOCK_ICO, action: () => null,
                         tooltip: 'Add to watch later' }} />
 
-                <Button props={{ content: LIKE_ICO, action: () => null,
+                <Button props={{ content: LIKE_ICO, action: () => rateSongWrapper('like'),
                     tooltip: 'Like', extraAfter: videoDetails.likes}} />
                 
-                <Button props={{ content: DISLIKE_ICO, action: () => null,
+                <Button props={{ content: DISLIKE_ICO, action: () => rateSongWrapper('dislike'),
                         tooltip: 'Dislike', extraAfter: videoDetails.dislikes }} />
 
                 <Button props={{ content: ELLIPSE_V_ICO, action: () => null,
@@ -48,7 +57,7 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
             </div>
         </div>
 
-        <br />
+        <br></br>
       </div>
 
       <div className="video__desc">

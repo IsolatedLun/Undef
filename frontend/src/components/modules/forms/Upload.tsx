@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useAuth } from "../../../hooks/useAuth"
 import { useAutoState } from "../../../hooks/useAutoState"
@@ -49,6 +49,11 @@ const Upload = () => {
       {idx: 1, text: 'Video'},
       {idx: 2, text: 'Publish'},
     ]
+
+    useEffect(() => {
+      if(isSuccess)
+        navigate('/')
+    }, [isSuccess])
 
     const videoUpload = (
         <>
@@ -131,13 +136,9 @@ const Upload = () => {
           <ul id='visibility-input-help-list' className="part__help-list"></ul>
         </div>
         
-        <Button props={{ content: 'Publish', action: async() => {
+        <Button props={{ content: 'Publish', action: () => {
           if(validateForm('form__inpt')) {
-            await uploadVideo({ videoData: constructFormData(newVideo), channel_id }).unwrap()
-              .then((res) => {
-                if(res.ok)
-                  navigate('/');
-              })
+            uploadVideo({ videoData: constructFormData(newVideo), channel_id })
           }
         }, modifiers: 'mt--1' }} />
       </>

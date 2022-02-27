@@ -6,7 +6,7 @@ import { refreshTokens } from './components/funcs/authFuncs';
 import PrimaryNav from './components/layouts/PrimaryNav';
 import ChannelRouter from './components/main/channel/ChannelRouter';
 import Home from './components/main/Home';
-import VideoTab from './components/main/VideoTab';
+import VideoTab from './components/main/video/VideoTab';
 import PageNotFound from './components/modules/PageNotFound';
 import { useAuth } from './hooks/useAuth';
 import { useAuthenticateMutation } from './services/authApi';

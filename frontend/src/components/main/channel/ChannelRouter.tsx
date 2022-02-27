@@ -46,7 +46,9 @@ const ChannelRouter = () => {
                     <Route path='about' element={<ChannelAbout channel={channel.channel} />} />
                     
                     <Route path='upload' 
-                        element={<ProtectedRoute redirectTo='/auth/login' children={<Upload />} />} />
+                        element={<ProtectedRoute redirectTo='/auth/login'
+                            condition={user.user.channel_id === Number(channel_id)}
+                            children={<Upload />} />} />
                 </Routes>
             </section>
         )

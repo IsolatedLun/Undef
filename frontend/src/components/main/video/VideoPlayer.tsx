@@ -1,8 +1,9 @@
 import React, { createRef, useEffect, useState } from 'react';
-import { API_URL, FULLSCREEN_ICO, SETTINGS_ICO, VOLUME_ICO } from '../../consts';
-import { calculateDuration, changeTime, changeVolume, toggleVideo, updateVideoData } from '../funcs/videoPlayerFuncs';
-import Button from '../modules/Button';
-import Input from '../modules/inputs/Input';
+import { API_URL, FULLSCREEN_ICO, SETTINGS_ICO, VOLUME_ICO } from '../../../consts';
+import { calculateDuration, changeTime, changeVolume, 
+  toggleVideo, updateVideoData } from '../../funcs/videoPlayerFuncs';
+import Button from '../../modules/Button';
+import Input from '../../modules/inputs/Input';
 
 interface VideoData {
   videoUrl: string;

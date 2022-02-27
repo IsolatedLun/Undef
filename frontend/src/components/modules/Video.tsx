@@ -48,8 +48,8 @@ const Video = ({ props } : { props : INF_Video }) => {
                     <p>{ props.created_at } ago</p>
                 </div>
 
-                <Button props={{ content: ELLIPSE_V_ICO, action: () => null, default: true,
-                    id: 'home-video-options', tooltip: 'Options', isIcon: true }} />
+                <Button props={{ content: ELLIPSE_V_ICO, action: () => null,
+                    id: 'home-video-options', tooltip: 'Options' }} />
             </div>
         </div>
     </div>

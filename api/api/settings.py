@@ -31,8 +31,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'rest_framework_simplejwt',
+    'optimized_image',
 
     'users',
     'videos',
@@ -53,6 +55,7 @@ SIMPLE_JWT = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+OPTIMIZED_IMAGE_METHOD = 'pillow'
 
 SITE_ID = 2
 

@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useGetVideoQuery, useGetVideosQuery } from '../../services/videoApi';
-import VideoComments from '../combines/VideoComments';import Videos from '../combines/Videos';
-import Loader from '../layouts/Loader';
-import { INF_Video } from '../modules/Video';
+import { useGetVideoQuery, useGetVideosQuery } from '../../../services/videoApi';
+import VideoComments from '../../combines/VideoComments';import Videos from '../../combines/Videos';
+import Loader from '../../layouts/Loader';
+import { INF_Video } from '../../modules/Video';
 ;
 import VideoDetails from './VideoDetails';
 import VideoPlayer from './VideoPlayer';

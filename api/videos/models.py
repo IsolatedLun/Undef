@@ -19,8 +19,8 @@ class Video(models.Model):
     visibility = models.PositiveSmallIntegerField(choices=Visibility.choices, default=Visibility.PUBLIC)
 
     views = models.PositiveBigIntegerField(default=0)
-    likes = models.PositiveBigIntegerField(default=0)
-    dislikes = models.PositiveBigIntegerField(default=0)
+    likes = models.BigIntegerField(default=0)
+    dislikes = models.BigIntegerField(default=0)
 
     thumbnail = models.ImageField(upload_to='videos/thumbnails/')
     video = models.FileField(upload_to='videos/files/')
@@ -62,3 +62,8 @@ class Video(models.Model):
         self.thumbnail.storage.delete(self.thumbnail.path)
         self.video.storage.delete(self.video.path)
         super().delete()
+
+class RatedVideo(models.Model):
+    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    rate_type = models.CharField(max_length=16, default='')

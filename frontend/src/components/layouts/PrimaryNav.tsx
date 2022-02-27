@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BARS_ICO, SEARCH_ICO } from '../../consts';
 import { useAppDispatch } from '../../hooks/state';
@@ -13,6 +13,8 @@ const PrimaryNav = () => {
   const { user, isLogged } = useAuth();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const [search, setSearch] = useState('');
 
   const logoutCommence = () => {
     dispatch(logout());
@@ -30,12 +32,14 @@ const PrimaryNav = () => {
 
           <div className='nav__search-part flex flex--center--gap--1 flex--g--1 m--inl--1'>
             <div className="search-inpt__container">
-              <Input props={{ setter: () => null, data: '', type: 'text',
-                placeholder: 'Search', id: 'nav-search', name: 'search', realType: 'string' }} />
+              <Input props={{ setter: setSearch, data: search, type: 'text',
+                placeholder: 'Search', id: 'nav-search', name: 'search', realType: 'oneWord' }} />
 
-              <ul className="search__results">
-                <Link className='search__result text--elliptic' to='/search?s=esh'>minecraft</Link>
-              </ul>
+              { search.length > 0 && (
+                <ul className="search__results">
+                  <Link className='search__result text--elliptic' to='/search?s='></Link>
+                </ul>
+              ) }
             </div>
 
             <Button props={{ content: SEARCH_ICO, action: () => null, tooltip: 'Search' }} />

@@ -8,13 +8,18 @@
     z-index: 999999;
 }
 
+.context-menu:focus {
+    outline: 0;
+}
+
 .context-menu-container:is(:hover, :focus, :focus-within) > .context-menu {
     visibility: visible;
 }
 
 .context-menu .menu__option {
-    font-size: var(--fs-400);
+    font-size: calc(var(--fs-400) * 0.8);
     padding: 0.5em;
+    white-space: nowrap;
 }
 
 .context-menu .menu__option:is(:hover) {

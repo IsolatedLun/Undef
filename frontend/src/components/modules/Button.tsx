@@ -5,6 +5,7 @@ interface ButtonProps {
     id?: string;
     content: string;
     action: Function; // Execute function on click
+    passEvent?: boolean;
 
     params?: any | object;
     isIcon?: boolean;
@@ -33,24 +34,34 @@ function isUnicode(str: string) {
 const Button = ({ props } : { props: ButtonProps }) => {
     if(isUnicode(props.content))
       props.isIcon = true
-
     else
       props.isIcon = false;
 
     if(props.cls === undefined) {
-      props.cls = props.isIcon ? `button--icon ${props.modifiers}` : `button--primary ${props.modifiers}`;
+      props.cls = props.isIcon 
+        ? `button--icon ${props.modifiers}` 
+        : `button--primary ${props.modifiers}`;
     }
 
     if(props.contextMenu !== undefined) {
-      props.action = focusContextMenu
+      props.action = focusContextMenu;
     }
 
     if(props.params === undefined)
-      props.params = []
+      props.params = [];
+    if(props.passEvent === undefined)
+      props.passEvent = true;
 
   return(
       <button
-        onClick={(e) => { e.preventDefault(); props.action(...props.params) }}
+        onClick={(e) => { 
+          e.preventDefault(); 
+
+          if(props.passEvent)
+            props.action(e, ...props.params)
+          else
+            props.action(...props.params)  
+        }}
 
         id={props.id}
 

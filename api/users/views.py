@@ -7,9 +7,15 @@ from . import serializers
 from channels.models import Channel
 from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
+from jwt import decode
+from django.conf import settings
 
 OK = status.HTTP_200_OK
 ERR = status.HTTP_400_BAD_REQUEST
+
+def decode_user_id(request_header):
+    token = request_header['Authorization'].split(' ')[1]
+    return decode(jwt=str(token), key=settings.SECRET_KEY, algorithms=['HS256'])['user_id']
 
 class Register(APIView):
     permission_classes = [AllowAny]
@@ -35,30 +41,29 @@ class JWTLogin(APIView):
     permission_classes = [AllowAny]
 
     def post(self, req):
-        user = cUser.objects.get(email_address=req.data['email_address'])
-        refresh = RefreshToken.for_user(user)
-        
+        try:
+            user = cUser.objects.get(email_address=req.data['email_address'])
+            refresh = RefreshToken.for_user(user)
+            
 
-        return Response({
-            'tokens': {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            },
-            'user': serializers.cUserChannelSerializer(user).data
-        }, OK)
+            return Response({
+                'tokens': {
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                },
+                'user': serializers.cUserChannelSerializer(user).data
+            }, OK)
+        except:
+            return Response({ 'detail': 'Invalid email or password' }, ERR)
 
 class JWTCredentials(APIView):
     permission_classes = [AllowAny]
     
     def get(self, req):
-        from jwt import decode
-        from django.conf import settings
+        id = decode_user_id(req.headers)
 
         try:
-            token = req.headers['Authorization'].split(' ')[1]
-            payload = decode(jwt=str(token), key=settings.SECRET_KEY, algorithms=['HS256'])
-
-            user = serializers.cUserSerializer(cUser.objects.get(id=payload['user_id'])).data
+            user = serializers.cUserSerializer(cUser.objects.get(id=id)).data
             return Response({'data': user}, OK)
         except ExpiredSignatureError:
             return Response({'detail': 'expired'}, ERR)
