@@ -17,6 +17,7 @@ export function generateThumbnail(videoEl: HTMLVideoElement, t: number= 0) {
     const thumbnailUrl = canvas.toDataURL('image/png', 1);
 
     const imgEl = document.getElementById('thumbnail-preview-' + t) as HTMLImageElement;
+    (document.getElementById(imgEl.id + '-loader') as HTMLDivElement).style.display = 'none';
     imgEl.src = thumbnailUrl;
 }
 
@@ -36,5 +37,6 @@ export function resetThumbnails(t: number) {
     for(let i= 1; i < t + 1; i++) {
         const imgEl = document.getElementById('thumbnail-preview-' + i) as HTMLImageElement;
         imgEl.src = '';
+        (document.getElementById(imgEl.id + '-loader') as HTMLDivElement).style.display = 'block';
     }
 }

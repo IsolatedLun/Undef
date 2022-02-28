@@ -20,9 +20,14 @@
 }
 
 .upload--form .thumbnail__preview {
+    position: relative;
     width: 244px;
     aspect-ratio: 16 / 9;
     padding: 0;
+}
+
+.upload--form .thumbnail__preview > .primary-loader {
+    display: none;
 }
 
 .upload--form .input--radio > *{

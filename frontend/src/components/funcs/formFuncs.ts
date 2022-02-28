@@ -138,7 +138,7 @@ function handleValidator(res: any, errors: string[]) {
 }
 
 export function constructFormData(obj: object): FormData | null {
-    if(obj instanceof Object) {
+    if(typeof(obj) === 'object') {
         let formData = new FormData();
 
         Object.entries(obj).forEach(tup => {

@@ -20,7 +20,7 @@ export interface INF_Channel {
     id: number;
     banner: string;
     channel_description: string;
-    business_email: string;
+    channel_details: string;
     total_views: number;
     created_at: string;
     

@@ -14,7 +14,7 @@ const ChannelAbout = ({ channel } : { channel: INF_Channel }) => {
                     <p className="txt--muted upper btn--muted">Business email</p>
                 </div>
                 <div>
-                    <p>{ channel.business_email }</p>
+                    <p>esh</p>
                 </div>
             </div>
         </div>

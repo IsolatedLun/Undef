@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { useRegisterMutation } from '../../services/authApi';
 import MultiForm from '../combines/MultiForm'
 import { constructFormData, validateForm } from '../funcs/formFuncs';
 import Button from '../modules/Button';
 import Form from '../modules/Form';
-import FormCompletion, { INF_FomrCompletion } from '../modules/FormCompletion'
-import InputPart, { INF_InputPart } from '../modules/inputs/InputPart';
+import FormCompletion, { INF_FomrCompletion } from '../modules/FormCompletion';
+import InputPart, { } from '../modules/inputs/InputPart';
 
 export interface NewUser {
   username: string;
   email_address: string;
+  channel_details: object;
   password: string;
   banner: File | null;
   profile: File | null;
@@ -19,9 +20,11 @@ const SignUp = () => {
   const [register, { isSuccess }] = useRegisterMutation()
   const [index, setIndex] = useState<number>(0);
 
+  const [channelDetails, setChannelDetails] = useState<object>({});
   const [newUser, setNewUser] = useState<NewUser>({
     username: '',
     email_address: '',
+    channel_details: {},
     password: '',
     banner: null,
     profile: null,
@@ -31,10 +34,11 @@ const SignUp = () => {
     [ { text: 'Registration', idx: 1 }, 
       { text: 'Channel', idx: 2 },
       { text: 'Profile', idx: 3 },
+      { text: 'Misc', idx: 4 },
     ]
   
-    const registerElements: JSX.Element[] = 
-      [
+  const registerElements: JSX.Element[] = 
+    [
       <InputPart props={{id: 'email', label: 'Email Address', setter: setNewUser, data: newUser,
           inputData: {name: 'email_address', type: 'email', realType: 'email'}}} />,
 
@@ -44,15 +48,11 @@ const SignUp = () => {
       <InputPart props={{id: 'username', label: 'Username', setter: setNewUser, data: newUser,
           inputData: {name: 'username', type: 'text', realType: 'string'}}} />,
 
-      <InputPart props={{id: 'business_email', label: 'Business Email Address', 
-          setter: setNewUser, data: newUser, inputData: 
-          {name: 'business_email', type: 'email', realType: 'email', isOptional: true}}} />,
-
       <Button props={{ content: 'Next', action: () => setIndex(index + 1), modifiers: 'w--100' }} />,
-      ]
+    ]
 
-    const channelElements: JSX.Element[] = 
-      [
+  const channelElements: JSX.Element[] = 
+    [
       <InputPart props={{id: 'channel-banner', label: 'Channel Banner', setter: setNewUser, data: newUser,
           inputData: {name: 'banner', type: 'file', realType: 'image', placeholder: 'Upload Banner'}}} />,
 
@@ -60,25 +60,40 @@ const SignUp = () => {
       inputData: {name: 'channel_description', type: 'textarea', realType: 'string'}}} />,
 
       <Button props={{ content: 'Next', action: () => setIndex(index + 1), modifiers: 'w--100' }} />,
-      ]
+    ]
 
-    const profileElements: JSX.Element[] = 
-        [
+  const profileElements: JSX.Element[] = 
+      [
         <InputPart props={{id: 'profile', label: 'Profile', setter: setNewUser, data: newUser,
             inputData: {name: 'profile', type: 'file', realType: 'image', 
-            placeholder: 'Upload Profile', labelCls: 'cust label--profile mi-inline'}}} />,
+            placeholder: 'Upload Profile', labelCls: 'cust label--profile mi--inline'}}} />,
 
-        <Button props={{ content: 'Create Account', action: async() => {
-          if(validateForm('form__inpt', null))
-            await register(constructFormData(newUser)!).then(req => console.log(req))
-        }, modifiers: 'w--100' }} />,
-        ]
+        <Button props={{ content: 'Next', action: () => setIndex(index + 1), modifiers: 'w--100' }} />,
+      ]
+
+  const miscElements: JSX.Element[] = 
+    [
+      <InputPart props={{id: 'business_email', label: 'Business Email Address', 
+          setter: setChannelDetails, data: channelDetails, inputData: 
+          {name: 'business_email', type: 'email', realType: 'email', isOptional: true}}} />,
+
+      <InputPart props={{id: 'channel_website', label: 'Your website', 
+        setter: setChannelDetails, data: channelDetails, inputData: 
+        {name: 'channel_website', type: 'text', realType: 'string', isOptional: true}}} />,
+
+      <Button props={{ content: 'Create Account', action: async() => {
+        let newUserData = constructFormData(newUser)!;
+        newUserData?.append('channel_details', JSON.stringify(channelDetails)
+
+        if(validateForm('form__inpt', null))
+          await register(newUserData).then(req => console.log(req))
+      }, modifiers: 'w--100' }} />,
+    ]
 
     const registerForm = <Form props={{ id: '0', children: registerElements }} key={0} />
-
     const channelForm = <Form props={{ id: '1', children: channelElements }} key={1} />
-
     const profileForm = <Form props={{ id: '2', children: profileElements }} key={2} />
+    const miscForm = <Form props={{ id: '3', children: miscElements }} key={3} />
 
   return (
     <form className="form--container form__container">
@@ -86,7 +101,7 @@ const SignUp = () => {
         <FormCompletion currIdx={index}
           completions={completions} />
 
-        <MultiForm forms={[registerForm, channelForm, profileForm]} index={index} indexFunc={setIndex} />
+        <MultiForm forms={[registerForm, channelForm, profileForm, miscForm]} index={index} indexFunc={setIndex} />
     </form>
   )
 }

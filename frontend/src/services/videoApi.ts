@@ -23,11 +23,14 @@ export const VideoApi = createApi({
         getVideo: builder.query<VideoData, number>({
             query: (video_id) => ({
                 url: `/video/${video_id}`,
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${getAccess()}`
+                }
             })
         }),
 
-        rateVideo: builder.mutation<Response, any>({
+        rateVideo: builder.mutation<any, any>({
             query: ({ video_id, type }) => ({
                 url: `/video/${video_id}/rate`,
                 method: 'POST',

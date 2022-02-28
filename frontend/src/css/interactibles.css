@@ -28,7 +28,7 @@
     color: var(--txt-muted);
 }
 
-.button--icon:is(:hover) {
+.button--icon:is(:hover, .active) {
     color: var(--txt-primary);
 }
 
@@ -99,6 +99,7 @@
 .input--label::after {
     content: attr(data-label);
     position: absolute;
+    font-size: calc(var(--fs-400) * 0.85);
     font-weight: bold;
     white-space: nowrap;
     top: 50%;

@@ -23,7 +23,8 @@ class Register(APIView):
     def post(self, req):
         user_data = {'email_address': req.data['email_address'], 'username': req.data['username'],
             'password': make_password(req.data['password']), 'profile': req.data['profile']}
-        channel_data = {'banner': req.data['banner'], 'channel_description': req.data['channel_description']}
+        channel_data = {'banner': req.data['banner'], 'channel_description': req.data['channel_description'],
+        'channel_details': req.data['channel_details']}
 
         try:
             user, created = cUser.objects.get_or_create(**user_data)

@@ -13,6 +13,7 @@ export interface VideoData extends INF_Video {
   dislikes: number;
   subscribers: number;
   ratio: number;
+  rate_type: string;
 }
 
 const VideoTab = () => {

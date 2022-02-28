@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { API_URL, CLOCK_ICO, DISLIKE_ICO, 
   ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../../consts';
@@ -8,7 +8,21 @@ import Button from '../../modules/Button';
 import Contextmenu from '../../modules/Contextmenu';
 import { VideoData } from './VideoTab';
 
+interface RateSongResponse {
+  data: {
+    rate_type: string;
+    likes: number;
+    dislikes: number;
+  }
+}
+
 const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
+  const [rateType, setRateType] = useState(videoDetails.rate_type);
+  const [rating, setRating] = useState({
+    likes: videoDetails.likes,
+    dislikes: videoDetails.dislikes
+  })
+
   const [rateSong, {  }] = useRateVideoMutation();
 
   const videoOptionsMenu = <Contextmenu props={{ id: 'options-menu', options: [
@@ -18,7 +32,10 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
 
   function rateSongWrapper(type: string) {
     rateSong({ video_id: videoDetails.id, type: type }).unwrap()
-      .then(res => console.log(res))
+      .then((res: RateSongResponse) => {
+        setRateType(res.data.rate_type)
+        setRating({ likes: res.data.likes, dislikes: res.data.dislikes })
+      })
   }
 
   return(
@@ -38,10 +55,12 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
                         tooltip: 'Add to watch later' }} />
 
                 <Button props={{ content: LIKE_ICO, action: () => rateSongWrapper('like'),
-                    tooltip: 'Like', extraAfter: videoDetails.likes}} />
+                    tooltip: 'Like', extraAfter: rating.likes, 
+                    modifiers: rateType === 'like' ? 'active' : ''}} />
                 
                 <Button props={{ content: DISLIKE_ICO, action: () => rateSongWrapper('dislike'),
-                        tooltip: 'Dislike', extraAfter: videoDetails.dislikes }} />
+                        tooltip: 'Dislike', extraAfter: rating.dislikes,
+                        modifiers: rateType === 'dislike' ? 'active' : '' }} />
 
                 <Button props={{ content: ELLIPSE_V_ICO, action: () => null,
                   contextMenu: videoOptionsMenu }} />

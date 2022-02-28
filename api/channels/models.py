@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from users.models import cUser
 from users.serializers import cUserChannelSerializer
@@ -7,7 +8,7 @@ class Channel(models.Model):
     banner = models.ImageField(upload_to='channels/banners/')
 
     channel_description = models.CharField(max_length=1028)
-    business_email = models.EmailField(max_length=128)
+    channel_details = models.JSONField(default=dict)
 
     total_views = models.PositiveBigIntegerField(default=0);
 

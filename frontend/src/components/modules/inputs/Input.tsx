@@ -24,6 +24,7 @@ export interface INF_Input {
 export interface InputState {
   setter?: Function;
   data?: any;
+  nested?: string // key
 }
 
 export interface INF_Input_State extends InputState, INF_Input {}

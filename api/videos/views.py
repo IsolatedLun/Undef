@@ -4,6 +4,7 @@ from rest_framework.views import APIView, Response
 from rest_framework import status
 
 from users.views import decode_user_id
+from users.models import cUser
 from . import models
 from . import serializers
 
@@ -19,10 +20,20 @@ class VideoPreview(APIView):
 
 class Video(APIView):
     def get(self, req, video_id):
+        user_id = None
+        if req.headers.get('Authorization', False):
+            user_id = decode_user_id(req.headers)
+
         video = models.Video.objects.get(id=video_id)
         video.increment_views()
         
         serializer = serializers.VideoSerializer(video).data
+
+        if user_id is not None:
+            rated_video = models.RatedVideo.objects.get_or_create(video_id=video.id, user_id=user_id)[0]
+            serializer['rate_type'] = rated_video.rate_type
+        else:
+            serializer['rate_type'] = ''
 
         return Response(serializer, OK)
 
@@ -39,7 +50,7 @@ class RateVideo(APIView):
 
             rated_video.save()
             video.save()
-            return Response({'data': 'dislike'}, OK)
+            return 'dislike'
 
         def like(rated_video, video):
             if rated_video.rate_type == 'dislike':
@@ -50,7 +61,7 @@ class RateVideo(APIView):
             
             rated_video.save()
             video.save()
-            return Response({'data': 'like'}, OK)
+            return 'like'
 
         def unrate(rated_video, video, rate_type):
             if rate_type == 'dislike':
@@ -62,7 +73,8 @@ class RateVideo(APIView):
 
             rated_video.save()
             video.save()
-            return Response({'data': 'un' + rate_type}, OK)
+            
+            return 'un' + rate_type
 
         user = models.cUser.objects.get(id=decode_user_id(req.headers))        
         video = models.Video.objects.get(id=video_id)
@@ -70,8 +82,16 @@ class RateVideo(APIView):
         rate_type = req.data['type']
 
         if rate_type == rated_video.rate_type:
-            return unrate(rated_video, video, rate_type)
+            curr_type = unrate(rated_video, video, rate_type)
         elif rate_type == 'like':
-            return like(rated_video, video)
+            curr_type = like(rated_video, video)
         elif rate_type == 'dislike':
-            return dislike(rated_video, video)
+            curr_type = dislike(rated_video, video)
+
+        data = {
+                'rate_type': curr_type,
+                'likes': video.likes,
+                'dislikes': video.dislikes
+            }
+
+        return Response({'data': data}, OK)

@@ -40,7 +40,7 @@ class Video(models.Model):
 
     def calculate_ratio(self):
         try:
-            return ((self.likes - self.dislikes) / (self.likes + self.dislikes)).__round__(2)
+            return (self.likes  / (self.likes + self.dislikes)).__round__(2)
         except:
             return 0
 

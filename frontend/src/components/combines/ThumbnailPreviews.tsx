@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAutoState } from '../../hooks/useAutoState'
 import { dataUrlToFile } from '../funcs/utilFuncs';
+import Loader from '../layouts/Loader';
 
 const ThumbnailPreview = ({ id, idx, setter, data, name }: 
         { id: string, idx: number, setter: Function, data: any, name: string }) => {
@@ -12,13 +13,13 @@ const ThumbnailPreview = ({ id, idx, setter, data, name }:
 
        (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = imgEl.src;
        setter({ ...data, [imgEl.getAttribute('data-name')!]: await dataUrlToFile(imgEl.src) });
-       
     }
 
     return (
         <div onClick={(e) => useAutoState(e, setter, data, setThumbnail, [setter, data], true)}
-            className="thumbnail__preview input--primary cust">
+            className="thumbnail__preview input--primary cust pos--relative">
             <img id={currId} src="" data-name={name} />
+            <Loader id={currId + '-loader'} />
         </div>
     )
 }
