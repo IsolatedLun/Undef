@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { ExtraResponse } from "../components/funcs/utilFuncs";
 import { ChannelData } from "../components/main/channel/ChannelRouter";
 import { INF_Video } from "../components/modules/Video";
 import { API_URL } from "../consts";
@@ -26,7 +27,7 @@ export const ChannelApi = createApi({
             })
         }),
 
-        uploadVideo: builder.mutation<Response, any>({
+        uploadVideo: builder.mutation<ExtraResponse, any>({
             query: ({ videoData, channel_id }) => ({
                 url: `/channel/${channel_id}/upload`,
                 method: 'POST',

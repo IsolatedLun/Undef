@@ -7,7 +7,7 @@ import MultiForm from "../../combines/MultiForm"
 import Radios from "../../combines/Radios"
 import ThumbnailPreviews from "../../combines/ThumbnailPreviews"
 import { constructFormData, validateForm } from "../../funcs/formFuncs"
-import { generateThumbnail, previewImage, resetThumbnails } from "../../funcs/utilFuncs"
+import { generateThumbnail, handleResponse, previewImage, resetThumbnails } from "../../funcs/utilFuncs"
 import Button from "../Button"
 import Form from "../Form"
 import FormCompletion, { INF_FomrCompletion } from "../FormCompletion"
@@ -139,6 +139,9 @@ const Upload = () => {
         <Button props={{ content: 'Publish', action: () => {
           if(validateForm('form__inpt')) {
             uploadVideo({ videoData: constructFormData(newVideo), channel_id })
+              .unwrap()
+              .then(res => handleResponse(res, { navigate: navigate, redirectTo: `/channels/${channel_id}` }))
+              .catch(res => handleResponse(res))
           }
         }, modifiers: 'mt--1' }} />
       </>

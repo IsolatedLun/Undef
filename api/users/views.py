@@ -69,7 +69,7 @@ class JWTLogin(APIView):
             }, OK)
         except Exception as e:
             print(e)
-            return Response({ 'detail': 'Invalid email or password' }, ERR)
+            return Response({ 'detail': 'Invalid email or password.' }, ERR)
 
 class JWTCredentials(APIView):
     permission_classes = [AllowAny]

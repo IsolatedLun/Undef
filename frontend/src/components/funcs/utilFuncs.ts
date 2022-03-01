@@ -1,4 +1,4 @@
-import { saveAs } from "file-saver";
+import { popup } from './popupFuncs'
 
 export function toggleElement(e: Event | null, el: HTMLElement): void {
     el.classList.toggle('active')
@@ -53,7 +53,7 @@ export interface ExtraResponse extends Response {
 }
 export function handleResponse(res: ExtraResponse, actions?: ResponseActions) {
     if(res.status >= 400)
-        alert(res.data.detail)
+        popup(res.data.detail, 'Error');
     else if(actions !== undefined && actions.navigate !== undefined && actions.redirectTo !== undefined)
-        actions.navigate(actions.redirectTo)
+        actions.navigate(actions.redirectTo);
 }

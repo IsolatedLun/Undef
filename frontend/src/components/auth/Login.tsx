@@ -27,7 +27,8 @@ const Login = () => {
             inputData: {name: 'password', type: 'password', realType: 'password'}}} />,
 
         <Button props={{ content: 'Login', action: async() => {
-           await login(loginUser).unwrap()
+           await login(loginUser)
+            .unwrap()
             .then(res => handleResponse(res, { redirectTo: '/', navigate: navigate }))
             .catch(res => handleResponse(res))
         }, modifiers: 'w--100' }} />

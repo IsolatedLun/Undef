@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 import { refreshTokens } from './components/funcs/authFuncs';
+import Popup from './components/layouts/Popup';
 import PrimaryNav from './components/layouts/PrimaryNav';
 import ChannelRouter from './components/main/channel/ChannelRouter';
 import Home from './components/main/Home';
@@ -36,6 +37,8 @@ function App() {
 
           <Route path='*' element={<PageNotFound />} />
         </Routes>
+
+        <Popup />
       </div>
     </Router>
   )
