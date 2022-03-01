@@ -40,3 +40,20 @@ export function resetThumbnails(t: number) {
         (document.getElementById(imgEl.id + '-loader') as HTMLDivElement).style.display = 'block';
     }
 }
+
+interface ResponseActions {
+    navigate?: Function;
+    redirectTo?: string;
+}
+
+export interface ExtraResponse extends Response {
+    data: {
+        detail: string;
+    }
+}
+export function handleResponse(res: ExtraResponse, actions?: ResponseActions) {
+    if(res.status >= 400)
+        alert(res.data.detail)
+    else if(actions !== undefined && actions.navigate !== undefined && actions.redirectTo !== undefined)
+        actions.navigate(actions.redirectTo)
+}

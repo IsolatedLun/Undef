@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from jwt import ExpiredSignatureError
 from rest_framework.views import APIView, Response
 from rest_framework.permissions import AllowAny
@@ -5,7 +6,7 @@ from rest_framework import status
 from .models import cUser
 from . import serializers
 from channels.models import Channel
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from jwt import decode
 from django.conf import settings
@@ -16,6 +17,13 @@ ERR = status.HTTP_400_BAD_REQUEST
 def decode_user_id(request_header):
     token = request_header['Authorization'].split(' ')[1]
     return decode(jwt=str(token), key=settings.SECRET_KEY, algorithms=['HS256'])['user_id']
+
+def clean_integrity_error(err):
+    def prettify(s):
+        return ' '.join([x.capitalize() for x in s.split('_')])
+
+    err = str(err)
+    return prettify(err.split('.')[1])
 
 class Register(APIView):
     permission_classes = [AllowAny]
@@ -35,8 +43,9 @@ class Register(APIView):
                 raise Exception('User already exists')
 
             return Response({'detail': 'user and channel created'}, OK)
-        except Exception as e:
-            return Response({'detail': str(e)}, ERR)
+        except IntegrityError as e:
+            return Response({'detail': 
+                f'An account with the same \'{clean_integrity_error(e)}\' already exists.'}, ERR)
 
 class JWTLogin(APIView):
     permission_classes = [AllowAny]
@@ -44,6 +53,10 @@ class JWTLogin(APIView):
     def post(self, req):
         try:
             user = cUser.objects.get(email_address=req.data['email_address'])
+            
+            if not check_password(req.data['password'], user.password):
+                raise Exception()
+
             refresh = RefreshToken.for_user(user)
             
 
@@ -54,7 +67,8 @@ class JWTLogin(APIView):
                 },
                 'user': serializers.cUserChannelSerializer(user).data
             }, OK)
-        except:
+        except Exception as e:
+            print(e)
             return Response({ 'detail': 'Invalid email or password' }, ERR)
 
 class JWTCredentials(APIView):

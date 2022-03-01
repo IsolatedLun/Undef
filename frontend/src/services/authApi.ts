@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { LoginUser } from "../components/auth/Login";
 import { NewUser } from "../components/auth/SignUp";
 import { JWT_Tokens } from "../components/funcs/authFuncs";
+import { ExtraResponse } from "../components/funcs/utilFuncs";
 import { API_URL } from "../consts";
 import { LoginResponse } from "../slices/auth-slice";
 
@@ -14,7 +15,7 @@ export const AuthApi = createApi({
         }
     }),
     endpoints: (builder) => ({
-        register: builder.mutation<void, FormData>({
+        register: builder.mutation<ExtraResponse, FormData>({
             query: (registerData) => ({
                 url: '/register',
                 method: 'POST',

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useLoginMutation } from "../../services/authApi"
+import { handleResponse } from "../funcs/utilFuncs"
 import Button from "../modules/Button"
 import Form from "../modules/Form"
 import InputPart from "../modules/inputs/InputPart"
@@ -11,7 +12,7 @@ export interface LoginUser {
 }
 
 const Login = () => {
-    const [login] = useLoginMutation();
+    const [login, { error }] = useLoginMutation();
     const navigate = useNavigate();
     const [loginUser, setLoginUser] = useState<LoginUser>({
         email_address: '',
@@ -27,7 +28,8 @@ const Login = () => {
 
         <Button props={{ content: 'Login', action: async() => {
            await login(loginUser).unwrap()
-            .then(res => navigate('/'))
+            .then(res => handleResponse(res, { redirectTo: '/', navigate: navigate }))
+            .catch(res => handleResponse(res))
         }, modifiers: 'w--100' }} />
     ]
 

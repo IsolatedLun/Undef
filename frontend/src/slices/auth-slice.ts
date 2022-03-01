@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { JWT_Tokens, refreshTokens, updateTokens } from "../components/funcs/authFuncs";
+import { ExtraResponse } from "../components/funcs/utilFuncs";
 import { API_URL } from "../consts";
 import { AuthApi } from "../services/authApi";
 
@@ -13,7 +14,7 @@ export interface UserState {
     }
 }
 
-export interface LoginResponse {
+export interface LoginResponse extends ExtraResponse {
     tokens: JWT_Tokens;
     user: UserState;
 }
