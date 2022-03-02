@@ -6,7 +6,7 @@ import { useUploadVideoMutation } from "../../../services/channelApi"
 import MultiForm from "../../combines/MultiForm"
 import Radios from "../../combines/Radios"
 import ThumbnailPreviews from "../../combines/ThumbnailPreviews"
-import { constructFormData, validateForm } from "../../funcs/formFuncs"
+import { constructFormData, isValidFile, validateForm } from "../../funcs/formFuncs"
 import { generateThumbnail, handleResponse, previewImage, resetThumbnails } from "../../funcs/utilFuncs"
 import Button from "../Button"
 import Form from "../Form"
@@ -74,12 +74,15 @@ const Upload = () => {
                       
                   <input 
                   onInput={(e) => {
-                    (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = '';
+                    console.log(isValidFile((e.target as HTMLInputElement).files![0], 'video'))
+                    if(isValidFile((e.target as HTMLInputElement).files![0], 'video') === true) {
+                      (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = '';
 
-                    useAutoState(e, setNewVideo, newVideo);
-                    resetThumbnails(previewAmt);
-                    setVideoTime(1);
-                    setPreviewIdx(1);
+                      useAutoState(e, setNewVideo, newVideo);
+                      resetThumbnails(previewAmt);
+                      setVideoTime(1);
+                      setPreviewIdx(1);
+                    }
                   }}
                   
                   id='video-input'
@@ -135,7 +138,7 @@ const Upload = () => {
         </div>
         
         <Button props={{ content: 'Publish', action: () => {
-          if(validateForm('form__inpt')) {
+          if(validateForm('form__inpt', undefined, true)) {
             uploadVideo({ videoData: constructFormData(newVideo), channel_id })
               .unwrap()
               .then(res => handleResponse(res, { navigate: navigate, redirectTo: `/channels/${channel_id}` }))

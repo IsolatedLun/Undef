@@ -1,9 +1,13 @@
-export function validateForm(inputsCls: string, callback?: Function | null): void | boolean {
+import { popup } from "./popupFuncs";
+
+let errorTimeout = null;
+
+export function validateForm(inputsCls: string, callback?: Function | null, isMultiForm?: boolean): void | boolean {
     const inputs = document.querySelectorAll('.' + inputsCls) as NodeListOf<HTMLInputElement>;
     let valid: number = 0;
 
     inputs.forEach(input => {
-        if(validateInput(input))
+        if(validateInput(input, isMultiForm))
             valid++;
     })
 
@@ -13,7 +17,7 @@ export function validateForm(inputsCls: string, callback?: Function | null): voi
         return valid === inputs.length;
 }
 
-export function validateInput(input: HTMLInputElement) {
+export function validateInput(input: HTMLInputElement, isMultiForm?: boolean) {
     const type: string = input.type;
     const realType: string = input.getAttribute('data-real-type') as string;
     const inputVal: any = input.value;
@@ -61,8 +65,19 @@ export function validateInput(input: HTMLInputElement) {
         errors = handleValidator(res, errors);
     }
 
-    if(errors.length > 0)
+    if(errors.length > 0) {
         addHelpText(input, errors);
+        popup('Check your mistakes!', 'Error');
+
+        if(isMultiForm) {
+            const completionsEl: HTMLElement = document.querySelector('.form__completions')!;
+            if(!completionsEl.classList.contains('error')) {
+                completionsEl.classList.add('error')
+                errorTimeout = setTimeout(() => completionsEl.classList.remove('error'), 2500);
+            }
+        }
+    }
+        
     else
         return true;
 }
@@ -98,7 +113,7 @@ function isValidPassword(val: string): string | string[] | boolean {
     
 }
 
-function isValidFile(f: File, type: string) {
+export function isValidFile(f: File, type: string) {
     if(getExt(f) === type)
         return true
     else

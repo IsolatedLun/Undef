@@ -7,11 +7,16 @@
     transform-origin: left bottom;
     background-color: var(--bg-secondary);
     border-radius: 6px;
-    transition: transform 100ms ease-out;
+    transition: transform 100ms ease-out, opacity 95ms ease-in-out;;
     z-index: 999999999999999999;
 }
 
-#popup.active {
+.popup:hover {
+  opacity: 0.95;
+  z-index: 0;
+}
+
+.popup.active {
   transform: scale(1);
 }
 

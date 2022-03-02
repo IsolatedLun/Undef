@@ -71,7 +71,8 @@ const SignUp = () => {
             placeholder: 'Upload Profile', labelCls: 'cust label--profile mi--inline'}}} />,
 
         <Button props={{ content: 'Create Account', action: async() => {
-          await register(constructFormData(newUser)!).unwrap()
+          if(validateForm('form__inpt', undefined, true))
+            await register(constructFormData(newUser)!).unwrap()
             .then(res => handleResponse(res, { redirectTo: '/', navigate: navigate}))
             .catch(res => handleResponse(res))
         }, modifiers: 'w--100' }} />,

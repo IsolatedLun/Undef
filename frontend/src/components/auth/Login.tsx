@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useLoginMutation } from "../../services/authApi"
+import { validateForm } from "../funcs/formFuncs"
 import { handleResponse } from "../funcs/utilFuncs"
 import Button from "../modules/Button"
 import Form from "../modules/Form"
@@ -27,7 +28,8 @@ const Login = () => {
             inputData: {name: 'password', type: 'password', realType: 'password'}}} />,
 
         <Button props={{ content: 'Login', action: async() => {
-           await login(loginUser)
+           if(validateForm('form__inpt'))
+            await login(loginUser)
             .unwrap()
             .then(res => handleResponse(res, { redirectTo: '/', navigate: navigate }))
             .catch(res => handleResponse(res))

@@ -38,6 +38,7 @@
 }
 
 .form__part .part__help-list {
+    margin-bottom: 0.15em;
     margin-left: 1.5em;
     list-style: disc;
 }
@@ -94,4 +95,20 @@
     background-color: var(--inpt-main);
     aspect-ratio: 1;
     border-radius: 100vw;
+}
+
+/* Form Completion Error */
+.form__completions.error::before,
+.form__completions.error > *::after {
+    animation: blinkError 0.45s linear infinite alternate;
+}
+
+@keyframes blinkError {
+    from {
+        background-color: var(--inpt-main);
+    }
+
+    to {
+        background-color: var(--txt-err);
+    }
 }
