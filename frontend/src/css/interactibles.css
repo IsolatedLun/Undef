@@ -79,7 +79,6 @@
 }
 
 /* File Inputs */
-
 .input--file {
     position: absolute;
     visibility: hidden;
@@ -130,6 +129,48 @@
     width: 6em;
     aspect-ratio: 1;
 }
+
+/* Radio Inputs */
+.input--radio--label {
+    display: block;
+    position: relative;
+    width: 2.5em;
+    aspect-ratio: 1;
+    margin-block: auto;
+    border-radius: 50%;
+}
+
+.input--radio--label .input--radio {
+    display: none;
+}
+
+.input--radio--label .input--radio--button {
+    position: absolute;
+    inset: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--txt-muted-dark);
+    transition: background-color 95ms ease-in-out;
+}
+
+.input--radio--label .input--radio--button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 0 0.5px 6px var(--inpt-shadow);
+    transform: scale(0);
+    transition: transform 145ms 25ms ease-in-out;
+}
+
+.input--radio--label > input:checked + .input--radio--button {
+    background-color: var(--inpt-main);
+}
+
+.input--radio--label > input:checked + .input--radio--button::after {
+    transform: scale(1);
+}
+
 
 /* Tooltip */
 .tooltip {

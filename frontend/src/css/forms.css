@@ -20,6 +20,11 @@
     gap: 0.5em;
 }
 
+.radio__part > * {
+    pointer-events: none;
+    z-index: -1;
+}
+
 .multiform__form {
     flex-direction: column;
     margin-bottom: 1.5em;

@@ -89,6 +89,7 @@ textarea {
     :root {
         --txt-primary: white;
         --txt-muted: hsl(0, 0%, 70%);
+        --txt-muted-dark: hsl(0, 0%, 30%);
 
         --bg-primary: hsl(240, 2%, 7%);
         --bg-secondary: hsl(240, 2%, 14%);

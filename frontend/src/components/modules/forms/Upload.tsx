@@ -50,14 +50,10 @@ const Upload = () => {
       {idx: 2, text: 'Publish'},
     ]
 
-    useEffect(() => {
-      if(isSuccess)
-        navigate('/')
-    }, [isSuccess])
-
     const videoUpload = (
         <>
           <div className="upload__split">
+            <div className="form__part">
             <label data-label='Upload video'
                   htmlFor='video-input' 
                   className='upload__input-label input--label input--primary'>
@@ -87,7 +83,7 @@ const Upload = () => {
                   }}
                   
                   id='video-input'
-                  className='input--primary input--file'
+                  className='input--primary input--file form__inpt'
                   type="file" 
                   accept='video/*'
                   name='video'
@@ -96,6 +92,8 @@ const Upload = () => {
                   />
 
               </label>
+              <ul id="video-input-help-list" className="part__help-list"></ul>
+            </div>
 
             <div className="input__parts">
               <InputPart props={{ label: 'Title', setter: setNewVideo, data: newVideo,

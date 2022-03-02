@@ -26,12 +26,12 @@ export function validateInput(input: HTMLInputElement) {
     clearHelpText(input);
     if(realType === 'string' || realType === 'email' || type ===  'textarea') {
         const res = isValidateText(inputVal);
-        errors = handleValidator(res, errors)
+        errors = handleValidator(res, errors);
     }
 
     else if(realType === 'password') {
         const res = isValidPassword(inputVal) as any;
-        errors = handleValidator(res, errors)
+        errors = handleValidator(res, errors);
     }
 
     else if(realType === 'image') {
@@ -41,7 +41,18 @@ export function validateInput(input: HTMLInputElement) {
         }
 
         catch {
-            errors.push('Must contain an image file.')
+            errors.push('Must contain an image file.');
+        }
+    }
+
+    else if(realType === 'video') {
+        try {
+            const res = isValidFile(input.files![0], 'video') as any;
+            errors = handleValidator(res, errors);
+        }
+
+        catch {
+            errors.push('Must contain an video file.');
         }
     }
 

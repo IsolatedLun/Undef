@@ -3,10 +3,11 @@ import { useAutoState } from '../../../hooks/useAutoState';
 
 export interface INF_Input {
     id?: string;
-    type: 'text' | 'file' | 'email' | 'password' | 'textarea' | 'range';
+    type: 'text' | 'file' | 'email' | 'password' | 'textarea' | 'range' | 'radio';
     realType: 'string' | 'oneWord' | 'file' | 
         'select' | 'checkbox' | 'email' | 'password' | 'image' | 'video';
-    name: string;
+    name: string | undefined;
+    value?: string;
     action?: Function;
     params?: any[];
 
@@ -107,6 +108,21 @@ const Input = ({ props } : { props: INF_Input_State }) => {
         
                     name={props.name}
                 />
+            )
+    else if(props.type === 'radio')
+            return(
+                <label htmlFor={`radio-${props.name}-${props.value}-label`}
+                    className="input--radio--label pos--relative">
+                    <input 
+                        onInput={() => props.setter!(props.value)}
+                        id={`radio-${props.name}-${props.value}-radio`}
+                        className={'input--radio'}
+                        name={props.name}
+                        value={props.value}
+                        type='radio'
+                    />
+                    <div className="input--radio--button"></div>
+                </label>
             )
 
     else
