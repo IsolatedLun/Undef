@@ -73,7 +73,7 @@ const SignUp = () => {
         <Button props={{ content: 'Create Account', action: async() => {
           if(validateForm('form__inpt', undefined, true))
             await register(constructFormData(newUser)!).unwrap()
-            .then(res => handleResponse(res, { redirectTo: '/', navigate: navigate}))
+            .then(res => handleResponse(res, { redirectTo: '/auth/login', navigate: navigate}))
             .catch(res => handleResponse(res))
         }, modifiers: 'w--100' }} />,
       ]

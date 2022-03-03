@@ -15,8 +15,11 @@ OK = status.HTTP_200_OK
 ERR = status.HTTP_400_BAD_REQUEST
 
 def decode_user_id(request_header):
-    token = request_header['Authorization'].split(' ')[1]
-    return decode(jwt=str(token), key=settings.SECRET_KEY, algorithms=['HS256'])['user_id']
+    try:
+        token = request_header['Authorization'].split(' ')[1]
+        return decode(jwt=str(token), key=settings.SECRET_KEY, algorithms=['HS256'])['user_id']
+    except:
+        return None
 
 def clean_integrity_error(err):
     def prettify(s):

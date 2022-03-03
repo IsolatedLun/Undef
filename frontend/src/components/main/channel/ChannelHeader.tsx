@@ -1,6 +1,7 @@
-import React from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SETTINGS_ICO } from '../../../consts'
+import { useSubscribleMutation } from '../../../services/channelApi'
 import { UserState } from '../../../slices/auth-slice'
 import Loader from '../../layouts/Loader'
 import Profile from '../../layouts/Profile'
@@ -8,6 +9,11 @@ import Button from '../../modules/Button'
 import { INF_Channel } from './ChannelRouter'
 
 const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserState }) => {
+    const [subbed, setSubbed] = useState(channel.subscribed);
+    const [subCount, setSubCount] = useState(user.user.subscribers);
+    const [subscribe, {  }] = useSubscribleMutation();
+
+
     return (
         <nav className="channel__nav flex flex--col gap--1" role='channel navigation'>
           <Profile props={{ cls: 'channel__banner', 
@@ -22,15 +28,22 @@ const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserSta
               <div className='flex flex--col gap--025'>
                 <p className="channel_username">{ channel.user_data.username }</p>
                 <p className="channel_subscribers txt--muted txt--sm">
-                { channel.user_data.subscribers } subscribers</p>
+                { subCount } subscribers {channel.subscribed}</p>
               </div>
             </div>
 
             {
               user.user.id !== channel.user_data.id && 
               (
-                <Button props={{ content: 'Subscribe', cls: 'button--primary btn--hollow',
-                  action: () => null }} />
+                <Button props={{ content: subbed ? 'Unsubscribe' : 'Subscribe', 
+                  cls: 'button--primary btn--hollow',
+                  action: async() => {
+                    await subscribe(channel.id).unwrap()
+                      .then(res => {
+                        setSubbed(res.data.subscribed);
+                        setSubCount(res.data.subscribers);
+                      })
+                  } }} />
               )
             }
 

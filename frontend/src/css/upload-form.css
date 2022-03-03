@@ -38,4 +38,8 @@
     .upload--form .upload__split {
         grid-template-columns: 1fr;
     }
+
+    .upload--form .upload__thumbnail-previews {
+        gap: 0.75em;
+    }
 }

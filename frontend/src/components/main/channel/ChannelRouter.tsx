@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom'
 import { useAuth } from '../../../hooks/useAuth';
 import { useGetChannelQuery } from '../../../services/channelApi';
@@ -21,6 +21,7 @@ export interface INF_Channel {
     banner: string;
     channel_description: string;
     channel_details: string;
+    subscribed: boolean;
     total_views: number;
     created_at: string;
     
@@ -34,8 +35,9 @@ export interface INF_Channel {
 
 const ChannelRouter = () => {
     const { channel_id } = useParams();
-    const { data: channel, isFetching, isSuccess } = useGetChannelQuery(Number(channel_id!));
     const user = useAuth();
+    const { data: channel, isFetching,
+        isSuccess } = useGetChannelQuery({ channel_id: Number(channel_id!), user_id: user.user.id });
 
     if(channel !== undefined)
         return(

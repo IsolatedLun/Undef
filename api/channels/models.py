@@ -24,3 +24,8 @@ class Channel(models.Model):
     def delete(self, using=None, keep_parents=False):
         self.banner.storage.delete(self.banner.path)
         super().delete()
+
+class SubscribedChannel(models.Model):
+    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
+    subscribed = models.BooleanField(default=False)
