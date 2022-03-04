@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom"
 import { API_URL } from "../../consts"
 import Loader from "./Loader"
+import Contextmenu from "../modules/Contextmenu";
 
 interface ProfileState {
     url: string;
     cls: string;
     alt: string;
     loaderId?: string;
-    to?: string
+    to?: string;
+    contextMenu?: JSX.Element;
 }
 
 function removeLoader(el: HTMLElement) {
@@ -31,7 +33,24 @@ const Profile = ({ props } : { props: ProfileState }) => {
     </div>
 )
   return (
-   props.to !== undefined ? <Link to={props.to}>{ element }</Link> : element
+
+   props.to !== undefined && props.contextMenu === undefined
+    ? <Link to={props.to}>{ element }</Link> 
+    : props.contextMenu !== undefined
+
+    ? (
+      <div className="pos--relative" onClick={(e) => {
+        const target = e.target as HTMLElement;
+        const menu = target.parentElement!.parentElement!.lastChild! as HTMLElement
+        menu.focus();
+      }}>
+        { element }
+
+        { props.contextMenu }
+      </div>
+    )
+    : element
+
   )
 }
 

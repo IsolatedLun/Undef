@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export interface ContextMenu {
     id: string;
@@ -9,6 +10,9 @@ interface ContextMenuOption {
     action: Function;
     icon: string;
     text: string;
+
+    isLink?: boolean;
+    to?: string;
 }
 
 const Contextmenu = ({ props } : { props: ContextMenu }) => {
@@ -16,12 +20,19 @@ const Contextmenu = ({ props } : { props: ContextMenu }) => {
       <div tabIndex={-1} className='context-menu-container'>
           <ul className="context-menu flex flex--col">
             {
-                props.options.map((option, idx) => (
-                    <li key={idx} className="menu__option flex gap--075">
-                        <p className="fa option__icon">{ option.icon }</p>
-                        <p className="option__text">{ option.text }</p>
-                    </li>
-                ))
+                props.options.map((option, idx) => {
+                    const el = (
+                        <li key={idx} className="menu__option flex gap--075">
+                            <p className="fa option__icon">{ option.icon }</p>
+                            <p className="option__text">{ option.text }</p>
+                        </li>
+                    )
+
+                    if(option.to !== undefined)
+                        return(<Link to={option.to}>{ el }</Link>)
+                    else 
+                        return el;
+                })
             }
       </ul>
       </div>

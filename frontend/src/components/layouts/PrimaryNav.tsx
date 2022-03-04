@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BARS_ICO, SEARCH_ICO } from '../../consts';
+import { BARS_ICO, ENTER_ICO, SEARCH_ICO } from '../../consts';
 import { useAppDispatch } from '../../hooks/state';
 import { useAuth } from '../../hooks/useAuth';
 import { logout } from '../../slices/auth-slice';
 import { toggleElement } from '../funcs/utilFuncs';
 import Button from '../modules/Button';
+import Contextmenu from '../modules/Contextmenu';
 import Input from '../modules/inputs/Input';
 import Profile from './Profile';
 
@@ -20,6 +21,14 @@ const PrimaryNav = () => {
     dispatch(logout());
     window.location.href = '/'
   }
+
+  const navContextMenu = <Contextmenu props={{ id: 'nav-context', 
+    options: 
+    [
+      { icon: ENTER_ICO, text: 'My channel', action: () => null, to: '/channels/' + user.channel_id }
+    ] 
+  
+  }} />
 
   return(
       <nav className='primary-nav flex flex--center--between' role='primary nav'>
@@ -49,7 +58,8 @@ const PrimaryNav = () => {
               { isLogged && (
                 <div className='flex flex--center gap--1'>
                   <Profile props={{ url: user.profile, alt: user.username, 
-                    cls: 'nav__user-profile profile round skel', to: '/channels/' + user.channel_id }} />
+                    cls: 'nav__user-profile profile round skel', to: '/channels/' + user.channel_id,
+                    contextMenu: navContextMenu }} />
                     
                   <Button props={{ content: 'Logout', action: () => logoutCommence(), 
                     modifiers: 'btn--hollow' }} />

@@ -17,9 +17,15 @@
 }
 
 .context-menu .menu__option {
-    font-size: calc(var(--fs-400) * 0.8);
+    font-size: var(--fs-400);
+    font-weight: bold;
     padding: 0.5em;
     white-space: nowrap;
+    cursor: pointer;
+}
+
+.context-menu.small .menu__option {
+    font-size: calc(var(--fs-400) * 0.8);
 }
 
 .context-menu .menu__option:is(:hover) {

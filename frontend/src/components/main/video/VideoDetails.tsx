@@ -68,7 +68,7 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
                         modifiers: rateType === 'dislike' ? 'active' : '' }} />
 
                 <Button props={{ content: ELLIPSE_V_ICO, action: () => null,
-                  contextMenu: videoOptionsMenu }} />
+                  contextMenu: videoOptionsMenu, id: 'video-options-button' }} />
               </div>
               <div className="controls__rating-bar btn--tooltip">
 
