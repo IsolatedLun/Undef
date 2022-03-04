@@ -9,5 +9,6 @@ export const LIKE_ICO = '\uf164';
 export const DISLIKE_ICO = '\uf165';
 export const VOLUME_ICO = '\uf028';
 export const ERROR_ICO = '\uf071';
+export const INFO_ICO = '\uf05a';
 
 export const API_URL = 'http://localhost:8000'

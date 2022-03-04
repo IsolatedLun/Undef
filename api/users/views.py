@@ -85,3 +85,5 @@ class JWTCredentials(APIView):
             return Response({'data': user}, OK)
         except ExpiredSignatureError:
             return Response({'detail': 'expired'}, ERR)
+        except Exception:
+            return Response({'detail': 'User is not logged'}, ERR)

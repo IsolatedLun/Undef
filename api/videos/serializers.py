@@ -26,3 +26,12 @@ class VideoPreviewSerializer(serializers.ModelSerializer):
         model = models.Video
         fields = ['id', 'thumbnail', 'title', 'views', 'user', 'channel',
             'username', 'profile', 'created_at']
+
+class VideoCommentSerializer(serializers.ModelSerializer):
+    created_at = serializers.ReadOnlyField(source='format_date')
+    profile = serializers.ReadOnlyField(source='get_profile')
+    username = serializers.ReadOnlyField(source='get_username')
+
+    class Meta:
+        model = models.Comment
+        fields = '__all__'

@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SETTINGS_ICO } from '../../../consts'
 import { useSubscribleMutation } from '../../../services/channelApi'
 import { UserState } from '../../../slices/auth-slice'
+import { loggedAction } from '../../funcs/authFuncs'
 import Loader from '../../layouts/Loader'
 import Profile from '../../layouts/Profile'
 import Button from '../../modules/Button'
@@ -13,7 +14,10 @@ const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserSta
     const [subCount, setSubCount] = useState(user.user.subscribers);
     const [subscribe, {  }] = useSubscribleMutation();
 
-
+    useEffect(() => {
+      setSubCount(channel.user_data.subscribers);
+    }, [channel])
+    
     return (
         <nav className="channel__nav flex flex--col gap--1" role='channel navigation'>
           <Profile props={{ cls: 'channel__banner', 
@@ -37,13 +41,13 @@ const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserSta
               (
                 <Button props={{ content: subbed ? 'Unsubscribe' : 'Subscribe', 
                   cls: 'button--primary btn--hollow',
-                  action: async() => {
+                  action: () => loggedAction(user.isLogged, async() => {
                     await subscribe(channel.id).unwrap()
                       .then(res => {
                         setSubbed(res.data.subscribed);
                         setSubCount(res.data.subscribers);
                       })
-                  } }} />
+                  })}} />
               )
             }
 

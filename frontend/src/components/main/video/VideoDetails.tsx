@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { API_URL, CLOCK_ICO, DISLIKE_ICO, 
   ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../../consts';
+import { useAuth } from '../../../hooks/useAuth';
 import { useRateVideoMutation } from '../../../services/videoApi';
 import { positionTooltip } from '../../funcs/accessibilityFuncs';
+import { loggedAction } from '../../funcs/authFuncs';
 import Button from '../../modules/Button';
 import Contextmenu from '../../modules/Contextmenu';
 import { VideoData } from './VideoTab';
@@ -17,6 +19,7 @@ interface RateSongResponse {
 }
 
 const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
+  const { isLogged } = useAuth();
   const [rateType, setRateType] = useState(videoDetails.rate_type);
   const [rating, setRating] = useState({
     likes: videoDetails.likes,
@@ -54,11 +57,13 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
                 <Button props={{ content: CLOCK_ICO, action: () => null,
                         tooltip: 'Add to watch later' }} />
 
-                <Button props={{ content: LIKE_ICO, action: () => rateSongWrapper('like'),
+                <Button props={{ content: LIKE_ICO, action: () => 
+                  loggedAction(isLogged, () => rateSongWrapper('like'), true),
                     tooltip: 'Like', extraAfter: rating.likes, 
                     modifiers: rateType === 'like' ? 'active' : ''}} />
                 
-                <Button props={{ content: DISLIKE_ICO, action: () => rateSongWrapper('dislike'),
+                <Button props={{ content: DISLIKE_ICO, action: () => 
+                  loggedAction(isLogged, () => rateSongWrapper('dislike'), true),
                         tooltip: 'Dislike', extraAfter: rating.dislikes,
                         modifiers: rateType === 'dislike' ? 'active' : '' }} />
 

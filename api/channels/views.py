@@ -22,8 +22,8 @@ class ChannelView(APIView):
 
             channel_videos = Video.objects.filter(channel_id=channel_id)
             videos_serializer = VideoPreviewSerializer(channel_videos, many=True).data
-
-            if user_id > -1:
+            
+            if int(user_id) > -1:
                 subscribed, created = models.SubscribedChannel.objects.get_or_create(channel_id=channel_id,
                     user_id=user_id)
 

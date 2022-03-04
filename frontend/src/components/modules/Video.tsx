@@ -26,7 +26,7 @@ const Video = ({ props } : { props : INF_Video }) => {
     <div className="video">
         <Link to={'/watch/' + props.id}>
             <div className="video__thumbnail skel">
-                <img src={ API_URL + props.thumbnail } alt={`${props.title}'s thumbnails`} />
+                <img src={ API_URL + props.thumbnail } alt={`${props.title}'s thumbnail`} />
             </div>
         </Link>
 

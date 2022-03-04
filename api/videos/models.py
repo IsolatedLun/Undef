@@ -67,3 +67,21 @@ class RatedVideo(models.Model):
     user = models.ForeignKey(cUser, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     rate_type = models.CharField(max_length=16, default='')
+
+class Comment(models.Model):
+    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+
+    text = models.CharField(max_length=512)
+
+    created_at = models.DateTimeField(auto_now_add=True) 
+
+    def format_date(self):
+        from django.utils.timesince import timesince
+        return timesince(self.created_at, depth=1)
+
+    def get_profile(self):
+        return self.user.profile.url
+
+    def get_username(self):
+        return self.user.username

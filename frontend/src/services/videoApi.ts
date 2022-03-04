@@ -9,7 +9,10 @@ export const VideoApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL + '/api/videos', 
         prepareHeaders: (headers, { getState }) => {
-            return headers
+            if((getState() as any).auth.isLogged)
+                headers.append('authorization', `Bearer ${getAccess()!}`);
+
+            return headers;
         }
     }),
     endpoints: (builder) => ({
@@ -24,9 +27,6 @@ export const VideoApi = createApi({
             query: (video_id) => ({
                 url: `/video/${video_id}`,
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${getAccess()}`
-                }
             })
         }),
 
@@ -37,9 +37,6 @@ export const VideoApi = createApi({
                 body: {
                     'type': type
                 },
-                headers: {
-                    'Authorization': `Bearer ${getAccess()}`
-                }
             })
         })
 

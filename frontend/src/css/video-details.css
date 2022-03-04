@@ -82,7 +82,8 @@
 }
 
 .main-video__comments .comment__text {
-    word-break: break-all;
+    font-size: calc(var(--fs-400) * 0.96);
+    word-break: normal;
 }
 
 /* Media Queries */

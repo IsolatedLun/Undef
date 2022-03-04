@@ -19,15 +19,24 @@ class VideoPreview(APIView):
         return Response(previews, OK)
 
 class Video(APIView):
+    permission_classes = [AllowAny, IsAuthenticated]
+
+    def check_permissions(self, request):
+        return True
+
     def get(self, req, video_id):
         user_id = None
         if req.headers.get('Authorization', False):
             user_id = decode_user_id(req.headers)
 
         video = models.Video.objects.get(id=video_id)
+        comments = serializers.VideoCommentSerializer(models.Comment.objects.filter(video_id=video.id),
+            many=True).data
+
         video.increment_views()
         
         serializer = serializers.VideoSerializer(video).data
+        serializer['comments'] = comments
 
         if user_id is not None:
             rated_video = models.RatedVideo.objects.get_or_create(video_id=video.id, user_id=user_id)[0]

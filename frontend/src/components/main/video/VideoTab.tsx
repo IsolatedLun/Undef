@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useGetVideoQuery, useGetVideosQuery } from '../../../services/videoApi';
-import VideoComments from '../../combines/VideoComments';import Videos from '../../combines/Videos';
+import VideoComments, { Comment } from '../../combines/VideoComments';import Videos from '../../combines/Videos';
 import Loader from '../../layouts/Loader';
 import { INF_Video } from '../../modules/Video';
 ;
@@ -14,6 +14,7 @@ export interface VideoData extends INF_Video {
   subscribers: number;
   ratio: number;
   rate_type: string;
+  comments: Comment[]
 }
 
 const VideoTab = () => {
@@ -29,7 +30,7 @@ const VideoTab = () => {
                   videoUrl: video.video, thumbnailUrl: video.thumbnail, duration: video.duration }} />
 
                 <VideoDetails videoDetails={video} />
-                <VideoComments props={{ id: 'desktop-comments', comments: [] }} />
+                <VideoComments props={{ id: 'desktop-comments', comments: video.comments }} />
             </section>
             
             <div>
@@ -39,7 +40,7 @@ const VideoTab = () => {
               </div>
             </div>
             <section className="other-videos flex flex--col gap--1">
-              <VideoComments props={{ id: 'mobile-comments', comments: [] }} />
+              <VideoComments props={{ id: 'mobile-comments', comments: video.comments }} />
             </section>
             
         </div>

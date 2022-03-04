@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../../consts";
+import { popup } from "./popupFuncs";
 
 export interface JWT_Tokens {
     access?: string;
@@ -24,4 +25,13 @@ export async function refreshTokens() {
     .then((res: any) => {
         localStorage.setItem('access', res.data.access);
     })
+}
+
+export function loggedAction(isLogged: boolean, cb: Function, showPopup?: boolean) {
+    if(isLogged)
+        cb();
+    else if(showPopup)
+        popup('You must be logged in.', 'Info')
+    else
+        window.location.href = '/auth/login';
 }

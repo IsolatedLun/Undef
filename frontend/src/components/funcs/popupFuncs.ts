@@ -1,4 +1,4 @@
-import { ERROR_ICO } from "../../consts";
+import { ERROR_ICO, INFO_ICO } from "../../consts";
 
 let popupTimeout = null;
 
@@ -10,15 +10,20 @@ export function popup(s: string, type: string): void {
 
     if(!popup.classList.contains('active')) {
         popup.classList.add('active');
+        popup.classList.add(type.toLowerCase())
+
         popupText.textContent = s;
         popupType.textContent = type;
 
-        if(type === 'Error') {
+        if(type === 'Error')
             popupIcon.textContent = ERROR_ICO;
-        }
+
+        else if(type === 'Info')
+            popupIcon.textContent = INFO_ICO;
 
         popupTimeout = setTimeout(() => {
             popup.classList.remove('active');
+            popup.classList.remove(type.toLowerCase())
         }, 5000)
     }
 }
