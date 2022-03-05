@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { API_URL, CLOCK_ICO, DISLIKE_ICO, 
-  ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../../consts';
+  EDIT_ICO, ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../../consts';
 import { useAuth } from '../../../hooks/useAuth';
 import { useRateVideoMutation } from '../../../services/videoApi';
 import { positionTooltip } from '../../funcs/accessibilityFuncs';
@@ -19,7 +19,8 @@ interface RateSongResponse {
 }
 
 const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
-  const { isLogged } = useAuth();
+  const navigate = useNavigate();
+  const { isLogged, user } = useAuth();
   const [rateType, setRateType] = useState(videoDetails.rate_type);
   const [rating, setRating] = useState({
     likes: videoDetails.likes,
@@ -69,6 +70,11 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
 
                 <Button props={{ content: ELLIPSE_V_ICO, action: () => null,
                   contextMenu: videoOptionsMenu, id: 'video-options-button' }} />
+
+                { videoDetails.user === user.id && (
+                  <Button props={{ content: EDIT_ICO, action: () => 
+                    navigate(`/channels/${user.channel_id}/edit/${videoDetails.id}`), tooltip: 'Edit' }} />
+                ) }
               </div>
               <div className="controls__rating-bar btn--tooltip">
 

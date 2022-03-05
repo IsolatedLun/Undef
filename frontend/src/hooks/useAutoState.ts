@@ -11,10 +11,10 @@ export function useAutoState(e: FormEvent<any>, setter: Function, data: any,
         const value: any = target.value;
         const realType = target.getAttribute('data-real-type')!
 
-        if(realType === 'string' || realType === 'password' || realType === 'email')
+        if(realType === 'string' || realType === 'password' || realType === 'email' || target.type === 'radio')
             setter({ ...data, [target.name]: value });
 
-        else if(target.type === 'radio' || realType === 'oneWord') {
+        else if(realType === 'oneWord') {
             setter(value);
         }
             

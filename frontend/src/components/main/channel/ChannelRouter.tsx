@@ -4,6 +4,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import { useGetChannelQuery } from '../../../services/channelApi';
 import ProtectedRoute from '../../auth/ProtectedRoute';
 import Loader from '../../layouts/Loader';
+import EditVideo from '../../modules/forms/EditVideo';
 import Upload from '../../modules/forms/Upload';
 import { INF_Video } from '../../modules/Video';
 import ChannelAbout from './ChannelAbout';
@@ -51,6 +52,11 @@ const ChannelRouter = () => {
                         element={<ProtectedRoute redirectTo='/auth/login'
                             condition={user.user.channel_id === Number(channel_id)}
                             children={<Upload />} />} />
+                    
+                    <Route path='edit/:video_id' 
+                        element={<ProtectedRoute redirectTo='/auth/login'
+                            condition={user.user.channel_id === Number(channel_id)}
+                            children={<EditVideo />} />} />
                 </Routes>
             </section>
         )

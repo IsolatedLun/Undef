@@ -11,7 +11,7 @@
     padding: 0.1em 0.55em;
     background-color: var(--_bg);
     border-radius: 3px;
-    transition: background-color 95ms ease-out;
+    transition: background-color 95ms ease-out, opacity 90ms ease-in-out;
 }
 
 .button--primary.btn--hollow {
@@ -21,6 +21,11 @@
 
 .button--primary:is(:hover, :focus) {
     background-color: var(--btn-hov);
+}
+
+.button--primary.disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 .button--icon {
@@ -98,10 +103,13 @@
 .input--label {
     position: relative;
     padding: 0;
-    width: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 6px;
     cursor: pointer;
+}
+
+.input--label:not(.cust) {
+    width: 100%;
 }
 
 .input--label::after {
@@ -140,6 +148,12 @@
 }
 
 /* Radio Inputs */
+.radio__part.small {
+    font-size: calc(var(--fs-400) * 0.85);
+    font-weight: bold;
+    border: 0;
+}
+
 .input--radio--label {
     display: block;
     position: relative;

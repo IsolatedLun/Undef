@@ -72,7 +72,7 @@ const Upload = () => {
                       }
 
                       else
-                        setNewVideo({ ...newVideo, thumbnail: await dataUrlToFile(thumbnailUrl) })
+                        setNewVideo({ ...newVideo, thumbnail: await dataUrlToFile(thumbnailUrl) });
                     }} />
                       
                   <input 

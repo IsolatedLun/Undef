@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_URL } from '../../../consts';
 import { useAutoState } from '../../../hooks/useAutoState';
 
 export interface INF_Input {
@@ -10,6 +11,7 @@ export interface INF_Input {
     value?: string;
     action?: Function;
     params?: any[];
+    url?: string;
 
     cb?: Function;
     cbParams?: any[];
@@ -48,6 +50,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
 
             name={props.name}
             type={props.type} 
+            value={props.value}
         
             data-real-type={props.realType}
             data-optional={props.isOptional}
@@ -60,7 +63,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 htmlFor={props.id} 
                 className={`input--label input--primary ${props.labelCls}`}>
                 
-                <img src="" id={props.id + '-preview'} />
+                <img src={API_URL + props.url} id={props.id + '-preview'} />
                 <video className='hidden' id={props.id + '-video'} />
                     
                 <input 
@@ -88,8 +91,10 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                     id={props.id}
                     placeholder={props.placeholder ? props.placeholder : ''}
                     className={props.cls + ' input--textarea'}
+                    spellCheck='false'
         
                     name={props.name}
+                    value={props.value}
                 
                     data-real-type={props.realType}
                 />

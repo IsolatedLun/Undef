@@ -16,6 +16,11 @@ class VideoSerializer(serializers.ModelSerializer):
         model = models.Video
         fields = '__all__'
 
+class VideoEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Video
+        fields = ['id', 'user', 'thumbnail', 'title', 'description', 'visibility']
+
 class VideoPreviewSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source='user.username')
     profile =  serializers.ReadOnlyField(source='user.profile.url')

@@ -14,12 +14,13 @@ export interface VideoData extends INF_Video {
   subscribers: number;
   ratio: number;
   rate_type: string;
+  visibility: number;
   comments: Comment[]
 }
 
 const VideoTab = () => {
   const { video_id } = useParams();
-  const { data: video, isFetching: hasRecVideo } = useGetVideoQuery(Number(video_id)!);
+  const { data: video, isFetching: hasRecVideo } = useGetVideoQuery({ video_id: Number(video_id)!, type: 'all' });
   const { data: nextVideos, isFetching: hasRecVideos } = useGetVideosQuery();
 
   if(video && nextVideos)

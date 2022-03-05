@@ -23,10 +23,11 @@ export const VideoApi = createApi({
             })
         }),
 
-        getVideo: builder.query<VideoData, number>({
-            query: (video_id) => ({
+        getVideo: builder.query<VideoData, any>({
+            query: ({ video_id, type }) => ({
                 url: `/video/${video_id}`,
-                method: 'GET',
+                method: 'POST',
+                body: { 'type': type }
             })
         }),
 

@@ -27,7 +27,7 @@
 
 .multiform__form {
     flex-direction: column;
-    margin-bottom: 1.5em;
+    margin-block: 1.5em;
 }
 
 .form__part .part__label {

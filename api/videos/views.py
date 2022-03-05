@@ -24,25 +24,31 @@ class Video(APIView):
     def check_permissions(self, request):
         return True
 
-    def get(self, req, video_id):
+    def post(self, req, video_id):
         user_id = None
         if req.headers.get('Authorization', False):
             user_id = decode_user_id(req.headers)
 
         video = models.Video.objects.get(id=video_id)
-        comments = serializers.VideoCommentSerializer(models.Comment.objects.filter(video_id=video.id),
+        serializer = None
+
+        if req.data['type'] == 'all':
+            comments = serializers.VideoCommentSerializer(models.Comment.objects.filter(video_id=video.id),
             many=True).data
 
-        video.increment_views()
-        
-        serializer = serializers.VideoSerializer(video).data
-        serializer['comments'] = comments
+            video.increment_views()
+            
+            serializer = serializers.VideoSerializer(video).data
+            serializer['comments'] = comments
 
-        if user_id is not None:
-            rated_video = models.RatedVideo.objects.get_or_create(video_id=video.id, user_id=user_id)[0]
-            serializer['rate_type'] = rated_video.rate_type
+            if user_id is not None:
+                rated_video = models.RatedVideo.objects.get_or_create(video_id=video.id, user_id=user_id)[0]
+                serializer['rate_type'] = rated_video.rate_type
+            else:
+                serializer['rate_type'] = ''
+    
         else:
-            serializer['rate_type'] = ''
+            serializer = serializers.VideoEditSerializer(video).data
 
         return Response(serializer, OK)
 
@@ -58,7 +64,7 @@ class RateVideo(APIView):
             video.dislikes += 1
 
             rated_video.save()
-            video.save()
+            video.save(update_fields=['likes, dislikes'])
             return 'dislike'
 
         def like(rated_video, video):
@@ -69,7 +75,7 @@ class RateVideo(APIView):
             video.likes += 1
             
             rated_video.save()
-            video.save()
+            video.save(update_fields=['likes, dislikes'])
             return 'like'
 
         def unrate(rated_video, video, rate_type):
@@ -81,7 +87,7 @@ class RateVideo(APIView):
             rated_video.rate_type = ''
 
             rated_video.save()
-            video.save()
+            video.save(update_fields=['likes, dislikes'])
             
             return 'un' + rate_type
 

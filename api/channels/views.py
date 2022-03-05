@@ -97,3 +97,15 @@ class ChannelSubscribe(APIView):
 
         return Response({'detail': 'You must be logged in.'})
 
+class EditChannelVideo(APIView):
+    def post(self, req, channel_id, video_id):
+        video = Video.objects.get(id=video_id, channel_id=channel_id)
+        
+        fields = []
+        for (key, val) in req.data.items():
+            video[key] = val;
+            fields.append(key)
+
+        video.save(update_fields=fields)
+
+        return Response({'detail': 'Updated video.'})

@@ -6,6 +6,8 @@ interface RadioButtons {
     name: string;
     radios: RadioButton[];
     setter: Function;
+
+    radioCls?: string;
 }
 
 interface RadioButton {
@@ -13,6 +15,8 @@ interface RadioButton {
   value: string;
   title?: string;
   text?: string;
+
+  radioCls?: string;
   
   setter?: Function;
 }
@@ -30,7 +34,7 @@ const Radio = ({ props } : { props: RadioButton }) => {
 
   return(
       <div onClick={(e: React.MouseEvent<any>) => selectChoice(e, props.setter!)}
-        className="radio__part input--primary curs--point flex gap--1" 
+        className={`radio__part input--primary curs--point flex gap--1 ${props.radioCls}` }
         id={`radio-${props.name}-${props.value}`}>
           
         <Input props={{ type: 'radio', realType: 'oneWord', setter: props.setter, data: '', 
@@ -47,7 +51,7 @@ const Radio = ({ props } : { props: RadioButton }) => {
 const Radios = ({ props } : { props: RadioButtons }) => {
   return <>{
     props.radios.map((radio, idx) => (
-      <Radio key={idx} props={{ ...radio, name: props.name, setter: props.setter }} />
+      <Radio key={idx} props={{ ...radio, name: props.name, setter: props.setter, radioCls: props.radioCls }} />
     ))
   }</>
 }

@@ -18,6 +18,9 @@ export const ChannelApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL + '/api/channels', 
         prepareHeaders: (headers, { getState }) => {
+            if((getState() as any).auth.isLogged)
+                headers.append('authorization', `Bearer ${localStorage.getItem('access')}`);
+
             return headers
         }
     }),
@@ -41,9 +44,14 @@ export const ChannelApi = createApi({
                 url: `/channel/upload/${channel_id}`,
                 method: 'POST',
                 body: videoData,
-                headers: {
-                    'authorization': `Bearer ${localStorage.getItem('access')}`
-                }
+            })
+        }),
+
+        editVideo: builder.mutation<ExtraResponse, any>({
+            query: ({ editedData, channel_id, video_id}) => ({
+                url: `/channel/${channel_id}/edit/${video_id}`,
+                method: 'POST',
+                body: editedData,
             })
         }),
 
@@ -51,12 +59,10 @@ export const ChannelApi = createApi({
             query: (channel_id) => ({
                 url: `/channel/subscribe/${channel_id}`,
                 method: 'POST',
-                headers: {
-                    'authorization': `Bearer ${localStorage.getItem('access')}`
-                }
             })
         }),
     })
 })
 
-export const { useGetChannelQuery, useUploadVideoMutation, useSubscribleMutation } = ChannelApi;
+export const { useGetChannelQuery, useUploadVideoMutation, useSubscribleMutation,
+useEditVideoMutation } = ChannelApi;
