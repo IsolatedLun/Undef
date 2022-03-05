@@ -1,5 +1,5 @@
 import { positionTooltip } from "../funcs/accessibilityFuncs";
-import { focusElement } from "../funcs/utilFuncs";
+import { focusElement, randomId } from "../funcs/utilFuncs";
 import Loader from "../layouts/Loader";
 
 interface ButtonProps {
@@ -18,11 +18,19 @@ interface ButtonProps {
     extraAfter?: string | number;
 
     loaderCls?: string;
+    toggleOnAction?: boolean;
 }
 
 function focusContextMenu(e: Event) {
   const menu = (e.target as HTMLElement).lastChild as HTMLElement;
   menu.focus()
+}
+
+export function toggleButton(btn: HTMLButtonElement) {
+  if(btn.classList.contains('vis--hidden'))
+    btn.classList.remove('vis--hidden');
+  else
+    btn.classList.add('vis--hidden');
 }
 
 function isUnicode(str: string) {
@@ -50,6 +58,8 @@ const Button = ({ props } : { props: ButtonProps }) => {
       props.action = focusContextMenu;
     }
 
+    if(props.id === undefined)
+      props.id = randomId();
     if(props.params === undefined)
       props.params = [];
     if(props.passEvent === undefined)

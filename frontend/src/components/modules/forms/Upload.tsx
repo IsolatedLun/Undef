@@ -7,8 +7,8 @@ import MultiForm from "../../combines/MultiForm"
 import Radios from "../../combines/Radios"
 import ThumbnailPreviews from "../../combines/ThumbnailPreviews"
 import { constructFormData, isValidFile, validateForm } from "../../funcs/formFuncs"
-import { generateThumbnail, handleResponse, previewImage, resetThumbnails } from "../../funcs/utilFuncs"
-import Button from "../Button"
+import { dataUrlToFile, generateThumbnail, handleResponse, previewImage, resetThumbnails } from "../../funcs/utilFuncs"
+import Button, { toggleButton } from "../Button"
 import Form from "../Form"
 import FormCompletion, { INF_FomrCompletion } from "../FormCompletion"
 import Input from "../inputs/Input"
@@ -61,20 +61,22 @@ const Upload = () => {
                   <img src="" id='thumbnail-preview-0' className="upload__selected-preview" />
                   <video className='' id='video-input-video'
                     onLoadedData={(e) => (e.target as HTMLVideoElement).currentTime = videoTime}
-                    onSeeked={(e) => {
+                    onSeeked={async(e) => {
                       const videoEl = e.target as HTMLVideoElement;
-                      generateThumbnail(videoEl, previewIdx);
+                      const thumbnailUrl = generateThumbnail(videoEl, previewIdx);
         
                       if(previewIdx < previewAmt && videoTime < videoEl.duration) {
                         setVideoTime(videoTime + previewIdx);
                         setPreviewIdx(previewIdx + 1)
                         videoEl.currentTime = videoTime;
                       }
+
+                      else
+                        setNewVideo({ ...newVideo, thumbnail: await dataUrlToFile(thumbnailUrl) })
                     }} />
                       
                   <input 
                   onInput={(e) => {
-                    console.log(isValidFile((e.target as HTMLInputElement).files![0], 'video'))
                     if(isValidFile((e.target as HTMLInputElement).files![0], 'video') === true) {
                       (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = '';
 
@@ -139,12 +141,15 @@ const Upload = () => {
         
         <Button props={{ content: 'Publish', action: () => {
           if(validateForm('form__inpt', undefined, true)) {
+            const btn = document.getElementById('publish-video-btn') as HTMLButtonElement;
+            toggleButton(btn);
+
             uploadVideo({ videoData: constructFormData(newVideo), channel_id })
               .unwrap()
-              .then(res => handleResponse(res, { navigate: navigate, redirectTo: `/channels/${channel_id}` }))
-              .catch(res => handleResponse(res))
+              .then(res => handleResponse(res, { navigate: navigate, redirectTo: `/channels/${channel_id}` }, btn))
+              .catch(res => handleResponse(res, undefined, btn))
           }
-        }, modifiers: 'mt--1' }} />
+        }, modifiers: 'mt--1', id: 'publish-video-btn', loaderCls: 'button--loader' }} />
       </>
     )
 

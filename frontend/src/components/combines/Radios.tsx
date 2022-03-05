@@ -21,7 +21,7 @@ const Radio = ({ props } : { props: RadioButton }) => {
   function selectChoice(e: React.MouseEvent<any>, setter: Function) {
     const target = e.target as HTMLInputElement;
     const radio = document.getElementById(target.id + '-radio')! as HTMLInputElement;
-    console.log(target)
+
     if(radio) {
       radio.click();
       setter(radio.value);

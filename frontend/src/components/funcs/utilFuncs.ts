@@ -1,3 +1,4 @@
+import { toggleButton } from '../modules/Button';
 import { popup } from './popupFuncs'
 
 export function toggleElement(e: Event | null, el: HTMLElement): void {
@@ -19,6 +20,8 @@ export function generateThumbnail(videoEl: HTMLVideoElement, t: number= 0) {
     const imgEl = document.getElementById('thumbnail-preview-' + t) as HTMLImageElement;
     (document.getElementById(imgEl.id + '-loader') as HTMLDivElement).style.display = 'none';
     imgEl.src = thumbnailUrl;
+
+    return thumbnailUrl;
 }
 
 export async function dataUrlToFile(url: string): Promise<File> {
@@ -52,11 +55,14 @@ export interface ExtraResponse extends Response {
     }
 }
 
-export function handleResponse(res: ExtraResponse, actions?: ResponseActions) {
+export function handleResponse(res: ExtraResponse, actions?: ResponseActions, btn?: HTMLButtonElement) {
     if(res.status >= 400)
         popup(res.data.detail, 'Error');
     else if(actions !== undefined && actions.navigate !== undefined && actions.redirectTo !== undefined)
         actions.navigate(actions.redirectTo);
+
+    if(btn)
+        toggleButton(btn);
 }
 
 export function randomId(): string {
@@ -65,7 +71,7 @@ export function randomId(): string {
         return String.fromCharCode(charCode);
     }
 
-    const deci: string = Math.random().toString().substring(2);
+    const deci: number = window.crypto.getRandomValues(new Uint32Array(1))[0];
 
     return randomChar() + deci + randomChar();
 }

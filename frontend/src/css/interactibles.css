@@ -43,7 +43,12 @@
 }
 
 .button--loader {
+    visibility: hidden;
     font-size: calc(var(--fs-400) * 0.5);
+}
+
+.button--primary.vis--hidden .button--loader {
+    visibility: visible;
 }
 
 .btn--group {
