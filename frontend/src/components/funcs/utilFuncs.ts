@@ -51,9 +51,21 @@ export interface ExtraResponse extends Response {
         detail: string;
     }
 }
+
 export function handleResponse(res: ExtraResponse, actions?: ResponseActions) {
     if(res.status >= 400)
         popup(res.data.detail, 'Error');
     else if(actions !== undefined && actions.navigate !== undefined && actions.redirectTo !== undefined)
         actions.navigate(actions.redirectTo);
+}
+
+export function randomId(): string {
+    function randomChar(): string {
+        const charCode: number = (97 + Math.random() * (122 - 97));
+        return String.fromCharCode(charCode);
+    }
+
+    const deci: string = Math.random().toString().substring(2);
+
+    return randomChar() + deci + randomChar();
 }

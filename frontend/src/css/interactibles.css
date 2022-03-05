@@ -42,6 +42,10 @@
     transform: translate(-50%, -50%);
 }
 
+.button--loader {
+    font-size: calc(var(--fs-400) * 0.5);
+}
+
 .btn--group {
     display: flex;
     align-items: center;

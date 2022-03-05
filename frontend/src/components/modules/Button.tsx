@@ -1,12 +1,13 @@
 import { positionTooltip } from "../funcs/accessibilityFuncs";
 import { focusElement } from "../funcs/utilFuncs";
+import Loader from "../layouts/Loader";
 
 interface ButtonProps {
     id?: string;
     content: string;
     action: Function; // Execute function on click
-    passEvent?: boolean;
 
+    passEvent?: boolean;
     params?: any | object;
     isIcon?: boolean;
     cls?: string;
@@ -15,6 +16,8 @@ interface ButtonProps {
     contextMenu ?: JSX.Element;
     childEl?: JSX.Element;
     extraAfter?: string | number;
+
+    loaderCls?: string;
 }
 
 function focusContextMenu(e: Event) {
@@ -70,8 +73,9 @@ const Button = ({ props } : { props: ButtonProps }) => {
             positionTooltip(e.target as HTMLElement)
         }}
 
-        className={`${props.cls} ${props.isIcon === true && 'fa'} 
-          ${props.tooltip ? 'tooltip btn--tooltip' : ''} ${props.extraAfter ?'show--after mb--015' : ''}`}
+        className={`${props.cls} pos--relative ${props.isIcon === true && 'fa'} 
+          ${props.tooltip ? 'tooltip btn--tooltip' : ''} 
+          ${props.extraAfter ?'show--after mb--015' : ''}`}
         
         aria-label={props.tooltip}
         data-tooltip={props.tooltip}
@@ -79,6 +83,7 @@ const Button = ({ props } : { props: ButtonProps }) => {
           { props.content }
           { props.childEl && props.childEl }
           { props.contextMenu }
+          { props.loaderCls && <Loader id={props.id + '-loader'} cls={props.loaderCls} radius={30} /> }
       </button>
   )
 };

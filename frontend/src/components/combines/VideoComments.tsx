@@ -42,7 +42,7 @@ const VideoComments = ({ props }: { props: INF_VideoComments }) => {
           <div className="comments__form flex flex--col gap--05 flex--al--end">
             <Input props={{ setter: () => null, data: '', placeholder: 'Add a comment',
             type: 'text', name: 'text', realType: 'string', id: 'comment-input' }} />
-            <Button props={{ content: 'Post', action: () => null }} />
+            <Button props={{ content: 'Post', action: () => null, loaderCls: 'button--loader' }} />
           </div>
 
           <div className="flex flex--col gap--2-5">

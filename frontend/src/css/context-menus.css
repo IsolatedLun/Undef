@@ -1,3 +1,7 @@
+.context-menu-container {
+    outline: 0;
+}
+
 .context-menu {
     position: absolute;
     visibility: hidden;
@@ -6,10 +10,6 @@
     padding: 0.2em;
     background-color: var(--bg-secondary);
     z-index: 999999;
-}
-
-.context-menu:focus {
-    outline: 0;
 }
 
 .context-menu-container:is(:hover, :focus, :focus-within) > .context-menu {

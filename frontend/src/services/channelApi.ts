@@ -38,7 +38,7 @@ export const ChannelApi = createApi({
 
         uploadVideo: builder.mutation<ExtraResponse, any>({
             query: ({ videoData, channel_id }) => ({
-                url: `/channel/${channel_id}/upload`,
+                url: `/channel/upload/${channel_id}`,
                 method: 'POST',
                 body: videoData,
                 headers: {
@@ -49,7 +49,7 @@ export const ChannelApi = createApi({
 
         subscrible: builder.mutation<SubscribtionResponse, any>({
             query: (channel_id) => ({
-                url: `/channel/${channel_id}/subscribe`,
+                url: `/channel/subscribe/${channel_id}`,
                 method: 'POST',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('access')}`
