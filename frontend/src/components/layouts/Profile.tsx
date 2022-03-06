@@ -10,6 +10,7 @@ interface ProfileState {
     loaderId?: string;
     to?: string;
     contextMenu?: JSX.Element;
+    ariaLabel?: string;
 }
 
 function removeLoader(el: HTMLElement) {
@@ -19,9 +20,9 @@ function removeLoader(el: HTMLElement) {
 const Profile = ({ props } : { props: ProfileState }) => {
   const element = 
   (
-    <div className={`${props.cls} pos--relative`}>
+    <div className={`${props.cls} pos--relative`} aria-label={props.ariaLabel + ' container'}>
       { props.loaderId && <Loader id={props.loaderId} /> }
-      <img 
+      <img aria-label={props.ariaLabel}
 
       src={API_URL + props.url} 
       alt={props.alt} 

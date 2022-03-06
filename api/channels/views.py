@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView, Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from django.core.files.uploadedfile import TemporaryUploadedFile, InMemoryUploadedFile
 
 from users.views import decode_user_id
 from . import models
@@ -99,13 +100,24 @@ class ChannelSubscribe(APIView):
 
 class EditChannelVideo(APIView):
     def post(self, req, channel_id, video_id):
-        video = Video.objects.get(id=video_id, channel_id=channel_id)
-        
-        fields = []
-        for (key, val) in req.data.items():
-            video[key] = val;
-            fields.append(key)
+        req.data._mutable = True
 
-        video.save(update_fields=fields)
+        def clean_data(edit_video_dict: dict):
+            if not isinstance(edit_video_dict['thumbnail'], (InMemoryUploadedFile, TemporaryUploadedFile)):
+                edit_video_dict.pop('thumbnail')
+
+            return edit_video_dict
+
+        video = Video.objects.get(id=video_id, channel_id=channel_id)
+
+        data = clean_data(req.data)
+
+        video.title = data['title']
+        video.description = data['description']
+        video.visibility = data['visibility']
+        if data.get('thumbnail', False):
+            video.thumbnail = data['thumbnail']
+
+        video.save(update_fields=['title', 'description', 'visibility', 'thumbnail'])
 
         return Response({'detail': 'Updated video.'})

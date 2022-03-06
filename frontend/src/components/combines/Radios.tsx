@@ -35,7 +35,7 @@ const Radio = ({ props } : { props: RadioButton }) => {
   return(
       <div onClick={(e: React.MouseEvent<any>) => selectChoice(e, props.setter!)}
         className={`radio__part input--primary curs--point flex gap--1 ${props.radioCls}` }
-        id={`radio-${props.name}-${props.value}`}>
+        id={`radio-${props.name}-${props.value}`} tabIndex={0} >
           
         <Input props={{ type: 'radio', realType: 'oneWord', setter: props.setter, data: '', 
           name: props.name, value: props.value }} />

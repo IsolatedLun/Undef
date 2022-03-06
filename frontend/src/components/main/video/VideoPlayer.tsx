@@ -35,7 +35,6 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
             onTimeUpdate={() => 
               updateVideoData(videoRef.current!, barRef.current!, 
                 currDurationRef.current!, bufferBarRef.current!)}
-            onEnded={() => alert('ended')}
             
             id='video-el'
             ref={videoRef}
@@ -43,6 +42,7 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
             poster={API_URL + videoData.thumbnailUrl}
             src={API_URL + videoData.videoUrl}
             preload='none'
+            tabIndex={0}
             >
 
           </video>

@@ -36,9 +36,9 @@ const VideoTab = () => {
             
             <div>
               <h1 className='txt--center mb--1'>Watch Next</h1>
-              <div className='flex flex--col gap--1'>
+              <section aria-label='Watch next videos' className='flex flex--col gap--1'>
                 <Videos props={{ videos: nextVideos, filters: {'id': [Number(video_id), true]} }} />
-              </div>
+              </section>
             </div>
             <section className="other-videos flex flex--col gap--1">
               <VideoComments props={{ id: 'mobile-comments', comments: video.comments }} />

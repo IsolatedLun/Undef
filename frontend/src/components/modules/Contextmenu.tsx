@@ -17,7 +17,7 @@ interface ContextMenuOption {
 
 const Contextmenu = ({ props } : { props: ContextMenu }) => {
   return(
-      <div tabIndex={-1} className='context-menu-container'>
+      <div tabIndex={0} className='context-menu-container'>
           <ul className="context-menu flex flex--col">
             {
                 props.options.map((option, idx) => {

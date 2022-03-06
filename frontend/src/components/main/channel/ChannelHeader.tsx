@@ -19,15 +19,15 @@ const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserSta
     }, [channel])
     
     return (
-        <nav className="channel__nav flex flex--col gap--1" role='channel navigation'>
-          <Profile props={{ cls: 'channel__banner', 
+        <nav className="channel__nav flex flex--col gap--1" role='Channel Navigation' aria-label='Channel Header'>
+          <Profile props={{ cls: 'channel__banner', ariaLabel: 'Channel Banner',
             url: channel.banner, alt: '', loaderId: 'channel-banner-loader' }} />
 
           <div className="channel__details flex flex--center--between mt--1">
 
             <div className='flex gap--1'>
               <Profile props={{ cls: 'channel__user-profile profile round', 
-                url: channel.user_data.profile, alt: '' }} />
+                url: channel.user_data.profile, alt: '', ariaLabel: 'Channel Profile' }} />
 
               <div className='flex flex--col gap--025'>
                 <p className="channel_username">{ channel.user_data.username }</p>

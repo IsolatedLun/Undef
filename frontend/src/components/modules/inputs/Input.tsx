@@ -51,6 +51,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
             name={props.name}
             type={props.type} 
             value={props.value}
+            aria-label={props.name + ' input'}
         
             data-real-type={props.realType}
             data-optional={props.isOptional}
@@ -75,6 +76,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 type="file" 
                 accept={props.realType + '/*'}
                 name={props.name}
+                aria-label={props.name + ' file input'}
 
                 data-real-type={props.realType}
                 />
@@ -95,6 +97,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
         
                     name={props.name}
                     value={props.value}
+                    aria-label={props.name + ' textarea input'}
                 
                     data-real-type={props.realType}
                 />
@@ -110,6 +113,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                     type='range'
                     min='0'
                     max='100'
+                    aria-label={props.name + ' range input'}
         
                     name={props.name}
                 />
@@ -125,6 +129,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                         name={props.name}
                         value={props.value}
                         type='radio'
+                        aria-label={props.name + ' range input'}
                     />
                     <div className="input--radio--button"></div>
                 </label>

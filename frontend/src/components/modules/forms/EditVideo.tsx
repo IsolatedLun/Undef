@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEditVideoMutation } from '../../../services/channelApi';
 import { useGetVideoQuery } from '../../../services/videoApi';
 import Radios from '../../combines/Radios';
+import { constructFormData, validateForm } from '../../funcs/formFuncs';
+import { handleResponse } from '../../funcs/utilFuncs';
 import Loader from '../../layouts/Loader';
 import Button from '../Button';
 import Form from '../Form';
@@ -17,7 +19,8 @@ interface INF_EditVideo {
 }
 
 const EditVideo = () => {
-    const { video_id } = useParams();
+    const { video_id, channel_id } = useParams();
+    const navigate = useNavigate();
     const [editVideo, {  }] = useEditVideoMutation();
     const { data: video, isSuccess } = useGetVideoQuery({ video_id, type: 'edit' });
 
@@ -46,7 +49,7 @@ const EditVideo = () => {
     function reset() {
         setUpdateVideo({ ...(video as any) });
         setVisibility(String(video!.visibility));
-        const radio = document.getElementById('radio-visibility-' + video.visibility) as HTMLButtonElement;
+        const radio = document.getElementById('radio-visibility-' + video!.visibility) as HTMLButtonElement;
         radio.click();
     }
 
@@ -57,7 +60,7 @@ const EditVideo = () => {
 
                 <Input props={{ name: 'thumbnail', type: 'file', realType: 'image', id: 'video-thumbnail',
                     placeholder: 'Change thumbnail', setter: setUpdateVideo, data: updateVideo,
-                    labelCls: 'w--40 cust mi--inline', url: video.thumbnail }} />
+                    labelCls: 'w--40 cust mi--inline', url: video.thumbnail, isOptional: true }} />
 
                 <InputPart props={{ label: 'Title', setter: setUpdateVideo, data: updateVideo, id: 'title',
                     inputData: { 
@@ -101,7 +104,15 @@ const EditVideo = () => {
                     <Button 
                         props={{ 
                             content: 'Update', 
-                            action: () => null, 
+                            action: async() => {
+                                if(validateForm('form__inpt')) {
+
+                                }
+                                    const editedData = constructFormData(updateVideo)
+                                    await editVideo({ editedData, channel_id, video_id }).unwrap()
+                                        .then(res => handleResponse(res, { redirectTo: '/', navigate }))
+                                        .catch(res => handleResponse(res))
+                            }, 
                             modifiers: canUpdate ? '' : 'disabled' }}
                     
                     />

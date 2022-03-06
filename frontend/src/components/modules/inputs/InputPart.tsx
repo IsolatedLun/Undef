@@ -10,8 +10,10 @@ const InputPart = ({ props } : { props: INF_InputPart }) => {
   return (
     <div className="form__part" id={props.id + '-form-part'}>
         { props.label && (
-          <label className='part__label'>{ props.label } {props.inputData.isOptional && 
-            <span className='txt--muted'>*</span>}</label>
+          <label className='part__label' htmlFor={props.id}>
+            { props.label } 
+            {props.inputData.isOptional && <span className='txt--muted'>*</span>}
+          </label>
         ) }
 
         <Input props={{ ...props.inputData, setter: props.setter, 
