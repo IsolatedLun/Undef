@@ -11,7 +11,8 @@ const InputPart = ({ props } : { props: INF_InputPart }) => {
     <div className="form__part" id={props.id + '-form-part'}>
         { props.label && (
           <label className='part__label' htmlFor={props.id}>
-            { props.label } 
+            { props.label }
+             
             {props.inputData.isOptional && <span className='txt--muted'>*</span>}
           </label>
         ) }

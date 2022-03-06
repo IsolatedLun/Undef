@@ -64,7 +64,7 @@ class RateVideo(APIView):
             video.dislikes += 1
 
             rated_video.save()
-            video.save(update_fields=['likes, dislikes'])
+            video.save(update_fields=['likes', 'dislikes'])
             return 'dislike'
 
         def like(rated_video, video):
@@ -75,7 +75,7 @@ class RateVideo(APIView):
             video.likes += 1
             
             rated_video.save()
-            video.save(update_fields=['likes, dislikes'])
+            video.save(update_fields=['likes', 'dislikes'])
             return 'like'
 
         def unrate(rated_video, video, rate_type):
@@ -87,7 +87,7 @@ class RateVideo(APIView):
             rated_video.rate_type = ''
 
             rated_video.save()
-            video.save(update_fields=['likes, dislikes'])
+            video.save(update_fields=['likes', 'dislikes'])
             
             return 'un' + rate_type
 

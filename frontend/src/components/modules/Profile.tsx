@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { API_URL } from "../../consts"
 import Loader from "../layouts/Loader"
-import Contextmenu from "./Contextmenu";
+import Contextmenu from "./ContextMenu";
 
 interface ProfileState {
     url: string;
@@ -22,7 +22,8 @@ const Profile = ({ props } : { props: ProfileState }) => {
   (
     <div className={`${props.cls} pos--relative`} aria-label={props.ariaLabel + ' container'}>
       { props.loaderId && <Loader id={props.loaderId} /> }
-      <img aria-label={props.ariaLabel}
+      <img 
+      aria-label={props.ariaLabel}
 
       src={API_URL + props.url} 
       alt={props.alt} 

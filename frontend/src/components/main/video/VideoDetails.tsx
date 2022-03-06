@@ -7,7 +7,7 @@ import { useRateVideoMutation } from '../../../services/videoApi';
 import { positionTooltip } from '../../funcs/accessibilityFuncs';
 import { loggedAction } from '../../funcs/authFuncs';
 import Button from '../../modules/Button';
-import Contextmenu from '../../modules/Contextmenu';
+import ContextMenu from '../../modules/ContextMenu';
 import { VideoData } from './VideoTab';
 
 interface RateSongResponse {
@@ -29,7 +29,7 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
 
   const [rateSong, {  }] = useRateVideoMutation();
 
-  const videoOptionsMenu = <Contextmenu props={{ id: 'options-menu', options: [
+  const videoOptionsMenu = <ContextMenu props={{ id: 'options-menu', options: [
     { action: () => null, icon: CLOCK_ICO, text: 'Add to watch later' },
     { action: () => null, icon: FLAG_ICO, text: 'Report' },
   ] }} />

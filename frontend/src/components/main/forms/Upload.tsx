@@ -147,7 +147,7 @@ const Upload = () => {
 
             uploadVideo({ videoData: constructFormData(newVideo), channel_id })
               .unwrap()
-              .then(res => handleResponse(res, { navigate: navigate, redirectTo: `/channels/${channel_id}` }, btn))
+              .then(res => handleResponse(res, { redirectTo: `/channels/${channel_id}` }, btn))
               .catch(res => handleResponse(res, undefined, btn))
           }
         }, modifiers: 'mt--1', id: 'publish-video-btn', loaderCls: 'button--loader' }} />

@@ -6,14 +6,13 @@ import { useAuth } from '../../hooks/useAuth';
 import { logout } from '../../slices/auth-slice';
 import { toggleElement } from '../funcs/utilFuncs';
 import Button from '../modules/Button';
-import Contextmenu from '../modules/Contextmenu';
+import ContextMenu from '../modules/ContextMenu';
 import Input from '../modules/inputs/Input';
 import Profile from '../modules/Profile';
 
 const PrimaryNav = () => {
   const { user, isLogged } = useAuth();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const [search, setSearch] = useState('');
 
@@ -22,7 +21,7 @@ const PrimaryNav = () => {
     window.location.href = '/'
   }
 
-  const navContextMenu = <Contextmenu props={{ id: 'nav-context', 
+  const navContextMenu = <ContextMenu props={{ id: 'nav-context', 
     options: 
     [
       { icon: ENTER_ICO, text: 'My channel', action: () => null, to: '/channels/' + user.channel_id }

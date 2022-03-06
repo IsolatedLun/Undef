@@ -15,7 +15,7 @@ interface ContextMenuOption {
     to?: string;
 }
 
-const Contextmenu = ({ props } : { props: ContextMenu }) => {
+const ContextMenu = ({ props } : { props: ContextMenu }) => {
   return(
       <div tabIndex={0} className='context-menu-container'>
           <ul className="context-menu flex flex--col">
@@ -39,4 +39,4 @@ const Contextmenu = ({ props } : { props: ContextMenu }) => {
   )
 };
 
-export default Contextmenu;
+export default ContextMenu;

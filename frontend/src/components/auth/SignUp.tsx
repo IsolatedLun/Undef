@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRegisterMutation } from '../../services/authApi';
 import MultiForm from '../combines/MultiForm'
 import { constructFormData, validateForm } from '../funcs/formFuncs';
@@ -19,11 +18,9 @@ export interface NewUser {
 }
 
 const SignUp = () => {
-  const [register, { isSuccess, error }] = useRegisterMutation()
+  const [register, { }] = useRegisterMutation()
   const [index, setIndex] = useState<number>(0);
-  const navigate = useNavigate();
 
-  const [channelDetails, setChannelDetails] = useState<object>({});
   const [newUser, setNewUser] = useState<NewUser>({
     username: '',
     email_address: '',
@@ -73,7 +70,7 @@ const SignUp = () => {
         <Button props={{ content: 'Create Account', action: async() => {
           if(validateForm('form__inpt', undefined, true))
             await register(constructFormData(newUser)!).unwrap()
-            .then(res => handleResponse(res, { redirectTo: '/auth/login', navigate: navigate}))
+            .then(res => handleResponse(res, { redirectTo: '/auth/login' }))
             .catch(res => handleResponse(res))
         }, modifiers: 'w--100' }} />,
       ]

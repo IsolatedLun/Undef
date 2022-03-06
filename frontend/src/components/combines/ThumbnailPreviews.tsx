@@ -16,7 +16,7 @@ const ThumbnailPreview = ({ id, idx, setter, data, name }:
     }
 
     return (
-        <div onClick={(e) => useAutoState(e, setter, data, setThumbnail, [setter, data], true)}
+        <div onClick={(e) => useAutoState(e, setter, data, () => setThumbnail(e, setter, data), true)}
             className="thumbnail__preview input--primary cust pos--relative">
             <img id={currId} src="" data-name={name} />
             <Loader id={currId + '-loader'} />

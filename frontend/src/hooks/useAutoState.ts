@@ -1,10 +1,17 @@
 import { FormEvent } from "react";
 
+/**
+ * @param e - Event (Used for getting the value and attrs)
+ * @param setter - Sets the state
+ * @param data - Used for updating someting in an object {  ...data, variableToUpdate }
+ * @param callback - Callback function if needed
+ * @param override - If true then immediately calls the callback function.
+*/
 export function useAutoState(e: FormEvent<any>, setter: Function, data: any, 
-    cb?: Function, params?: any[], override: boolean=false) {
+    cb?: Function, override: boolean=false) {
 
-    if(cb && params && override === true)
-        cb(e, ...params)
+    if(cb && override === true)
+        cb(e);
         
     else {
         const target = e.target as HTMLInputElement;
@@ -34,7 +41,7 @@ export function useAutoState(e: FormEvent<any>, setter: Function, data: any,
 
         }
 
-        if(cb && params)
-            cb(e, ...params)
+        if(cb)
+            cb(e)
     }
 }

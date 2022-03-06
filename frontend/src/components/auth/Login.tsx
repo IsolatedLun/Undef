@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { useLoginMutation } from "../../services/authApi"
 import { validateForm } from "../funcs/formFuncs"
 import { handleResponse } from "../funcs/utilFuncs"
@@ -14,7 +13,6 @@ export interface LoginUser {
 
 const Login = () => {
     const [login, { error }] = useLoginMutation();
-    const navigate = useNavigate();
     const [loginUser, setLoginUser] = useState<LoginUser>({
         email_address: '',
         password: '',
@@ -31,7 +29,7 @@ const Login = () => {
            if(validateForm('form__inpt'))
             await login(loginUser)
             .unwrap()
-            .then(res => handleResponse(res, { redirectTo: '/', navigate: navigate }))
+            .then(res => handleResponse(res, { redirectTo: '/' }))
             .catch(res => handleResponse(res))
         }, modifiers: 'w--100' }} />
     ]

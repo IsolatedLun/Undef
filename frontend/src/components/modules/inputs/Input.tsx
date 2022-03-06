@@ -11,17 +11,17 @@ export interface INF_Input {
     value?: string;
     action?: Function;
     params?: any[];
-    url?: string;
+    url?: string; // Url for image input
 
     cb?: Function;
     cbParams?: any[];
-    cbOverride?: boolean;
+    cbOverride?: boolean; // For useAutoState
 
-    modifiers?: string;
-    cls?: string;
-    labelCls?: string;
+    modifiers?: string; // extra css classes
+    cls?: string; // Custom class
+    labelCls?: string; 
     placeholder?: string;
-    isOptional?: boolean;
+    isOptional?: boolean; // Validation boolean
 }
 
 export interface InputState {
@@ -41,7 +41,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
     if(['text', 'email', 'password'].includes(props.type))
         return(
             <input
-            onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb, props.cbParams, 
+            onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb, 
                 props.cbOverride)}
 
             id={props.id}
@@ -68,8 +68,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 <video className='hidden' id={props.id + '-video'} />
                     
                 <input 
-                onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb, 
-                    props.cbParams, props.cbOverride)}
+                onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb)}
                 
                 id={props.id}
                 className={props.cls}
@@ -87,8 +86,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
     else if(props.type === 'textarea')
             return(
                 <textarea 
-                    onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb, 
-                        props.cbParams, props.cbOverride)}
+                    onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb)}
 
                     id={props.id}
                     placeholder={props.placeholder ? props.placeholder : ''}
@@ -102,7 +100,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                     data-real-type={props.realType}
                 />
             )
-    else if(props.type === 'range' && props.action !== undefined && props.params !== undefined)
+    else if(props.type === 'range' && props.action && props.params)
             return(
                 <input 
                     onChange={(e) => props.action!(e, ...props.params!)}

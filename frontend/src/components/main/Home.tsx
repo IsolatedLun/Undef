@@ -9,7 +9,7 @@ const Home = () => {
   return(
     <div className="home-container">
       <div className="videos">
-        { data !== undefined && <Videos props={{ videos: data }} /> }
+        { data && <Videos props={{ videos: data }} /> }
       </div> 
     </div>   
   )
