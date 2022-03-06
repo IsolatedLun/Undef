@@ -5,7 +5,7 @@ import { useSubscribleMutation } from '../../../services/channelApi'
 import { UserState } from '../../../slices/auth-slice'
 import { loggedAction } from '../../funcs/authFuncs'
 import Loader from '../../layouts/Loader'
-import Profile from '../../layouts/Profile'
+import Profile from '../../modules/Profile'
 import Button from '../../modules/Button'
 import { INF_Channel } from './ChannelRouter'
 

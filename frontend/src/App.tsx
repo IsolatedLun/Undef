@@ -2,13 +2,12 @@ import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
-import { refreshTokens } from './components/funcs/authFuncs';
 import Popup from './components/layouts/Popup';
 import PrimaryNav from './components/layouts/PrimaryNav';
 import ChannelRouter from './components/main/channel/ChannelRouter';
 import Home from './components/main/Home';
 import VideoTab from './components/main/video/VideoTab';
-import PageNotFound from './components/modules/PageNotFound';
+import PageNotFound from './components/layouts/PageNotFound';
 import { useAuth } from './hooks/useAuth';
 import { useAuthenticateMutation } from './services/authApi';
 

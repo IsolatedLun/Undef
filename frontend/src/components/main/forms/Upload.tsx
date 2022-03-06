@@ -7,12 +7,13 @@ import MultiForm from "../../combines/MultiForm"
 import Radios from "../../combines/Radios"
 import ThumbnailPreviews from "../../combines/ThumbnailPreviews"
 import { constructFormData, isValidFile, validateForm } from "../../funcs/formFuncs"
-import { dataUrlToFile, generateThumbnail, handleResponse, previewImage, resetThumbnails } from "../../funcs/utilFuncs"
-import Button, { toggleButton } from "../Button"
-import Form from "../Form"
-import FormCompletion, { INF_FomrCompletion } from "../FormCompletion"
-import Input from "../inputs/Input"
-import InputPart from "../inputs/InputPart"
+import { dataUrlToFile, generateThumbnail, handleResponse, previewImage, 
+  resetThumbnails } from "../../funcs/utilFuncs"
+import Button, { toggleButton } from "../../modules/Button"
+import Form from "../../modules/Form"
+import FormCompletion, { INF_FomrCompletion } from "../../modules/FormCompletion"
+import Input from "../../modules/inputs/Input"
+import InputPart from "../../modules/inputs/InputPart"
 
 interface INF_VideoUpload {
   channel_id: number;

@@ -1,5 +1,5 @@
 import React from 'react'
-import Loader from '../layouts/Loader'
+import Loader from './Loader'
 
 const PageNotFound = () => {
     return(

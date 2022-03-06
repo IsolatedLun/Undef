@@ -8,7 +8,7 @@ import { toggleElement } from '../funcs/utilFuncs';
 import Button from '../modules/Button';
 import Contextmenu from '../modules/Contextmenu';
 import Input from '../modules/inputs/Input';
-import Profile from './Profile';
+import Profile from '../modules/Profile';
 
 const PrimaryNav = () => {
   const { user, isLogged } = useAuth();

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { API_URL } from "../../consts"
-import Loader from "./Loader"
-import Contextmenu from "../modules/Contextmenu";
+import Loader from "../layouts/Loader"
+import Contextmenu from "./Contextmenu";
 
 interface ProfileState {
     url: string;

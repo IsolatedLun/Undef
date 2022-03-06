@@ -6,10 +6,10 @@ import Radios from '../../combines/Radios';
 import { constructFormData, validateForm } from '../../funcs/formFuncs';
 import { handleResponse } from '../../funcs/utilFuncs';
 import Loader from '../../layouts/Loader';
-import Button from '../Button';
-import Form from '../Form';
-import Input from '../inputs/Input';
-import InputPart from '../inputs/InputPart';
+import Button from '../../modules/Button';
+import Form from '../../modules/Form';
+import Input from '../../modules/inputs/Input';
+import InputPart from '../../modules/inputs/InputPart';
 
 interface INF_EditVideo {
     title: string;
