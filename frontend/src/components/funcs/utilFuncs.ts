@@ -45,7 +45,6 @@ export function resetThumbnails(t: number) {
 }
 
 interface ResponseActions {
-    navigate?: Function;
     redirectTo?: string;
 }
 
@@ -58,8 +57,8 @@ export interface ExtraResponse extends Response {
 export function handleResponse(res: ExtraResponse, actions?: ResponseActions, btn?: HTMLButtonElement) {
     if(res.status >= 400)
         popup(res.data.detail, 'Error');
-    else if(actions !== undefined && actions.navigate !== undefined && actions.redirectTo !== undefined)
-        actions.navigate(actions.redirectTo);
+    else if(actions !== undefined && actions.redirectTo !== undefined)
+        window.location.href = actions.redirectTo;
 
     if(btn)
         toggleButton(btn);

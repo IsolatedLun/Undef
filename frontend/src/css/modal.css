@@ -1,0 +1,44 @@
+.modal {
+    position: fixed;
+    padding: 5em;
+    inset: -100vw;
+    transform: scale(0);
+    background-color: rgb(0, 0, 0, 0.25);
+    background-size: 500%;
+    border-radius: 50%;
+    transition: transform 250ms ease-in-out;
+    z-index: 999;
+}
+
+.modal .modal__content {
+    padding: 1em;
+    background-color: var(--bg-secondary);
+    border-radius: 6px;
+    max-width: 90vw;
+}
+
+.modal .modal__title {
+    font-size: calc(var(--fs-500) * 0.8);
+    font-weight: normal;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgb(0, 0, 0, 0.35);
+    opacity: 0;
+    transition: opacity 250ms ease-in-out;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.modal.active {
+    transform: scale(1);
+}
+
+.modal.active + .overlay {
+    opacity: 1;
+    pointer-events: all;
+}

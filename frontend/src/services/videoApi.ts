@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { getAccess } from "../components/funcs/authFuncs";
+import { ExtraResponse } from "../components/funcs/utilFuncs";
 import { VideoData } from "../components/main/video/VideoTab";
 import { INF_Video } from "../components/modules/Video";
 import { API_URL } from "../consts";
@@ -39,9 +40,17 @@ export const VideoApi = createApi({
                     'type': type
                 },
             })
+        }),
+
+        deleteVideo: builder.mutation<ExtraResponse, any>({
+            query: (video_id) => ({
+                url: `/video/${video_id}/delete`,
+                method: 'POST',
+            })
         })
 
     })
 })
 
-export const { useGetVideosQuery, useGetVideoQuery, useRateVideoMutation } = VideoApi;
+export const { useGetVideosQuery, useGetVideoQuery, useRateVideoMutation,
+    useDeleteVideoMutation } = VideoApi;

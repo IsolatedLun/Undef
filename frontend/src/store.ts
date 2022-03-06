@@ -4,11 +4,13 @@ import { VideoApi } from './services/videoApi'
 import { ChannelApi } from "./services/channelApi";
 import { AuthApi } from "./services/authApi";
 import { authSlice } from "./slices/auth-slice";
+import { modalSlice } from "./slices/modal-slice";
 
 export const store = configureStore({
     reducer: {
         videos: videosSlice.reducer,
         auth: authSlice.reducer,
+        modal: modalSlice.reducer,
 
         [VideoApi.reducerPath]: VideoApi.reducer,
         [ChannelApi.reducerPath]: ChannelApi.reducer,

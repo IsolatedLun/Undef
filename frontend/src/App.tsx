@@ -10,6 +10,7 @@ import VideoTab from './components/main/video/VideoTab';
 import PageNotFound from './components/layouts/PageNotFound';
 import { useAuth } from './hooks/useAuth';
 import { useAuthenticateMutation } from './services/authApi';
+import Modal from './components/layouts/Modal';
 
 function App() {
   const [authenticate] = useAuthenticateMutation();
@@ -17,7 +18,7 @@ function App() {
 
   useEffect(() => {
     if(!isLogged) {
-      authenticate()
+      authenticate();
     }
   }, [])
 
@@ -38,6 +39,7 @@ function App() {
         </Routes>
 
         <Popup />
+        <Modal />
       </div>
     </Router>
   )

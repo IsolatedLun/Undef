@@ -110,3 +110,13 @@ class RateVideo(APIView):
             }
 
         return Response({'data': data}, OK)
+
+class DeleteVideo(APIView):
+    def post(self, req, video_id):
+        try:
+            video = models.Video.objects.get(id=video_id)
+            video.delete()
+
+            return Response({ 'detail': 'Video deleted' }, OK)
+        except:
+            return Response({ 'detail': 'Something went wrong' }, ERR)

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../../hooks/state';
 import { useEditVideoMutation } from '../../../services/channelApi';
-import { useGetVideoQuery } from '../../../services/videoApi';
+import { useDeleteVideoMutation, useGetVideoQuery } from '../../../services/videoApi';
+import { toggleModal } from '../../../slices/modal-slice';
 import Radios from '../../combines/Radios';
 import { constructFormData, validateForm } from '../../funcs/formFuncs';
 import { handleResponse } from '../../funcs/utilFuncs';
@@ -19,9 +21,12 @@ interface INF_EditVideo {
 }
 
 const EditVideo = () => {
+    const dispatch = useAppDispatch();
     const { video_id, channel_id } = useParams();
     const navigate = useNavigate();
+
     const [editVideo, {  }] = useEditVideoMutation();
+    const [deleteVideo, {  }] = useDeleteVideoMutation();
     const { data: video, isSuccess } = useGetVideoQuery({ video_id, type: 'edit' });
 
     const [canUpdate, setCanUpdate] = useState(false);
@@ -51,6 +56,12 @@ const EditVideo = () => {
         setVisibility(String(video!.visibility));
         const radio = document.getElementById('radio-visibility-' + video!.visibility) as HTMLButtonElement;
         radio.click();
+    }
+
+    async function deleteVideoCommence() {
+        await deleteVideo(video_id).unwrap()
+            .then(res => handleResponse(res, { redirectTo: '/channels/' + channel_id }))
+            .catch(res => handleResponse(res, { redirectTo: '/channels/' + channel_id }))
     }
 
     const editVideoElements = ( video &&
@@ -91,7 +102,11 @@ const EditVideo = () => {
             </div>
 
             <div className="flex flex--center--between gap--1 mt--1">
-                <Button props={{ content: 'Delete', action: () => null }}/>
+                <Button props={{ content: 'Delete', 
+                    action: () => 
+                        dispatch(toggleModal({ 
+                            text: `Delete "${updateVideo.title}" ?`, 
+                            cb: deleteVideoCommence })) }}/>
                 
                 <div className="btn--group">
                     <Button 
@@ -106,15 +121,13 @@ const EditVideo = () => {
                             content: 'Update', 
                             action: async() => {
                                 if(validateForm('form__inpt')) {
-
-                                }
                                     const editedData = constructFormData(updateVideo)
                                     await editVideo({ editedData, channel_id, video_id }).unwrap()
-                                        .then(res => handleResponse(res, { redirectTo: '/', navigate }))
+                                        .then(res => handleResponse(res, { redirectTo: '/' }))
                                         .catch(res => handleResponse(res))
+                                }
                             }, 
-                            modifiers: canUpdate ? '' : 'disabled' }}
-                    
+                        modifiers: canUpdate ? '' : 'disabled' }}
                     />
                 </div>
             </div>

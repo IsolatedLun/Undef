@@ -59,8 +59,11 @@
 .btn--group {
     display: flex;
     align-items: center;
-    gap: 0.85em;
     flex-wrap: wrap;
+}
+
+.btn--group:not(.cust) {
+    gap: 0.85em;
 }
 
 /* Inputs */
