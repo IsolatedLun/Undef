@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useAuth } from "../../../hooks/useAuth"
 import { useAutoState } from "../../../hooks/useAutoState"
@@ -25,17 +25,39 @@ interface INF_VideoUpload {
   visibility: string;
 }
 
+interface UploadReducerState {
+  previewIdx: number;
+  videoTime: number;
+}
+
+const initialState: UploadReducerState = {
+  previewIdx: 0,
+  videoTime: 1,
+}
+
+function videoReducer(state: any, action: any) {
+  switch(action.type) {
+    case 'previewIdx':
+      return { ...state, previewIdx: state.previewIdx + 1 };
+    case 'videoTime':
+      return { ...state, videoTime: state.videoTime + state.previewIdx };
+    case 'reset':
+      return initialState;
+    default:
+      return state;
+  }
+}
+
 const Upload = () => {
     const { user } = useAuth();
     const [uploadVideo, { isSuccess }] = useUploadVideoMutation();
-    const navigate = useNavigate();
     const previewAmt: number = 4
     const { channel_id } = useParams();
     const [visibility, setVisibility] = useState('1');
 
-    const [index, setIndex] = useState(0)
-    const [previewIdx, setPreviewIdx] = useState(1)
-    const [videoTime, setVideoTime] = useState(1);
+    const [videoState, videoDispatch] = useReducer(videoReducer, initialState);
+
+    const [index, setIndex] = useState(0);
     const [newVideo, setNewVideo] = useState<INF_VideoUpload>({
       channel_id: Number(channel_id),
       user_id: user.id,
@@ -51,7 +73,7 @@ const Upload = () => {
       {idx: 2, text: 'Publish'},
     ]
 
-    const videoUpload = (
+    const videoUpload = ( videoState &&
         <>
           <div className="upload__split">
             <div className="form__part">
@@ -61,15 +83,16 @@ const Upload = () => {
                   
                   <img src="" id='thumbnail-preview-0' className="upload__selected-preview" />
                   <video className='' id='video-input-video'
-                    onLoadedData={(e) => (e.target as HTMLVideoElement).currentTime = videoTime}
+                    onLoadedData={(e) => (e.target as HTMLVideoElement).currentTime = videoState.videoTime}
                     onSeeked={async(e) => {
                       const videoEl = e.target as HTMLVideoElement;
-                      const thumbnailUrl = generateThumbnail(videoEl, previewIdx);
-        
-                      if(previewIdx < previewAmt && videoTime < videoEl.duration) {
-                        setVideoTime(videoTime + previewIdx);
-                        setPreviewIdx(previewIdx + 1)
-                        videoEl.currentTime = videoTime;
+                      const thumbnailUrl = generateThumbnail(videoEl, videoState.previewIdx);
+
+                      if(videoState.previewIdx < previewAmt && videoState.videoTime < videoEl.duration) {
+                        videoDispatch({ type: 'videoTime' });
+                        videoDispatch({ type: 'previewIdx' });
+
+                        videoEl.currentTime = videoState.videoTime;
                       }
 
                       else
@@ -81,10 +104,12 @@ const Upload = () => {
                     if(isValidFile((e.target as HTMLInputElement).files![0], 'video') === true) {
                       (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = '';
 
-                      useAutoState(e, setNewVideo, newVideo);
+                      useAutoState(e, setNewVideo);
                       resetThumbnails(previewAmt);
-                      setVideoTime(1);
-                      setPreviewIdx(1);
+                      videoDispatch({ type: 'reset' });
+
+                      videoDispatch({ type: 'videoTime' });
+                      videoDispatch({ type: 'previewIdx' });
                     }
                   }}
                   
@@ -102,11 +127,11 @@ const Upload = () => {
             </div>
 
             <div className="input__parts">
-              <InputPart props={{ label: 'Title', setter: setNewVideo, data: newVideo,
+              <InputPart props={{ label: 'Title', setter: setNewVideo,
               inputData: { name: 'title', realType: 'string', type: 'text', placeholder: 'Enter title' }, 
                 id: 'title'}} />
 
-              <InputPart props={{ label: 'Description', setter: setNewVideo, data: newVideo,
+              <InputPart props={{ label: 'Description', setter: setNewVideo,
               inputData: { name: 'description', realType: 'string', type: 'textarea' }, 
                 id: 'description'}} />
 
@@ -116,7 +141,7 @@ const Upload = () => {
 
           <div className="upload__thumbnail-previews">
             <Input props={{ name: 'thumbnail', realType: 'image', 
-              type: 'file', setter: setNewVideo, data: newVideo, labelCls: 'dashed', 
+              type: 'file', setter: setNewVideo, labelCls: 'dashed', 
                 placeholder: 'Upload thumbnail', id: 'thumbnail-input', 
                 cb: previewImage, cbParams: [document.getElementById('thumbnail-preview-0')], 
                 cbOverride: false }} />

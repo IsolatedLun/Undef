@@ -38,13 +38,13 @@ const SignUp = () => {
   
   const registerElements: JSX.Element[] = 
     [
-      <InputPart props={{id: 'email', label: 'Email Address', setter: setNewUser, data: newUser,
+      <InputPart props={{id: 'email', label: 'Email Address', setter: setNewUser,
           inputData: {name: 'email_address', type: 'email', realType: 'email'}}} />,
 
-      <InputPart props={{id: 'password', label: 'Password', setter: setNewUser, data: newUser,
+      <InputPart props={{id: 'password', label: 'Password', setter: setNewUser,
       inputData: {name: 'password', type: 'password', realType: 'password'}}} />,
 
-      <InputPart props={{id: 'username', label: 'Username', setter: setNewUser, data: newUser,
+      <InputPart props={{id: 'username', label: 'Username', setter: setNewUser,
           inputData: {name: 'username', type: 'text', realType: 'string'}}} />,
 
       <Button props={{ content: 'Next', action: () => setIndex(index + 1), modifiers: 'w--100' }} />,
@@ -52,10 +52,10 @@ const SignUp = () => {
 
   const channelElements: JSX.Element[] = 
     [
-      <InputPart props={{id: 'channel-banner', label: 'Channel Banner', setter: setNewUser, data: newUser,
+      <InputPart props={{id: 'channel-banner', label: 'Channel Banner', setter: setNewUser,
           inputData: {name: 'banner', type: 'file', realType: 'image', placeholder: 'Upload Banner'}}} />,
 
-          <InputPart props={{id: 'description', label: 'Channel Descritpion', setter: setNewUser, data: newUser,
+          <InputPart props={{id: 'description', label: 'Channel Descritpion', setter: setNewUser,
       inputData: {name: 'channel_description', type: 'textarea', realType: 'string'}}} />,
 
       <Button props={{ content: 'Next', action: () => setIndex(index + 1), modifiers: 'w--100' }} />,
@@ -63,7 +63,7 @@ const SignUp = () => {
 
   const profileElements: JSX.Element[] = 
       [
-        <InputPart props={{id: 'profile', label: 'Profile', setter: setNewUser, data: newUser,
+        <InputPart props={{id: 'profile', label: 'Profile', setter: setNewUser,
             inputData: {name: 'profile', type: 'file', realType: 'image', 
             placeholder: 'Upload Profile', labelCls: 'cust label--profile mi--inline'}}} />,
 

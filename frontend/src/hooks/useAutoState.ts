@@ -3,11 +3,10 @@ import { FormEvent } from "react";
 /**
  * @param e - Event (Used for getting the value and attrs)
  * @param setter - Sets the state
- * @param data - Used for updating someting in an object {  ...data, variableToUpdate }
  * @param callback - Callback function if needed
  * @param override - If true then immediately calls the callback function.
 */
-export function useAutoState(e: FormEvent<any>, setter: Function, data: any, 
+export function useAutoState(e: FormEvent<any>, setter: React.SetStateAction<any>, 
     cb?: Function, override: boolean=false) {
 
     if(cb && override === true)
@@ -19,21 +18,21 @@ export function useAutoState(e: FormEvent<any>, setter: Function, data: any,
         const realType = target.getAttribute('data-real-type')!
 
         if(realType === 'string' || realType === 'password' || realType === 'email' || target.type === 'radio')
-            setter({ ...data, [target.name]: value });
+            setter((prevState: any) => ({ ...prevState, [target.name]: target.value }));
 
         else if(realType === 'oneWord') {
             setter(value);
         }
             
-        else {
+        else if(['image', 'video', 'file'].includes(realType)) {
+            setter((prevState: any) => ({ ...prevState, [target.name]: target.files![0] }));
+
             if(realType === 'image') {
-                setter({ ...data, [target.name]: target.files![0] });
                 const fileUrl = window.URL.createObjectURL(target.files![0]);
                 (document.getElementById(target.id + '-preview') as HTMLImageElement).src = fileUrl;
             }
 
-            else {
-                setter({ ...data, [target.name]: target.files![0] });
+            else if(realType === 'video') {
                 const videoEl = document.getElementById(target.id + '-video')! as HTMLVideoElement;
                 const fileUrl = window.URL.createObjectURL(target.files![0]);
                 videoEl.src = fileUrl;
@@ -42,6 +41,6 @@ export function useAutoState(e: FormEvent<any>, setter: Function, data: any,
         }
 
         if(cb)
-            cb(e)
+            cb(e);
     }
 }

@@ -25,8 +25,7 @@ export interface INF_Input {
 }
 
 export interface InputState {
-  setter?: Function;
-  data?: any;
+  setter: Function;
   nested?: string // key
 }
 
@@ -35,13 +34,15 @@ export interface INF_Input_State extends InputState, INF_Input {}
 const Input = ({ props } : { props: INF_Input_State }) => {
 
     if(props.cls === undefined) {
-        props.cls = props.type === 'file' ? `input--file ${props.modifiers}` : `input--primary ${props.modifiers}`;
+        props.cls = props.type === 'file' 
+            ? `input--file ${props.modifiers}` 
+            : `input--primary ${props.modifiers}`;
     }
 
     if(['text', 'email', 'password'].includes(props.type))
         return(
             <input
-            onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb, 
+            onInput={(e) => useAutoState(e, props.setter, props.cb, 
                 props.cbOverride)}
 
             id={props.id}
@@ -68,7 +69,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 <video className='hidden' id={props.id + '-video'} />
                     
                 <input 
-                onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb)}
+                onInput={(e) => useAutoState(e, props.setter, props.cb)}
                 
                 id={props.id}
                 className={props.cls}
@@ -86,7 +87,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
     else if(props.type === 'textarea')
             return(
                 <textarea 
-                    onInput={(e) => useAutoState(e, props.setter!, props.data, props.cb)}
+                    onInput={(e) => useAutoState(e, props.setter, props.cb)}
 
                     id={props.id}
                     placeholder={props.placeholder ? props.placeholder : ''}
@@ -121,7 +122,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 <label htmlFor={`radio-${props.name}-${props.value}-label`}
                     className="input--radio--label pos--relative">
                     <input 
-                        onInput={() => props.setter!(props.value)}
+                        onInput={() => props.setter(props.value)}
                         id={`radio-${props.name}-${props.value}-radio`}
                         className={'input--radio'}
                         name={props.name}

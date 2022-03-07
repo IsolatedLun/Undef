@@ -19,10 +19,10 @@ const Login = () => {
     })
 
     const loginElements = [
-        <InputPart props={{id: 'email', label: 'Email Address', setter: setLoginUser, data: loginUser,
+        <InputPart props={{id: 'email', label: 'Email Address', setter: setLoginUser,
             inputData: {name: 'email_address', type: 'email', realType: 'email'}}} />,
 
-        <InputPart props={{id: 'password', label: 'Password', setter: setLoginUser, data: loginUser,
+        <InputPart props={{id: 'password', label: 'Password', setter: setLoginUser,
             inputData: {name: 'password', type: 'password', realType: 'password'}}} />,
 
         <Button props={{ content: 'Login', action: async() => {

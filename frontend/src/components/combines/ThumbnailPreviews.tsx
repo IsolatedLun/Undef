@@ -8,15 +8,16 @@ const ThumbnailPreview = ({ id, idx, setter, data, name }:
 
     const currId: string = 'thumbnail-preview-' + idx;
    
-    async function setThumbnail(e: React.FormEvent<any>, setter: Function, data: any) {
+    async function setThumbnail(e: React.FormEvent<any>, setter: Function) {
         const imgEl = e.target as HTMLImageElement;
 
        (document.getElementById('thumbnail-preview-0') as HTMLImageElement).src = imgEl.src;
-       setter({ ...data, [imgEl.getAttribute('data-name')!]: await dataUrlToFile(imgEl.src) });
+        const preview = await dataUrlToFile(imgEl.src);
+        setter((prevState: any) => ({ ...prevState, [imgEl.getAttribute('data-name')!]: preview }));
     }
 
     return (
-        <div onClick={(e) => useAutoState(e, setter, data, () => setThumbnail(e, setter, data), true)}
+        <div onClick={(e) => useAutoState(e, setter, () => setThumbnail(e, setter), true)}
             className="thumbnail__preview input--primary cust pos--relative">
             <img id={currId} src="" data-name={name} />
             <Loader id={currId + '-loader'} />

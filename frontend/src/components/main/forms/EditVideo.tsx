@@ -70,10 +70,10 @@ const EditVideo = () => {
                 className="input--radios form__inpt form__part flex flex--col gap--1">
 
                 <Input props={{ name: 'thumbnail', type: 'file', realType: 'image', id: 'video-thumbnail',
-                    placeholder: 'Change thumbnail', setter: setUpdateVideo, data: updateVideo,
+                    placeholder: 'Change thumbnail', setter: setUpdateVideo,
                     labelCls: 'w--40 cust mi--inline', url: video.thumbnail, isOptional: true }} />
 
-                <InputPart props={{ label: 'Title', setter: setUpdateVideo, data: updateVideo, id: 'title',
+                <InputPart props={{ label: 'Title', setter: setUpdateVideo, id: 'title',
                     inputData: { 
                         name: 'title',
                         type: 'text',
@@ -82,7 +82,7 @@ const EditVideo = () => {
                      } 
                 }} />
 
-                <InputPart props={{ label: 'Description', setter: setUpdateVideo, data: updateVideo, id: 'title',
+                <InputPart props={{ label: 'Description', setter: setUpdateVideo, id: 'title',
                     inputData: { 
                         name: 'description',
                         type: 'textarea',
