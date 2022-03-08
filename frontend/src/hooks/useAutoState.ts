@@ -4,10 +4,11 @@ import { FormEvent } from "react";
  * @param e - Event (Used for getting the value and attrs)
  * @param setter - Sets the state
  * @param callback - Callback function if needed
- * @param override - If true then immediately calls the callback function.
+ * @param callbackParams - Parameters for the callback
+ * @param override - If true then immediately calls the callback function
 */
 export function useAutoState(e: FormEvent<any>, setter: React.SetStateAction<any>, 
-    cb?: Function, override: boolean=false) {
+    cb?: Function, cbParams?: any[] , override: boolean=false) {
 
     if(cb && override === true)
         cb(e);
@@ -27,20 +28,24 @@ export function useAutoState(e: FormEvent<any>, setter: React.SetStateAction<any
         else if(['image', 'video', 'file'].includes(realType)) {
             setter((prevState: any) => ({ ...prevState, [target.name]: target.files![0] }));
 
-            if(realType === 'image') {
-                const fileUrl = window.URL.createObjectURL(target.files![0]);
-                (document.getElementById(target.id + '-preview') as HTMLImageElement).src = fileUrl;
+            try {
+                if(realType === 'image') {
+                    const fileUrl = window.URL.createObjectURL(target.files![0]);
+                    (document.getElementById(target.id + '-preview') as HTMLImageElement).src = fileUrl;
+                }
+    
+                else if(realType === 'video') {
+                    const videoEl = document.getElementById(target.id + '-video')! as HTMLVideoElement;
+                    const fileUrl = window.URL.createObjectURL(target.files![0]);
+                    videoEl.src = fileUrl;
+                }
             }
 
-            else if(realType === 'video') {
-                const videoEl = document.getElementById(target.id + '-video')! as HTMLVideoElement;
-                const fileUrl = window.URL.createObjectURL(target.files![0]);
-                videoEl.src = fileUrl;
-            }
+            catch {  }
 
         }
 
         if(cb)
-            cb(e);
+            cb(e, ...cbParams!);
     }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../hooks/state';
 import { useEditVideoMutation } from '../../../services/channelApi';
@@ -54,6 +54,7 @@ const EditVideo = () => {
     function reset() {
         setUpdateVideo({ ...(video as any) });
         setVisibility(String(video!.visibility));
+
         const radio = document.getElementById('radio-visibility-' + video!.visibility) as HTMLButtonElement;
         radio.click();
     }

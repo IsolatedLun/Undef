@@ -31,10 +31,13 @@ a {
 img, video {
     display: block;
     width: 100%;
-    padding: 0.1em;
     height: 100%;
     object-fit: cover;
     border-radius: inherit;
+}
+
+img[src=""] {
+    visibility: hidden;
 }
 
 button {
@@ -75,11 +78,12 @@ textarea {
     --txt-err: hsl(0, 70%, 51%);
 
     --bg-primary: white;
-    --bg-hov: hsla(0, 0%, 100%, 0.12);
+    --bg-hov: hsl(0, 0%, 100%, 0.12);
     --bg-tooltip: black;
 
     --btn-main: hsl(243, 89%, 54%);
-    --btn-hov: hsl(243, 89%, 59%);
+    --btn-light: hsl(243, 89%, 64%);
+    --btn-hov: hsl(243, 89%, 30%, 0.36);
 
     --inpt-main: hsl(220, 97%, 45%);
     --inpt-shadow: hsla(220, 97%, 45%, 0.36);
@@ -88,11 +92,11 @@ textarea {
 @media(prefers-color-scheme: dark) {
     :root {
         --txt-primary: white;
-        --txt-muted: hsl(0, 0%, 70%);
+        --txt-muted: hsl(0, 0%, 69%);
         --txt-muted-dark: hsl(0, 0%, 30%);
 
-        --bg-primary: hsl(240, 2%, 7%);
-        --bg-secondary: hsl(240, 2%, 14%);
-        --bg-tooltip: hsl(0, 0%, 26%);
+        --bg-primary: hsl(240, 2%, 4%);
+        --bg-secondary: hsl(240, 2%, 12%);
+        --bg-tooltip: hsl(0, 0%, 11%);
     }
 }

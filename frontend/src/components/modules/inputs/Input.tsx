@@ -10,7 +10,7 @@ export interface INF_Input {
     name: string | undefined;
     value?: string;
     action?: Function;
-    params?: any[];
+    params?: any[]; // Parans for the callback of useAutoState
     url?: string; // Url for image input
 
     cb?: Function;
@@ -42,7 +42,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
     if(['text', 'email', 'password'].includes(props.type))
         return(
             <input
-            onInput={(e) => useAutoState(e, props.setter, props.cb, 
+            onInput={(e) => useAutoState(e, props.setter, props.cb, props.cbParams,
                 props.cbOverride)}
 
             id={props.id}
@@ -69,7 +69,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 <video className='hidden' id={props.id + '-video'} />
                     
                 <input 
-                onInput={(e) => useAutoState(e, props.setter, props.cb)}
+                onInput={(e) => useAutoState(e, props.setter, props.cb, props.cbParams)}
                 
                 id={props.id}
                 className={props.cls}

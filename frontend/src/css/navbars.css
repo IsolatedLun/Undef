@@ -69,6 +69,10 @@
     border-radius: 6px;
 }
 
+.channel .channel__banner {
+    border-radius: 0;
+}
+
 .channel .channel__details {
     margin-inline: 1.5em;
 }
