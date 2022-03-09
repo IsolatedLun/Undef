@@ -46,7 +46,7 @@ const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserSta
                         setSubbed(res.data.subscribed);
                         setSubCount(res.data.subscribers);
                       })
-                  })}} />
+                  }, true)}} />
               )
             }
 

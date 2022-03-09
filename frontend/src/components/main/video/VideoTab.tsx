@@ -15,7 +15,6 @@ export interface VideoData extends INF_Video {
   ratio: number;
   rate_type: string;
   visibility: number;
-  comments: Comment[]
 }
 
 const VideoTab = () => {
@@ -23,7 +22,7 @@ const VideoTab = () => {
   const { data: video, isFetching: hasRecVideo } = useGetVideoQuery({ video_id: Number(video_id)!, type: 'all' });
   const { data: nextVideos, isFetching: hasRecVideos } = useGetVideosQuery();
 
-  if(video && nextVideos)
+  if(video && video_id)
     return(
         <div className="video-tab-container">
             <section>
@@ -31,7 +30,7 @@ const VideoTab = () => {
                   videoUrl: video.video, thumbnailUrl: video.thumbnail, duration: video.duration }} />
 
                 <VideoDetails videoDetails={video} />
-                <VideoComments props={{ id: 'desktop-comments', comments: video.comments }} />
+                <VideoComments props={{ id: 'desktop-comments', videoId: video_id }} />
             </section>
             
             <div>
@@ -41,7 +40,7 @@ const VideoTab = () => {
               </section>
             </div>
             <section className="other-videos flex flex--col gap--1">
-              <VideoComments props={{ id: 'mobile-comments', comments: video.comments }} />
+              <VideoComments props={{ id: 'mobile-comments', videoId: video_id }} />
             </section>
             
         </div>

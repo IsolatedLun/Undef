@@ -128,7 +128,7 @@ const EditVideo = () => {
                                         .catch(res => handleResponse(res))
                                 }
                             }, 
-                        modifiers: canUpdate ? '' : 'disabled' }}
+                        workCondition: canUpdate }}
                     />
                 </div>
             </div>

@@ -37,7 +37,7 @@ const Video = ({ props } : { props : INF_Video }) => {
 
             <div className='video__inner-details'>
                 <div className='video__info flex flex--col gap--05'>
-                    <p className="video__title">{ props.title }</p>
+                    <p className="video__title multi--ellipsis">{ props.title }</p>
                     <Link className='video__channel-name link--muted'
                         to={`/channels/${props.channel}`}>{ props.username }</Link>
                 </div>

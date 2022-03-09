@@ -32,11 +32,7 @@
 }
 
 .video .video__title {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;  
-    word-break: break-all;
-    overflow: hidden;
+    font-size: var(--fs-400);
 }
 
 .video .video__channel-name {

@@ -1,10 +1,13 @@
 import Input from "../modules/inputs/Input";
 import Button from "../modules/Button";
 import { API_URL } from "../../consts";
+import { useEffect, useState } from "react";
+import { useGetVideoCommentsQuery } from "../../services/videoApi";
+import Loader from "../layouts/Loader";
 
 interface INF_VideoComments {
+  videoId: number | string;
   id: string;
-  comments: Comment[];
 }
 
 export interface Comment {
@@ -34,39 +37,45 @@ const VideoComment = ({ props }: { props: Comment }) => {
 };
 
 const VideoComments = ({ props }: { props: INF_VideoComments }) => {
-  return (
-    <div id={props.id} className="main-video__comments">
-      <h2 className="comments__head">Comments</h2>
+  const { data: comments } = useGetVideoCommentsQuery({ video_id: props.videoId });
+  const [text, setText] = useState('');
 
-      <div className="comments__form flex flex--col gap--05 flex--al--end">
-        <Input
-          props={{
-            setter: () => null,
-            data: "",
-            placeholder: "Add a comment",
-            type: "text",
-            name: "text",
-            realType: "string",
-            id: "comment-input",
-          }}
-        />
-        
-        <Button
-          props={{
-            content: "Post",
-            action: () => null,
-            loaderCls: "button--loader",
-          }}
-        />
-      </div>
+  if(comments)
+    return (
+      <div id={props.id} className="main-video__comments">
+        <h2 className="comments__head">{ comments.length } Comments</h2>
 
-      <div className="flex flex--col gap--2-5">
-        {props.comments.map((comment, idx) => (
-          <VideoComment key={idx} props={comment} />
-        ))}
+        <div className="comments__form flex flex--col gap--05 flex--al--end">
+          <Input
+            props={{
+              setter: setText,
+              placeholder: "Add a comment",
+              type: "textarea",
+              name: "text",
+              realType: "oneWord",
+              id: "comment-input",
+            }}
+          />
+          
+          <Button
+            props={{
+              content: "Comment",
+              action: () => console.log(text),
+              loaderCls: "button--loader",
+              workCondition: text.length > 0
+            }}
+          />
+        </div>
+
+        <div className="flex flex--col gap--2-5">
+          {comments.map((comment, idx) => (
+            <VideoComment key={idx} props={comment} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  else
+    return <Loader radius={20} />
 };
 
 export default VideoComments;

@@ -19,6 +19,8 @@ interface ButtonProps {
 
     loaderCls?: string;
     toggleOnAction?: boolean;
+
+    workCondition?: boolean;
 }
 
 function focusContextMenu(e: Event) {
@@ -58,22 +60,26 @@ const Button = ({ props } : { props: ButtonProps }) => {
       props.action = focusContextMenu;
     }
 
-    if(props.id === undefined)
+    if(!props.id)
       props.id = randomId();
-    if(props.params === undefined)
+    if(!props.params)
       props.params = [];
-    if(props.passEvent === undefined)
+    if(!props.passEvent === undefined)
       props.passEvent = true;
+    if(props.workCondition === undefined)
+      props.workCondition = true;
 
   return(
       <button
         onClick={(e) => { 
           e.preventDefault(); 
 
-          if(props.passEvent)
+          if(props.workCondition) {
+            if(props.passEvent)
             props.action(e, ...props.params)
-          else
-            props.action(...props.params)  
+            else
+              props.action(...props.params)  
+          }
         }}
 
         id={props.id}
@@ -83,9 +89,12 @@ const Button = ({ props } : { props: ButtonProps }) => {
             positionTooltip(e.target as HTMLElement)
         }}
 
-        className={`${props.cls} pos--relative ${props.isIcon === true && 'fa'} 
+        className={`
+          ${props.cls} pos--relative ${props.isIcon === true && 'fa'} 
           ${props.tooltip ? 'tooltip btn--tooltip' : ''} 
-          ${props.extraAfter ?'show--after mb--015' : ''}`}
+          ${props.extraAfter ?'show--after mb--015' : ''}
+          ${props.workCondition ? '' : 'disabled'}
+          `}
         
         aria-label={props.tooltip}
         data-tooltip={props.tooltip}

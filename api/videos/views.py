@@ -33,13 +33,9 @@ class Video(APIView):
         serializer = None
 
         if req.data['type'] == 'all':
-            comments = serializers.VideoCommentSerializer(models.Comment.objects.filter(video_id=video.id),
-            many=True).data
-
             video.increment_views()
             
             serializer = serializers.VideoSerializer(video).data
-            serializer['comments'] = comments
 
             if user_id is not None:
                 rated_video = models.RatedVideo.objects.get_or_create(video_id=video.id, user_id=user_id)[0]
@@ -120,3 +116,17 @@ class DeleteVideo(APIView):
             return Response({ 'detail': 'Video deleted' }, OK)
         except:
             return Response({ 'detail': 'Something went wrong' }, ERR)
+
+class CommentVideo(APIView):
+    def get(self, req, video_id):
+        comments = serializers.VideoCommentSerializer(models.Comment.objects.filter(video_id=video_id),
+            many=True).data
+
+        return Response(comments, OK)
+
+    def post(self, req, video_id):
+        user = cUser.objects.get(id=decode_user_id(req.headers))
+        comment = models.Comment.objects.create(id=video_id, user=user, text=req.data['text'])
+
+        return Response({ 'detail': 'Comment posted' }, OK)
+        

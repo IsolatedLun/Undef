@@ -4,6 +4,7 @@
     padding: 0.5em 2em;
     max-height: 4.5rem;
     background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--txt-muted);
 }
 
 .primary-nav .nav__skip {
@@ -95,8 +96,7 @@
 
 /* Media Queries */
 @media(max-width: 768px) {
-    .primary-nav .nav__search-part,
-    .nav__btn-group {
+    .primary-nav .nav__search-part {
         display: none;
     }
 }

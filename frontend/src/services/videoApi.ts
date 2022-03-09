@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { Comment } from "../components/combines/VideoComments";
 import { getAccess } from "../components/funcs/authFuncs";
 import { ExtraResponse } from "../components/funcs/utilFuncs";
 import { VideoData } from "../components/main/video/VideoTab";
@@ -32,6 +33,21 @@ export const VideoApi = createApi({
             })
         }),
 
+        getVideoComments: builder.query<Comment[], any>({
+            query: ({ video_id }) => ({
+                url: `/video/${video_id}/comments`,
+                method: 'GET',
+            })
+        }),
+
+        commentVideo: builder.mutation<ExtraResponse, any>({
+            query: ({ video_id, text }) => ({
+                url: `/video/${video_id}/comments`,
+                method: 'POST',
+                body: { 'text': text }
+            })
+        }),
+
         rateVideo: builder.mutation<any, any>({
             query: ({ video_id, type }) => ({
                 url: `/video/${video_id}/rate`,
@@ -53,4 +69,4 @@ export const VideoApi = createApi({
 })
 
 export const { useGetVideosQuery, useGetVideoQuery, useRateVideoMutation,
-    useDeleteVideoMutation } = VideoApi;
+    useDeleteVideoMutation, useGetVideoCommentsQuery, useCommentVideoMutation } = VideoApi;

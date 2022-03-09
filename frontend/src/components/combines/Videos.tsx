@@ -1,14 +1,16 @@
 import React from "react";
 import { useFilters } from "../../hooks/useFilters";
+import Loader from "../layouts/Loader";
 import Video, { INF_Video } from "../modules/Video";
 
 interface Videos {
-  videos: INF_Video[];
+  videos: INF_Video[] | undefined;
   filters?: any | object | undefined;
 }
 
 const Videos = ({ props }: { props: Videos }) => {
-  if (props.filters === undefined)
+  if(props.videos)
+    if (props.filters === undefined)
     return (
       <>
         { props.videos.map((video, idx) => (
@@ -24,6 +26,8 @@ const Videos = ({ props }: { props: Videos }) => {
         ))}
       </>
     );
+  else
+    return <Loader radius={20} />
 };
 
 export default Videos;
