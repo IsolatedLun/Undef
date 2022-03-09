@@ -2,8 +2,11 @@ import Input from "../modules/inputs/Input";
 import Button from "../modules/Button";
 import { API_URL } from "../../consts";
 import { useEffect, useState } from "react";
-import { useGetVideoCommentsQuery } from "../../services/videoApi";
+import { useCommentVideoMutation, useGetVideoCommentsQuery } from "../../services/videoApi";
 import Loader from "../layouts/Loader";
+import { handleResponse } from "../funcs/utilFuncs";
+import { loggedAction } from "../funcs/authFuncs";
+import { useAuth } from "../../hooks/useAuth";
 
 interface INF_VideoComments {
   videoId: number | string;
@@ -37,7 +40,9 @@ const VideoComment = ({ props }: { props: Comment }) => {
 };
 
 const VideoComments = ({ props }: { props: INF_VideoComments }) => {
-  const { data: comments } = useGetVideoCommentsQuery({ video_id: props.videoId });
+  const { isLogged } = useAuth();
+  const { data: comments, refetch: getComments } = useGetVideoCommentsQuery({ video_id: props.videoId });
+  const [commentVideo, {  }] = useCommentVideoMutation()
   const [text, setText] = useState('');
 
   if(comments)
@@ -54,13 +59,22 @@ const VideoComments = ({ props }: { props: INF_VideoComments }) => {
               name: "text",
               realType: "oneWord",
               id: "comment-input",
+              value: text
             }}
           />
           
           <Button
             props={{
               content: "Comment",
-              action: () => console.log(text),
+              action: () => loggedAction(isLogged, async() => {
+                setText('');
+
+                commentVideo({ video_id: props.videoId, text })
+                  .unwrap()
+                  .then(res => getComments())
+                  .catch(res => handleResponse(res))
+              }, true),
+
               loaderCls: "button--loader",
               workCondition: text.length > 0
             }}

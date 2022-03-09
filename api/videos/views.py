@@ -126,7 +126,7 @@ class CommentVideo(APIView):
 
     def post(self, req, video_id):
         user = cUser.objects.get(id=decode_user_id(req.headers))
-        comment = models.Comment.objects.create(id=video_id, user=user, text=req.data['text'])
+        comment = models.Comment.objects.create(video_id=video_id, user=user, text=req.data['text'])
 
         return Response({ 'detail': 'Comment posted' }, OK)
         

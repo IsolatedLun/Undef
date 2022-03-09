@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL, CLOCK_ICO, DISLIKE_ICO, 
   EDIT_ICO, ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../../consts';
@@ -42,6 +42,11 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
       })
   }
 
+  useEffect(() => {
+    setRateType(videoDetails.rate_type);
+    setRating({ likes: videoDetails.likes, dislikes: videoDetails.dislikes })
+  }, [videoDetails])
+
   return(
       <section aria-label='Video details' className='video-details'>
         <div className="main-video__details">
@@ -69,7 +74,7 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
                         modifiers: rateType === 'dislike' ? 'active' : '' }} />
 
                 <Button props={{ content: ELLIPSE_V_ICO, action: () => null,
-                  contextMenu: videoOptionsMenu, id: 'video-options-button' }} />
+                  contextMenu: videoOptionsMenu, id: 'video-options-button', passEvent: true }} />
 
                 { videoDetails.user === user.id && (
                   <Button props={{ content: EDIT_ICO, action: () => 

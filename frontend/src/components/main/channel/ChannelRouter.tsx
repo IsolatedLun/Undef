@@ -10,6 +10,7 @@ import { INF_Video } from '../../modules/Video';
 import ChannelAbout from './ChannelAbout';
 import ChannelHeader from './ChannelHeader';
 import ChannelVideos from './ChannelVideos';
+import { INF_ChannelDetail } from '../../combines/ChannelDetails';
 
 export interface ChannelData {
     channel: INF_Channel,
@@ -21,7 +22,7 @@ export interface INF_Channel {
     id: number;
     banner: string;
     channel_description: string;
-    channel_details: string;
+    channel_details: INF_ChannelDetail[];
     subscribed: boolean;
     total_views: number;
     created_at: string;
