@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../hooks/state';
 import { useEditVideoMutation } from '../../../services/channelApi';
 import { useDeleteVideoMutation, useGetVideoQuery } from '../../../services/videoApi';
 import { toggleModal } from '../../../slices/modal-slice';
 import Radios from '../../combines/Radios';
 import { constructFormData, validateForm } from '../../funcs/formFuncs';
-import { handleResponse } from '../../funcs/utilFuncs';
+import { areEqualObjs, handleResponse } from '../../funcs/utilFuncs';
 import Loader from '../../layouts/Loader';
 import Button from '../../modules/Button';
 import Form from '../../modules/Form';
@@ -23,7 +23,6 @@ interface INF_EditVideo {
 const EditVideo = () => {
     const dispatch = useAppDispatch();
     const { video_id, channel_id } = useParams();
-    const navigate = useNavigate();
 
     const [editVideo, {  }] = useEditVideoMutation();
     const [deleteVideo, {  }] = useDeleteVideoMutation();
@@ -45,7 +44,7 @@ const EditVideo = () => {
     }, [isSuccess])
 
     useEffect(() => {
-        if(JSON.stringify(video) !== JSON.stringify(updateVideo) || video!.visibility !== Number(visibility))
+        if(areEqualObjs(video, updateVideo) || video!.visibility !== Number(visibility))
             setCanUpdate(true);
         else
             setCanUpdate(false);

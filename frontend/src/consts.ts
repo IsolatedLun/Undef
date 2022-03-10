@@ -13,4 +13,7 @@ export const INFO_ICO = '\uf05a';
 export const ENTER_ICO = '\uf2bb';
 export const EDIT_ICO = '\uf044';
 
+export const emailRegex = /\S+@\S+\.\S+/;
+export const urlRegex = /(https?:\/\/[^\s]+)/g;
+
 export const API_URL = 'http://localhost:8000'

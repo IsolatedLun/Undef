@@ -6,7 +6,7 @@
 
 .button--primary {
     --_bg: var(--btn-main);
-    font-size: calc(var(--fs-420) * 0.9);
+    font-size: calc(var(--fs-420) * 0.92);
     text-transform: capitalize;
     padding: 0.1em 0.55em;
     background-color: var(--_bg);

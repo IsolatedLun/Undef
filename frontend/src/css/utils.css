@@ -106,7 +106,17 @@
     background-color: var(--txt-muted);
 }
 
+/* Links */
+.link {
+    color: var(--clr-link);
+}
+
+.link:hover {
+    border-bottom: 1px solid currentColor;
+}
+
 .link--muted {
+    color: var(--txt-muted);
     border-bottom: 1px solid transparent;
 }
 

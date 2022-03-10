@@ -74,3 +74,7 @@ export function randomId(): string {
 
     return randomChar() + deci + randomChar();
 }
+
+export function areEqualObjs(a: any, b: any): boolean {
+    return JSON.stringify(a) === JSON.stringify(b);
+}

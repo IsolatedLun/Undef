@@ -1,3 +1,4 @@
+import { urlRegex } from "../../consts";
 import { popup } from "./popupFuncs";
 
 let errorTimeout = null;
@@ -118,6 +119,18 @@ export function isValidFile(f: File, type: string) {
         return true
     else
         return `Invalid ${type}.`
+}
+
+export async function isValidUrl(str: string) {
+    let res = false;
+
+    if(urlRegex.test(str)) {
+        res = await fetch(str)
+            .then(res => true)
+            .catch(res => false)
+    }
+
+    return res;
 }
 
 function hasCheckedInput(inputs: NodeListOf<HTMLInputElement>): string | boolean {

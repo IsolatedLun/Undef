@@ -1,4 +1,8 @@
 /* Flex */
+/* [class*="flex"] {
+    display: flex;
+} */
+
 .flex {
     display: flex;
 }
@@ -35,6 +39,7 @@
     align-items: flex-end;
 }
 
+/* Gaps */
 .gap--2-5 {
     gap: 2.5em;
 }

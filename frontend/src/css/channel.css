@@ -14,8 +14,16 @@
     margin: 1em;
 }
 
-.channel .channel__user-links {
+.channel .channel__user-details {
     margin-block: 1em;
+}
+
+.channel .channel__user-details .detail__key {
+    font-weight: bolder;
+    padding: 0.5em;
+    text-transform: uppercase;
+    background-color: var(--bg-secondary);
+    color: var(--txt-muted);
 }
 
 .channel .channel__stats {

@@ -77,6 +77,8 @@ textarea {
     --txt-muted: hsl(0, 0%, 4%);
     --txt-err: hsl(0, 70%, 51%);
 
+    --clr-link: hsl(196, 89%, 58%);
+
     --bg-primary: white;
     --bg-hov: hsl(0, 0%, 100%, 0.12);
     --bg-tooltip: black;

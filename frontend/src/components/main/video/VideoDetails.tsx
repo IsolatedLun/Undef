@@ -78,7 +78,7 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
 
                 { videoDetails.user === user.id && (
                   <Button props={{ content: EDIT_ICO, action: () => 
-                    navigate(`/channels/${user.channel_id}/edit/${videoDetails.id}`), tooltip: 'Edit' }} />
+                    navigate(`/channels/${user.channel_id}/edit/video/${videoDetails.id}`), tooltip: 'Edit' }} />
                 ) }
               </div>
               <div className="controls__rating-bar btn--tooltip">

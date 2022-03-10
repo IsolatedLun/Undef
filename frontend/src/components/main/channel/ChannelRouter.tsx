@@ -54,7 +54,7 @@ const ChannelRouter = () => {
                             condition={user.user.channel_id === Number(channel_id)}
                             children={<Upload />} />} />
                     
-                    <Route path='edit/:video_id' 
+                    <Route path='edit/video/:video_id' 
                         element={<ProtectedRoute redirectTo='/auth/login'
                             condition={user.user.channel_id === Number(channel_id)}
                             children={<EditVideo />} />} />
