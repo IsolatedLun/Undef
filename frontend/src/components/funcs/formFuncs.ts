@@ -1,3 +1,4 @@
+import axios from "axios";
 import { urlRegex } from "../../consts";
 import { popup } from "./popupFuncs";
 
@@ -122,13 +123,9 @@ export function isValidFile(f: File, type: string) {
 }
 
 export async function isValidUrl(str: string) {
-    let res = false;
-
-    if(urlRegex.test(str)) {
-        res = await fetch(str)
-            .then(res => true)
-            .catch(res => false)
-    }
+    const res = await axios.get(str)
+        .then(res => true)
+        .catch(res => false)
 
     return res;
 }
