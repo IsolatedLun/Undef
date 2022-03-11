@@ -63,10 +63,18 @@ export const VideoApi = createApi({
                 url: `/video/${video_id}/delete`,
                 method: 'POST',
             })
+        }),
+
+        deleteVideoComment: builder.mutation<ExtraResponse, any>({
+            query: (comment_id) => ({
+                url: `/comment/${comment_id}/delete`,
+                method: 'POST',
+            })
         })
 
     })
 })
 
 export const { useGetVideosQuery, useGetVideoQuery, useRateVideoMutation,
-    useDeleteVideoMutation, useGetVideoCommentsQuery, useCommentVideoMutation } = VideoApi;
+    useDeleteVideoMutation, useGetVideoCommentsQuery, useCommentVideoMutation,
+    useDeleteVideoCommentMutation } = VideoApi;

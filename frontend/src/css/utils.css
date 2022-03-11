@@ -129,6 +129,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.icon--small {
+    font-size: calc(var(--fs-400) * 1.15);
+}
+
 /* Positions */
 .pos--relative {
     position: relative;

@@ -11,7 +11,8 @@ export interface ModalState extends INF_Modal {
 
 const initialState: ModalState = Object.freeze({
     text: '',
-    cb: () => null
+    actionText: '',
+    cb: () => null,
 })
 
 export const modalSlice = createSlice({
@@ -26,6 +27,7 @@ export const modalSlice = createSlice({
 
                 state.text = action.payload['text'];
                 state.cb = action.payload['cb'];
+                state.actionText = action.payload['actionText'];
             }
 
             else {

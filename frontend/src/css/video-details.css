@@ -54,11 +54,21 @@
 
 /* Video Comments */
 .main-video__comments {
+    width: 100%;
     margin-block: 1em;
 }
 
 .main-video__comments#mobile-comments {
     display: none;
+}
+
+.main-video__comments .comment__option {
+    visibility: hidden;
+    margin-left: auto;
+}
+
+.main-video__comments .video__comment:is(:hover, :focus) .comment__option {
+    visibility: visible;
 }
 
 .main-video__comments .comments__form {

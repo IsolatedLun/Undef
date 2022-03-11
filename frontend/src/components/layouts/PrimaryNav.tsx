@@ -18,13 +18,13 @@ const PrimaryNav = () => {
 
   const logoutCommence = () => {
     dispatch(logout());
-    window.location.href = '/'
+    window.location.href = '/';
   }
 
   const navContextMenu = <ContextMenu props={{ id: 'nav-context', 
     options: 
     [
-      { icon: ENTER_ICO, text: 'My channel', action: () => null, to: '/channels/' + user.channel_id }
+      { icon: ENTER_ICO, text: 'My channel', to: '/channels/' + user.channel_id }
     ] 
   
   }} />
@@ -40,7 +40,7 @@ const PrimaryNav = () => {
 
           <div className='nav__search-part flex flex--center--gap--1 flex--g--1 m--inl--1'>
             <div className="search-inpt__container">
-              <Input props={{ setter: setSearch, data: search, type: 'text',
+              <Input props={{ setter: setSearch, type: 'text',
                 placeholder: 'Search', id: 'nav-search', name: 'search', realType: 'oneWord' }} />
 
               { search.length > 0 && (

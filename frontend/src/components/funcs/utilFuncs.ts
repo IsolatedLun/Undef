@@ -78,3 +78,7 @@ export function randomId(): string {
 export function areEqualObjs(a: any, b: any): boolean {
     return JSON.stringify(a) === JSON.stringify(b);
 }
+
+export function unFocusGlb() {
+    document.body.focus();
+}

@@ -4,15 +4,17 @@ import { ExtraResponse } from "../components/funcs/utilFuncs";
 import { API_URL } from "../consts";
 import { AuthApi } from "../services/authApi";
 
+export interface INF_User {
+    id: number;
+    username: string;
+    profile: string;
+    channel_id: number;
+    subscribers: number;
+}
+
 export interface UserState {
     isLogged: boolean;
-    user: {
-        id: number;
-        username: string;
-        profile: string;
-        channel_id: number;
-        subscribers: number;
-    }
+    user: INF_User;
 }
 
 export interface LoginResponse extends ExtraResponse {

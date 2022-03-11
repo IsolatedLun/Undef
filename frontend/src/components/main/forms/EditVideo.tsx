@@ -38,16 +38,17 @@ const EditVideo = () => {
     })
 
     useEffect(() => {
-        if(isSuccess) {
+        if(isSuccess && video) {
             reset();
         }
     }, [isSuccess])
 
     useEffect(() => {
-        if(areEqualObjs(video, updateVideo) || video!.visibility !== Number(visibility))
-            setCanUpdate(true);
-        else
-            setCanUpdate(false);
+        if(video)
+            if(areEqualObjs(video, updateVideo) || video!.visibility !== Number(visibility))
+                setCanUpdate(true);
+            else
+                setCanUpdate(false);
     }, [updateVideo, visibility])
 
     function reset() {
@@ -64,7 +65,7 @@ const EditVideo = () => {
             .catch(res => handleResponse(res, { redirectTo: '/channels/' + channel_id }))
     }
 
-    const editVideoElements = ( video &&
+    const editVideoElements = ( video !== undefined &&
         <>
             <div data-real-type='radios' id='visibility-input'
                 className="input--radios form__inpt form__part flex flex--col gap--1">
@@ -105,8 +106,9 @@ const EditVideo = () => {
                 <Button props={{ content: 'Delete', 
                     action: () => 
                         dispatch(toggleModal({ 
-                            text: `Delete "${updateVideo.title}" ?`, 
-                            cb: deleteVideoCommence })) }}/>
+                            text: `"${updateVideo.title}" ?`, 
+                            cb: deleteVideoCommence,
+                            actionText: 'delete' })) }}/>
                 
                 <div className="btn--group">
                     <Button 

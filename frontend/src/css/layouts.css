@@ -39,6 +39,10 @@
     align-items: flex-end;
 }
 
+.justify-between {
+    justify-content: space-between;
+}
+
 /* Gaps */
 .gap--2-5 {
     gap: 2.5em;

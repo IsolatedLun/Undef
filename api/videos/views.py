@@ -13,7 +13,10 @@ ERR = status.HTTP_400_BAD_REQUEST
 
 class VideoPreview(APIView):
     def get(self, req):
-        videos = models.Video.objects.all()
+        from random import shuffle
+        videos = list(models.Video.objects.all())
+        shuffle(videos)
+
         previews = serializers.VideoPreviewSerializer(videos, many=True).data
 
         return Response(previews, OK)
@@ -129,4 +132,13 @@ class CommentVideo(APIView):
         comment = models.Comment.objects.create(video_id=video_id, user=user, text=req.data['text'])
 
         return Response({ 'detail': 'Comment posted' }, OK)
-        
+
+class DeleteComment(APIView):
+    def post(self, req, comment_id):
+        try:
+            comment = models.Comment.objects.get(id=comment_id)
+            comment.delete()
+
+            return Response({ 'detail': 'Comment deleted' }, OK)
+        except:
+            return Response({ 'detail': 'Something went wrong' }, ERR)

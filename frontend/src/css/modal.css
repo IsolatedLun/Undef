@@ -22,6 +22,14 @@
     font-weight: normal;
     word-wrap: break-word;
     max-width: 100%;
+    padding-bottom: 0.45em;
+    border-bottom: 1px solid var(--txt-muted);
+    border-radius: 0;
+}
+
+.modal .modal__action-text {
+    text-transform: uppercase;
+    color: var(--txt-err);
 }
 
 .overlay {

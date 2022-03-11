@@ -12,6 +12,7 @@ export interface INF_ChannelDetail {
 async function constructValue(val: string, setter: Function) {
     if(emailRegex.test(val))
         setter(<a className="link" href={`mailto:${val}`} target="_blank">{ val }</a>);
+
     else if(urlRegex.test(val)) {
         const res = await isValidUrl(val);
         if(res)
@@ -19,6 +20,7 @@ async function constructValue(val: string, setter: Function) {
         else
             setter(<p className="link--muted">{ val }</p>);
     }
+    
     else
         setter(<p>{ val }</p>)
 }
