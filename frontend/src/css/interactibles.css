@@ -7,20 +7,35 @@
 .button--primary {
     --_bg: var(--btn-main);
     font-size: calc(var(--fs-420) * 0.92);
+    position: relative;
     text-transform: capitalize;
-    padding: 0.1em 0.55em;
+    padding: 0.25em 0.65em;
     background-color: var(--_bg);
-    border: 2px solid var(--_bg);
     border-radius: 3px;
     transition: background-color 95ms ease-out, opacity 90ms ease-in-out;
+    overflow: hidden;
 }
 
 .button--primary.btn--hollow {
     background-color: var(--btn-hov);
+    border: 2px solid var(--_bg);
 }
 
 .button--primary:is(:hover, :focus) {
     background-color: var(--_bg);
+}
+
+.button--primary:not(.btn--hollow)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--btn-light);
+    opacity: 0;
+    transition: opacity 120ms ease-in-out;
+}
+
+.button--primary:is(:hover, :focus)::after {
+    opacity: 1;
 }
 
 .button--primary.disabled {

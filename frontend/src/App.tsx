@@ -26,7 +26,7 @@ function App() {
     <Router>
       <PrimaryNav />
 
-      <div className="main-container">
+      <main className="main-container" id='main-content'>
         <Routes>
           <Route path='auth/sign-up' element={<SignUp />} />
           <Route path='auth/login' element={<Login />} />
@@ -40,7 +40,7 @@ function App() {
 
         <Popup />
         <Modal />
-      </div>
+      </main>
     </Router>
   )
 }

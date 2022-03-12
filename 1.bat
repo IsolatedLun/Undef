@@ -1,0 +1,1 @@
+cd api & py manage.py runserver

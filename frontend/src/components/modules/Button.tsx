@@ -1,5 +1,5 @@
 import { positionTooltip } from "../funcs/accessibilityFuncs";
-import { focusElement, randomId } from "../funcs/utilFuncs";
+import { randomId } from "../funcs/utilFuncs";
 import Loader from "../layouts/Loader";
 
 interface ButtonProps {

@@ -30,7 +30,7 @@ const ChannelDetail = ({ detail } : { detail: INF_ChannelDetail }) => {
 
     useEffect(() => {
         constructValue(detail.value, setEl);
-    }, [])
+    }, [detail])
 
     return (
         <>
@@ -43,16 +43,20 @@ const ChannelDetail = ({ detail } : { detail: INF_ChannelDetail }) => {
   }
 
 const ChannelDetails = ({ details } : { details: INF_ChannelDetail[] }) => {
-  return (
-    <>
-        <h3>Details</h3>
-        <div className="channel__user-details flex flex--col gap--1">
-            {
-                details.map((detail: any) => <ChannelDetail detail={detail} /> )
-            }
-        </div>
-    </>
-  )
+    if(details == [])
+    return (
+        <>
+            <h3>Details</h3>
+            <div className="channel__user-details flex flex--col gap--1">
+                {
+                    details.map((detail: any) => <ChannelDetail detail={detail} /> )
+                }
+            </div>
+        </>
+    )
+    else
+        return(<></>)
+                
 }
 
 export default ChannelDetails

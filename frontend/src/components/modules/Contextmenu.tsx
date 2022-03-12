@@ -40,7 +40,7 @@ const ContextMenu = ({ props } : { props: ContextMenu }) => {
           <ul className="context-menu flex flex--col">
             {
                 props.options.map((option, idx) => (
-                    <ContextMenuOption props={{ ...option }} idx={idx} />
+                    <ContextMenuOption key={idx} props={{ ...option }} idx={idx} />
                 ))
             }
             </ul>

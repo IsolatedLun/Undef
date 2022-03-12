@@ -45,11 +45,11 @@ const EditVideo = () => {
 
     useEffect(() => {
         if(video)
-            if(areEqualObjs(video, updateVideo) || video!.visibility !== Number(visibility))
+            if(!areEqualObjs(video, updateVideo) || video!.visibility !== Number(visibility))
                 setCanUpdate(true);
             else
                 setCanUpdate(false);
-    }, [updateVideo, visibility])
+    }, [video, updateVideo, visibility])
 
     function reset() {
         setUpdateVideo({ ...(video as any) });
