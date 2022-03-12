@@ -110,6 +110,28 @@
     resize: vertical;
 }
 
+/* Content Editable Input */
+.input--content--editable {
+    position: relative;
+}
+
+.input--content--editable::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    inset: auto 0 -2px auto;
+    background-color: var(--txt-primary);
+    outline-offset: 10px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms ease-in-out;
+}
+
+.input--content--editable:is(:focus)::after {
+    transform: scaleX(1);
+}
+
 /* File Inputs */
 .input--file {
     position: absolute;

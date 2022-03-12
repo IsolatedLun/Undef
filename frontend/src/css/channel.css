@@ -26,6 +26,10 @@
     color: var(--txt-muted);
 }
 
+/* .channel .channel__user-details > div *:not(.detail__key) {
+    content: '';
+}  */
+
 .channel .channel__stats {
     padding: 1em;
     background-color: var(--bg-secondary);

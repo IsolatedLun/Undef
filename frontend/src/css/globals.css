@@ -65,7 +65,7 @@ textarea {
     min-height: 2.25rem;
 }
 
-:focus {
+:focus:not(.no--outline) {
     outline: 2px solid var(--txt-primary);
     outline-offset: 4px;
     border-radius: 6px;

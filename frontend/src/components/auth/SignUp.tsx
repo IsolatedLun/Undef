@@ -11,7 +11,6 @@ import InputPart, { } from '../modules/inputs/InputPart';
 export interface NewUser {
   username: string;
   email_address: string;
-  channel_details: object;
   password: string;
   banner: File | null;
   profile: File | null;
@@ -24,7 +23,6 @@ const SignUp = () => {
   const [newUser, setNewUser] = useState<NewUser>({
     username: '',
     email_address: '',
-    channel_details: {},
     password: '',
     banner: null,
     profile: null,

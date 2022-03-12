@@ -3,12 +3,18 @@ from django.db import models
 from users.models import cUser
 from users.serializers import cUserChannelSerializer
 
+DEFAULT_CHANNEL_DETAILS = [
+    {'key': 'Business email', 'value': ''},
+    {'key': 'Creator\'s website', 'value': ''},
+    {'key': 'Socials', 'value': []}
+]
+
 class Channel(models.Model):
     user = models.ForeignKey(cUser, on_delete=models.CASCADE)
     banner = models.ImageField(upload_to='channels/banners/')
 
     channel_description = models.CharField(max_length=1028)
-    channel_details = models.JSONField(default=dict)
+    channel_details = models.JSONField(default=DEFAULT_CHANNEL_DETAILS)
 
     total_views = models.PositiveBigIntegerField(default=0);
 
