@@ -55,6 +55,14 @@ export const ChannelApi = createApi({
             })
         }),
 
+        editChannelDetails: builder.mutation<ExtraResponse, any>({
+            query: ({ channel_id, updateDetails }) => ({
+                url: `/channel/${channel_id}/edit/details`,
+                method: 'POST',
+                body: updateDetails,
+            })
+        }),
+
         subscrible: builder.mutation<SubscribtionResponse, any>({
             query: (channel_id) => ({
                 url: `/channel/subscribe/${channel_id}`,
@@ -65,4 +73,4 @@ export const ChannelApi = createApi({
 })
 
 export const { useGetChannelQuery, useUploadVideoMutation, useSubscribleMutation,
-useEditVideoMutation } = ChannelApi;
+useEditVideoMutation, useEditChannelDetailsMutation } = ChannelApi;

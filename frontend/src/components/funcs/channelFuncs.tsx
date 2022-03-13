@@ -1,10 +1,12 @@
 import React from "react";
 import { emailRegex, urlRegex } from "../../consts";
+import { useAutoState } from "../../hooks/useAutoState";
 import { isValidUrl } from "./formFuncs";
 
 
 
-export async function constructValue(key: string, val: string, isChannelOwner: boolean) {
+export async function constructValue(key: string, clean_key: string, 
+    val: string, isChannelOwner: boolean, setter: Function) {
     let el = null;
     let type = '';
 
@@ -24,9 +26,12 @@ export async function constructValue(key: string, val: string, isChannelOwner: b
                 el = React.createElement('a', {
                     target: '_blank',
                     href: 'mailto:' + val,
-                    className: 'link',
+                    className: 'link input--content--editable',
                     contentEditable: isChannelOwner,
-                    suppressContentEditableWarning: true
+                    suppressContentEditableWarning: true,
+                    name: key,
+                    'data-real-type': 'string',
+                    onInput: (e => useAutoState(e, setter))
                 }, val);
             }
 
@@ -35,9 +40,13 @@ export async function constructValue(key: string, val: string, isChannelOwner: b
                 el = React.createElement('a', {
                     target: '_blank',
                     href: res ? val : '',
-                    className: res ? 'link' : 'link--muted',
+                    className: (res ? 'link' : 'link--muted') + ' input--content--editable',
                     contentEditable: isChannelOwner,
-                    suppressContentEditableWarning: true
+                    suppressContentEditableWarning: true,
+                    name: key,
+                    'data-real-type': 'string',
+                    onInput: (e => setter((prevState: any) => 
+                        ({ ...prevState, [e.currentTarget.getAttribute('name') as string]: e.currentTarget.innerText })))
                 }, val);
             }
 
@@ -49,8 +58,13 @@ export async function constructValue(key: string, val: string, isChannelOwner: b
             el = React.createElement('p', {
                 contentEditable: isChannelOwner,
                 suppressContentEditableWarning: true,
-                className: 'detail__value'
-            }, type === 'empty' ? 'No ' + key : val);
+                className: 'detail__value input--content--editable',
+                name: key,
+                'data-real-type': 'string',
+                onInput: (e => { setter((prevState: any) => 
+                    ({ ...prevState, [e.currentTarget.getAttribute('name') as string]: e.currentTarget.innerText }))
+                })
+            }, type === 'empty' ? 'No ' + clean_key : val);
             
             break;     
     }

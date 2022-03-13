@@ -46,6 +46,7 @@ export function resetThumbnails(t: number) {
 
 interface ResponseActions {
     redirectTo?: string;
+    popup?: string;
 }
 
 export interface ExtraResponse extends Response {
@@ -57,7 +58,9 @@ export interface ExtraResponse extends Response {
 export function handleResponse(res: ExtraResponse, actions?: ResponseActions, btn?: HTMLButtonElement) {
     if(res.status >= 400)
         popup(res.data.detail, 'Error');
-    else if(actions !== undefined && actions.redirectTo !== undefined)
+    else if(actions && actions.popup)
+        popup(actions.popup, 'Info')
+    else if(actions && actions.redirectTo)
         window.location.href = actions.redirectTo;
 
     if(btn)

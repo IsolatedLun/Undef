@@ -26,10 +26,6 @@
     color: var(--txt-muted);
 }
 
-/* .channel .channel__user-details > div *:not(.detail__key) {
-    content: '';
-}  */
-
 .channel .channel__stats {
     padding: 1em;
     background-color: var(--bg-secondary);
@@ -41,6 +37,15 @@
     .channel .channel__details {
         flex-direction: column;
         gap: 1em;
+    }
+
+    .channel .channel__user-details > * {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .channel .channel__user-details .detail__key {
+        border-bottom: 1px solid var(--txt-muted);
     }
 
     .channel .channel__about {

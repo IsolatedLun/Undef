@@ -3,11 +3,11 @@ from django.db import models
 from users.models import cUser
 from users.serializers import cUserChannelSerializer
 
-DEFAULT_CHANNEL_DETAILS = [
-    {'key': 'Business email', 'value': ''},
-    {'key': 'Creator\'s website', 'value': ''},
-    {'key': 'Socials', 'value': []}
-]
+DEFAULT_CHANNEL_DETAILS = {
+    "business_email": { "clean_key": "Business email", "value": "" },
+    "creator_website": { "clean_key": "Creator\"s website", "value": "" },
+    "socials": { "clean_key": "Socials" , "value": [] }
+}
 
 class Channel(models.Model):
     user = models.ForeignKey(cUser, on_delete=models.CASCADE)

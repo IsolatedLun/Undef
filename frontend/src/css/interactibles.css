@@ -115,6 +115,21 @@
     position: relative;
 }
 
+.input--content--editable::before {
+    content: '\f044';
+    font-family: 'Font Awesome 5 Free';
+    position: absolute;
+    font-size: var(--fs-400);
+    color: var(--txt-muted-dark);
+    top: 50%;
+    right: -40px;
+    transform: translate(-50%, -50%);
+}
+
+.input--content--editable:focus::before {
+    color: var(--txt-muted);
+}
+
 .input--content--editable::after {
     content: '';
     position: absolute;

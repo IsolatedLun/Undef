@@ -12,5 +12,8 @@ urlpatterns = [
         name='post-channel-subscribe'),
 
     path('channel/<int:channel_id>/edit/<int:video_id>', views.EditChannelVideo.as_view(), 
+        name='post-edit-video'),
+    
+    path('channel/<int:channel_id>/edit/details', views.EditChannelDetails.as_view(), 
         name='post-edit-video')
 ]

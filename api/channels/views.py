@@ -3,6 +3,7 @@ from rest_framework.views import APIView, Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.core.files.uploadedfile import TemporaryUploadedFile, InMemoryUploadedFile
+from users.models import cUser
 
 from users.views import decode_user_id
 from . import models
@@ -120,4 +121,18 @@ class EditChannelVideo(APIView):
 
         video.save(update_fields=['title', 'description', 'visibility', 'thumbnail'])
 
-        return Response({'detail': 'Updated video.'})
+        return Response({'detail': 'Updated video.'}, OK)
+
+class EditChannelDetails(APIView):
+    def post(self, req, channel_id):
+        user_id = decode_user_id(req.headers)
+
+        channel = models.Channel.objects.get(user_id=user_id)
+        if channel.id == channel_id:
+            for (key, val) in req.data.items():
+                channel.channel_details[key]['value'] = val
+            channel.save()
+            
+            return Response({'detail': 'Updated channel.'}, OK)
+        else:
+            return Response({'detail': 'User and channel mismatch'}, ERR)
