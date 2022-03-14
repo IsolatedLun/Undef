@@ -36,7 +36,10 @@ export async function constructValue(key: string, clean_key: string,
             }
 
             else if(type === 'url') {
-                const res = await isValidUrl(val);
+                let res: boolean;
+                try { res = await isValidUrl(val).catch() }
+                catch { res = true; }
+
                 el = React.createElement('a', {
                     target: '_blank',
                     href: res ? val : '',
@@ -45,8 +48,7 @@ export async function constructValue(key: string, clean_key: string,
                     suppressContentEditableWarning: true,
                     name: key,
                     'data-real-type': 'string',
-                    onInput: (e => setter((prevState: any) => 
-                        ({ ...prevState, [e.currentTarget.getAttribute('name') as string]: e.currentTarget.innerText })))
+                    onInput: (e => useAutoState(e, setter))
                 }, val);
             }
 
@@ -61,13 +63,12 @@ export async function constructValue(key: string, clean_key: string,
                 className: 'detail__value input--content--editable',
                 name: key,
                 'data-real-type': 'string',
-                onInput: (e => { setter((prevState: any) => 
-                    ({ ...prevState, [e.currentTarget.getAttribute('name') as string]: e.currentTarget.innerText }))
-                })
+                onInput: (e => useAutoState(e, setter))
             }, type === 'empty' ? 'No ' + clean_key : val);
             
             break;     
     }
 
+    console.log(el)
     return el as any;
 }

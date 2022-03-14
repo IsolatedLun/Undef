@@ -14,7 +14,7 @@ class Channel(models.Model):
     banner = models.ImageField(upload_to='channels/banners/')
 
     channel_description = models.CharField(max_length=1028)
-    channel_details = models.JSONField(default=DEFAULT_CHANNEL_DETAILS)
+    channel_details = models.JSONField(default=dict, null=True)
 
     total_views = models.PositiveBigIntegerField(default=0);
 

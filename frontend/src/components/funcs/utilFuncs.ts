@@ -91,3 +91,7 @@ export function areEqualObjs(a: any, b: any): boolean {
 export function unFocusGlb() {
     document.body.focus();
 }
+
+export function toUnderscore(s: string): string {
+    return s.split(' ').map(word => word.toLowerCase()).join('_');
+}

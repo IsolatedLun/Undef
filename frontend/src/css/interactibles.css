@@ -16,7 +16,8 @@
     overflow: hidden;
 }
 
-.button--primary.btn--hollow {
+.button--primary.btn--hollow,
+.button--icon--primary.btn--hollow {
     background-color: var(--btn-hov);
     border: 2px solid var(--_bg);
 }
@@ -38,11 +39,7 @@
     opacity: 1;
 }
 
-.button--primary.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-}
-
+/* Icon Buttons */
 .button--icon {
     position: relative;
     color: var(--txt-muted);
@@ -62,6 +59,26 @@
     transform: translate(-50%, -50%);
 }
 
+.button--icon--primary {
+    font-size: var(--fs-400);
+    width: 2.75em;
+    border: 2px solid var(--inpt-main);
+    border-radius: 100vw;
+    aspect-ratio: 1;
+    transition: background-color 95ms ease-in-out;
+    text-align: center;
+}
+
+.button--icon--primary.btn--icon--sm {
+    font-size: calc(var(--fs-400) * 0.85);
+}
+
+.button--icon--primary:is(:hover, :focus) {
+    background-color: var(--inpt-shadow);
+    border-radius: 100vw;
+}
+
+/* Button Loader */
 .button--loader {
     visibility: hidden;
     font-size: calc(var(--fs-400) * 0.5);
@@ -290,6 +307,11 @@
 /* Misc */
 .dashed {
     border-style: dashed;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 @media(prefers-color-scheme: light) {

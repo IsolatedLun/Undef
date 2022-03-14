@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useEditChannelDetailsMutation } from "../../services/channelApi";
+import { EDIT_ICO, PLUS_ICO, SAVE_ICO, TRASH_ICO } from "../../consts";
 import { constructValue } from "../funcs/channelFuncs";
-import { popup } from "../funcs/popupFuncs";
-import { areEqualObjs, handleResponse } from "../funcs/utilFuncs";
+import { toUnderscore } from "../funcs/utilFuncs";
 import Loader from "../layouts/Loader";
+import Button from "../modules/Button";
 
 export interface INF_ChannelDetail {
     key: string;
@@ -12,69 +12,86 @@ export interface INF_ChannelDetail {
     type: string;
 }
 
-const ChannelDetail = ({ detail, isChannelOwner, setter } : 
-    { detail: any, isChannelOwner: boolean, setter: Function }) => {
-    const [el, setEl] = useState(<div className="pos--relative"><Loader radius={20} /></div>)
+function getChannelDetailItems(setDetails: Function) {
+    const inputContainers = document.querySelectorAll('.detail__part-inputs') as NodeListOf<HTMLDivElement>;
+    let details: any = {};
 
-    useEffect(() => {
-        const [key, { clean_key, value }] = detail;
-        constructValue(key, clean_key, value, isChannelOwner, setter).then(res => setEl(res))
-    }, [detail])
+    inputContainers.forEach(container => {
+        const [keyInput, valueInput] = container.childNodes as NodeListOf<HTMLInputElement>;
+        const [key, val] = [keyInput.value, valueInput.value]
 
-    return (
-        <>
-            <div className="flex flex--center gap--1">
-                <p className="txt--muted upper detail__key">{ detail[1].clean_key }:</p>
-                { el }
+        details[toUnderscore(key)] = val;
+    })
+
+    setDetails(details);
+}
+
+const ChannelDetailInput = ({ idx, state } : { idx: number, state: Function }) => {
+    const [value, setValue] = useState('');
+    return(
+        <div className="detail__part flex gap--1">
+            <div className="detail__part-inputs flex gap--1">
+                <input 
+                    data-real-type='text'
+                    type='text'
+                    className={`input--primary ${value.length > 0 ? 'disabled' : ''}`}
+                    placeholder='Key'
+                />
+                
+                <input 
+                    data-real-type='text'
+                    type='text'
+                    className='input--primary'
+                    placeholder='Value'
+                    onInput={(e) => setValue(e.currentTarget.value)}
+                />
             </div>
-        </>
+
+            <Button props={{ content: TRASH_ICO, action: () => state((prevState: any[]) => {
+                return prevState.filter(el => Number(el.key) + 1 !== idx + 1);
+            }), 
+            cls: 'button--icon--primary btn--icon--sm' }} />
+        </div>
     )
-  }
+}
 
 let updateTimeout: number;
-const ChannelDetails = ({ details, isChannelOwner, id } : 
+const ChannelDetails = ({ isChannelOwner, id } : 
     { details: INF_ChannelDetail[], isChannelOwner: boolean, id: number }) => {
-
-    const [editChannelDetails, {  }] = useEditChannelDetailsMutation();
-    const [realDetails, setDetails] = useState({});
-    const [updateDetails, setUpdateDetails] = useState({});
-
-    useEffect(() => {
-        Object.entries(details).forEach((arr) => {
-            const [key, detail] = arr;
-            setDetails(prevState => ({ ...prevState, [key]: detail }));
-        })
-
-        setUpdateDetails(realDetails);
-
-        return () => {
-            if(!areEqualObjs(realDetails, updateDetails))
-                popup('Saved changes undone.', 'Error');
-        }
-    }, [])
+    const [details, setDetails] = useState<string[]>([])
+    const [detailInputs, setDetailInputs] = useState<any[]>([]);
 
     useEffect(() => {
         clearTimeout(updateTimeout);
         updateTimeout = setTimeout(() => {
-            if(!areEqualObjs(realDetails, updateDetails))
-                editChannelDetails({ updateDetails, channel_id: id  }).unwrap()
-                    .then(res => handleResponse(res, { popup: 'Changes saved.' }))
-                    .catch(res => handleResponse(res));
+
         }, 5000);
-    }, [updateDetails])
+    }, [])
+
+    useEffect(() => {
+        console.log(details);
+    }, [details])
     
     return (
         <>
             <h3>Details</h3>
             <div className="channel__user-details flex flex--col gap--1">
                 {
-                    Object.entries(realDetails).map((detail) => 
-                    <ChannelDetail 
-                        detail={detail} 
-                        setter={setUpdateDetails}
-                        isChannelOwner={isChannelOwner} /> 
-                    )
+                    detailInputs.map((input: any) => input)
                 }
+
+                <div className="btn--group">
+                    <Button props={{ content: SAVE_ICO, action: () => getChannelDetailItems(setDetails), 
+                        cls: 'button--icon--primary', workCondition: detailInputs.length > 0 }} />
+
+                    <Button props={{ content: PLUS_ICO, action: () => 
+                        setDetailInputs([...detailInputs, 
+                            <ChannelDetailInput 
+                                state={setDetailInputs}
+                                key={detailInputs.length - 1} 
+                                idx={detailInputs.length - 1} />]), 
+                        cls: 'button--icon--primary' }} />
+                </div>
             </div>
         </>
     )           

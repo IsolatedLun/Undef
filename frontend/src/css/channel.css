@@ -39,7 +39,12 @@
         gap: 1em;
     }
 
-    .channel .channel__user-details > * {
+    .channel .channel__user-details {
+        display: flex;
+        align-items: center;
+    }
+
+    .channel .channel__user-details > *:is(div) {
         display: flex;
         flex-direction: column;
     }
