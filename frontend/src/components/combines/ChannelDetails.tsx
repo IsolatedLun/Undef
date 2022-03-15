@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { EDIT_ICO, PLUS_ICO, SAVE_ICO, TRASH_ICO } from "../../consts";
+import { PLUS_ICO, SAVE_ICO, TRASH_ICO } from "../../consts";
+import { useEditChannelDetailsMutation } from "../../services/channelApi";
 import { constructValue } from "../funcs/channelFuncs";
-import { toUnderscore } from "../funcs/utilFuncs";
+import { handleResponse, toUnderscore } from "../funcs/utilFuncs";
 import Loader from "../layouts/Loader";
-import Button from "../modules/Button";
+import Button, { toggleButton } from "../modules/Button";
 
 export interface INF_ChannelDetail {
     key: string;
     clean_key: string;
     value: string;
-    type: string;
 }
 
 function getChannelDetailItems(setDetails: Function) {
@@ -20,7 +20,7 @@ function getChannelDetailItems(setDetails: Function) {
         const [keyInput, valueInput] = container.childNodes as NodeListOf<HTMLInputElement>;
         const [key, val] = [keyInput.value, valueInput.value]
 
-        details[toUnderscore(key)] = val;
+        details[toUnderscore(key)] = { clean_key: key, value: val };
     })
 
     setDetails(details);
@@ -55,21 +55,40 @@ const ChannelDetailInput = ({ idx, state } : { idx: number, state: Function }) =
     )
 }
 
+const ChannelDetail = ({ detail, idx, setDetails } : 
+    { detail: INF_ChannelDetail, idx: number, setDetails: Function }) => {
+    return(
+        <div onClick={() => setDetails((prevState: any) => {
+            toggleButton('detail-save-loader');
+            let tempState = { ...prevState }; // new copy to avoid non-config error.
+            delete tempState[detail.key];
+            return tempState;
+        })}
+            className="channel__detail flex align--items--center gap--1">
+            <p className="detail__key">{ detail.clean_key }: </p>
+            { constructValue(detail.key, detail.clean_key, detail.value) }
+        </div>
+    )
+}
+
 let updateTimeout: number;
-const ChannelDetails = ({ isChannelOwner, id } : 
-    { details: INF_ChannelDetail[], isChannelOwner: boolean, id: number }) => {
-    const [details, setDetails] = useState<string[]>([])
+const ChannelDetails = ({ channelDetails, isChannelOwner, id } : 
+{ channelDetails: INF_ChannelDetail[], isChannelOwner: boolean, id: number }) => {
+    const [usePostChannelDetails, {  }] = useEditChannelDetailsMutation();
+
+    const [details, setDetails] = useState(channelDetails);
     const [detailInputs, setDetailInputs] = useState<any[]>([]);
 
     useEffect(() => {
         clearTimeout(updateTimeout);
         updateTimeout = setTimeout(() => {
-
+            if(detailInputs.length > 0)
+                usePostChannelDetails({ channel_id: id, updatedDetails: details }).unwrap()
+                    .then(res => {
+                        handleResponse(res, { popup: 'Saved channel details. (Refresh to update)' });
+                        toggleButton('detail-save-loader');
+                    });
         }, 5000);
-    }, [])
-
-    useEffect(() => {
-        console.log(details);
     }, [details])
     
     return (
@@ -77,24 +96,38 @@ const ChannelDetails = ({ isChannelOwner, id } :
             <h3>Details</h3>
             <div className="channel__user-details flex flex--col gap--1">
                 {
-                    detailInputs.map((input: any) => input)
+                    Object.entries(details).map((detail, idx) => {
+                        const toShow = { key: detail[0], ...(detail[1] as object) } as INF_ChannelDetail;
+                        return <ChannelDetail key={idx} idx={idx} detail={toShow} setDetails={setDetails} />
+                    })
                 }
 
-                <div className="btn--group">
-                    <Button props={{ content: SAVE_ICO, action: () => getChannelDetailItems(setDetails), 
-                        cls: 'button--icon--primary', workCondition: detailInputs.length > 0 }} />
+                { isChannelOwner && (
+                    <>
+                        { detailInputs.map((input: any) => input) }
+                        <div className="btn--group">
+                            <Button props={{ content: SAVE_ICO, action: () => {
+                                toggleButton('detail-save-loader');
+                                getChannelDetailItems(setDetails);
+                            }, 
+                                id: 'detail-save-loader',
+                                cls: 'button--icon--primary', 
+                                loaderCls: 'button--loader',
+                                workCondition: detailInputs.length > 0 }} />
 
-                    <Button props={{ content: PLUS_ICO, action: () => 
-                        setDetailInputs([...detailInputs, 
-                            <ChannelDetailInput 
-                                state={setDetailInputs}
-                                key={detailInputs.length - 1} 
-                                idx={detailInputs.length - 1} />]), 
-                        cls: 'button--icon--primary' }} />
-                </div>
+                            <Button props={{ content: PLUS_ICO, action: () => 
+                                setDetailInputs([...detailInputs, 
+                                    <ChannelDetailInput 
+                                        state={setDetailInputs}
+                                        key={detailInputs.length - 1} 
+                                        idx={detailInputs.length - 1} />]), 
+                                cls: 'button--icon--primary' }} />
+                        </div>
+                    </>
+                ) }
             </div>
         </>
     )           
 }
 
-export default ChannelDetails
+export default ChannelDetails;

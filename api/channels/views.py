@@ -129,8 +129,7 @@ class EditChannelDetails(APIView):
 
         channel = models.Channel.objects.get(user_id=user_id)
         if channel.id == channel_id:
-            for (key, val) in req.data.items():
-                channel.channel_details[key]['value'] = val
+            channel.channel_details = req.data
             channel.save()
             
             return Response({'detail': 'Updated channel.'}, OK)

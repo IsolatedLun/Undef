@@ -28,11 +28,14 @@ function focusContextMenu(e: Event) {
   menu.focus()
 }
 
-export function toggleButton(btn: HTMLButtonElement) {
-  if(btn.classList.contains('vis--hidden'))
-    btn.classList.remove('vis--hidden');
+export function toggleButton(param: HTMLButtonElement | string) {
+  if(typeof(param) === 'string')
+    param = document.getElementById(param as string)! as HTMLButtonElement;
+
+  if(param.classList.contains('vis--hidden'))
+    param.classList.remove('vis--hidden');
   else
-    btn.classList.add('vis--hidden');
+    param.classList.add('vis--hidden');
 }
 
 function isUnicode(str: string) {

@@ -56,10 +56,10 @@ export const ChannelApi = createApi({
         }),
 
         editChannelDetails: builder.mutation<ExtraResponse, any>({
-            query: ({ channel_id, updateDetails }) => ({
+            query: ({ channel_id, updatedDetails }) => ({
                 url: `/channel/${channel_id}/edit/details`,
                 method: 'POST',
-                body: updateDetails,
+                body: updatedDetails,
             })
         }),
 

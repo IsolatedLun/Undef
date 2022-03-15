@@ -13,7 +13,7 @@ const ChannelAbout = ({ channel }: { channel: INF_Channel }) => {
         <h2>Description</h2>
         <p className="channel__description">{channel.channel_description}</p>
 
-        <ChannelDetails details={channel.channel_details} id={channel.id}
+        <ChannelDetails channelDetails={channel.channel_details} id={channel.id}
           isChannelOwner={isChannelOwner} />
       </div>
 

@@ -26,6 +26,16 @@
     color: var(--txt-muted);
 }
 
+.channel .channel__user-details .channel__detail {
+    padding: 0.2em;
+    transition: background-color 100ms ease-in-out;
+    cursor: pointer;
+}
+
+.channel .channel__user-details .channel__detail:is(:hover, :focus) {
+    background-color: var(--bg-err);
+}
+
 .channel .channel__stats {
     padding: 1em;
     background-color: var(--bg-secondary);
