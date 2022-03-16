@@ -7,19 +7,20 @@ export function constructValue(key: string, clean_key: string, val: string) {
         type = 'email';
     else if(urlRegex.test(val))
         type = 'url';
-    else if(val.length < 1)
+    else if(val.length === 0)
         type = 'empty';
     else
         type = 'text';
 
-    switch(type) {
-        case 'email':
-        case 'url':
-            return <a href={type === 'email' ? `mailto:${val}` : val}>{ val }</a>
-        
-        case 'empty':
-        case 'text':
-        default:
-            return <p>{ type === 'empty' ? `No ${clean_key}` : val }</p>
+    console.log(['email', 'url'].includes(type))
+
+    if(['email', 'url'].includes(type)) {
+        return <a href={val}>{ val }</a>;
     }
+
+    else {
+        console.log('esh')
+    }
+        
+    return <p>{ type === 'empty' ? `No ${clean_key}` : val }</p>
 }

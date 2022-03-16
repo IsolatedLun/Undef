@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { PLUS_ICO, SAVE_ICO, TRASH_ICO } from "../../consts";
 import { useEditChannelDetailsMutation } from "../../services/channelApi";
 import { constructValue } from "../funcs/channelFuncs";
-import { handleResponse, toUnderscore } from "../funcs/utilFuncs";
+import { areEqualObjs, handleResponse, toUnderscore } from "../funcs/utilFuncs";
 import Loader from "../layouts/Loader";
 import Button, { toggleButton } from "../modules/Button";
 
@@ -55,11 +55,9 @@ const ChannelDetailInput = ({ idx, state } : { idx: number, state: Function }) =
     )
 }
 
-const ChannelDetail = ({ detail, idx, setDetails } : 
-    { detail: INF_ChannelDetail, idx: number, setDetails: Function }) => {
+const ChannelDetail = ({ detail, setDetails } : { detail: INF_ChannelDetail, setDetails: Function }) => {
     return(
         <div onClick={() => setDetails((prevState: any) => {
-            toggleButton('detail-save-loader');
             let tempState = { ...prevState }; // new copy to avoid non-config error.
             delete tempState[detail.key];
             return tempState;
@@ -76,30 +74,33 @@ const ChannelDetails = ({ channelDetails, isChannelOwner, id } :
 { channelDetails: INF_ChannelDetail[], isChannelOwner: boolean, id: number }) => {
     const [usePostChannelDetails, {  }] = useEditChannelDetailsMutation();
 
+    const originalDetails = channelDetails;
     const [details, setDetails] = useState(channelDetails);
     const [detailInputs, setDetailInputs] = useState<any[]>([]);
 
     useEffect(() => {
-        clearTimeout(updateTimeout);
+        clearTimeout(updateTimeout);  
+
         updateTimeout = setTimeout(() => {
-            if(detailInputs.length > 0)
+            if(!areEqualObjs(details, originalDetails)) {
                 usePostChannelDetails({ channel_id: id, updatedDetails: details }).unwrap()
                     .then(res => {
                         handleResponse(res, { popup: 'Saved channel details. (Refresh to update)' });
-                        toggleButton('detail-save-loader');
                     });
+                toggleButton('detail-save-loader', true);
+            }
         }, 5000);
     }, [details])
     
     return (
         <>
             <h3>Details</h3>
-            <div className="channel__user-details flex flex--col gap--1">
+            <div className="channel__user-details flex flex--col gap--075">
                 {
-                    Object.entries(details).map((detail, idx) => {
+                    ( typeof(details) === 'object' && Object.entries(details).map((detail, idx) => {
                         const toShow = { key: detail[0], ...(detail[1] as object) } as INF_ChannelDetail;
-                        return <ChannelDetail key={idx} idx={idx} detail={toShow} setDetails={setDetails} />
-                    })
+                        return <ChannelDetail key={idx} detail={toShow} setDetails={setDetails} />
+                    }) )
                 }
 
                 { isChannelOwner && (

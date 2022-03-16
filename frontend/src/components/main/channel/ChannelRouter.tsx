@@ -11,6 +11,7 @@ import ChannelAbout from './ChannelAbout';
 import ChannelHeader from './ChannelHeader';
 import ChannelVideos from './ChannelVideos';
 import { INF_ChannelDetail } from '../../combines/ChannelDetails';
+import PageNotFound from '../../layouts/PageNotFound';
 
 export interface ChannelData {
     channel: INF_Channel,
@@ -62,11 +63,7 @@ const ChannelRouter = () => {
             </section>
         )
     else if(!isSuccess && !isFetching)
-        return(
-            <div className="primary-loader loader-404">
-                <p className='txt--err loader__text'>404. Couldn't find the requested page :(</p>
-            </div>
-        )
+        return(<PageNotFound />)
     else
         return <Loader />
 }

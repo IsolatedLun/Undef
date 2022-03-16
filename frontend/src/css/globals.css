@@ -12,15 +12,9 @@ html {
 }
 
 body {
-    /* --text: white;
-    --background: black;
-
     --button-clr: hsl(243, 89%, 54%);
     --button-hov: hsl(0, 0%, 100%, 0.05);
     --button-clr-hollow: hsl(243, 89%, 30%, 0.36);
-
-    --input-clr: hsl(220, 97%, 45%);
-    --input-shadown: hsl(220, 97%, 45%, 0.36); */
 
     font-size: var(--fs-400);
     font-family: 'Open Sans', sans-serif;
@@ -98,10 +92,6 @@ textarea {
     --bg-hov: hsl(0, 0%, 100%, 0.12);
     --bg-tooltip: black;
     --bg-err: rgba(233, 0, 0, 0.24);
-
-    --btn-main: hsl(243, 89%, 54%);
-    --btn-light: hsl(0, 0%, 100%, 0.05);
-    --btn-hov: hsl(243, 89%, 30%, 0.36);
 
     --inpt-main: hsl(220, 97%, 45%);
     --inpt-shadow: hsla(220, 97%, 45%, 0.36);

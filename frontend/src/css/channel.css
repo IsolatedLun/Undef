@@ -15,6 +15,7 @@
 }
 
 .channel .channel__user-details {
+    width: 100%;
     margin-block: 1em;
 }
 
@@ -27,9 +28,36 @@
 }
 
 .channel .channel__user-details .channel__detail {
-    padding: 0.2em;
+    position: relative;
+    padding: 0.2em 0.4em;
     transition: background-color 100ms ease-in-out;
     cursor: pointer;
+}
+
+.channel .channel__user-details .channel__detail::after {
+    content: "\f1f8";
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900;
+    position: absolute;
+    width: 1em;
+    aspect-ratio: 1;
+    right: -12%;
+    transform: scale(0);
+    transition: transform 120ms ease-in-out;
+}
+
+.channel .channel__user-details .channel__detail:is(:hover, :focus)::after {
+    animation: popIcon 120ms linear forwards;
+}
+
+@keyframes popIcon {
+    50% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .channel .channel__user-details .channel__detail:is(:hover, :focus) {
@@ -61,6 +89,11 @@
 
     .channel .channel__user-details .detail__key {
         border-bottom: 1px solid var(--txt-muted);
+    }
+
+    .channel .channel__user-details .channel__detail::after {
+        top: 36%;
+        right: -14%;
     }
 
     .channel .channel__about {

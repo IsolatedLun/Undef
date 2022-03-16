@@ -36,7 +36,7 @@ const ContextMenuOption = ({ props, idx } : { props: INF_ContextMenuOption, idx:
 
 const ContextMenu = ({ props } : { props: ContextMenu }) => {
   return(
-      <div tabIndex={0} className='context-menu-container'>
+      <div tabIndex={0} className='context-menu-container no--outline'>
           <ul className="context-menu flex flex--col">
             {
                 props.options.map((option, idx) => (

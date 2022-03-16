@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useGetVideoQuery, useGetVideosQuery } from '../../../services/videoApi';
-import VideoComments, { Comment } from '../../combines/VideoComments';import Videos from '../../combines/Videos';
+import VideoComments, { Comment } from '../../combines/VideoComments';
+import Videos from '../../combines/Videos';
 import Loader from '../../layouts/Loader';
 import { INF_Video } from '../../modules/Video';
-;
+import PageNotFound from '../../layouts/PageNotFound';
 import VideoDetails from './VideoDetails';
 import VideoPlayer from './VideoPlayer';
 
@@ -19,7 +20,8 @@ export interface VideoData extends INF_Video {
 
 const VideoTab = () => {
   const { video_id } = useParams();
-  const { data: video, isFetching: hasRecVideo } = useGetVideoQuery({ video_id: Number(video_id)!, type: 'all' });
+  const { data: video, isFetching: hasRecVideo, isError } = 
+    useGetVideoQuery({ video_id: Number(video_id)!, type: 'all' });
   const { data: nextVideos, isFetching: hasRecVideos } = useGetVideosQuery();
 
   if(video && video_id)
@@ -45,6 +47,9 @@ const VideoTab = () => {
             
         </div>
     )
+
+  else if(isError)
+      return (<PageNotFound />)
   else
       return(<Loader />)
 };

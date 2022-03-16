@@ -5,32 +5,30 @@
 }
 
 .button--primary {
-    --_bg: var(--btn-main);
     font-size: calc(var(--fs-420) * 0.92);
     position: relative;
     text-transform: capitalize;
     padding: 0.25em 0.65em;
-    background-color: var(--_bg);
+    background-color: var(--button-clr);
     border-radius: 3px;
     transition: background-color 95ms ease-out, opacity 90ms ease-in-out;
     overflow: hidden;
 }
 
-.button--primary.btn--hollow,
-.button--icon--primary.btn--hollow {
-    background-color: var(--btn-hov);
-    border: 2px solid var(--_bg);
+.btn--hollow {
+    background-color: var(--button-clr-hollow);
+    border: 2px solid var(--button-clr);
 }
 
 .button--primary:is(:hover, :focus) {
-    background-color: var(--_bg);
+    background-color: var(--button-clr);
 }
 
 .button--primary:not(.btn--hollow)::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: var(--btn-light);
+    background-color: var(--button-hov);
     opacity: 0;
     transition: opacity 120ms ease-in-out;
 }
@@ -62,11 +60,10 @@
 .button--icon--primary {
     font-size: var(--fs-400);
     width: 2.75em;
-    border: 2px solid var(--inpt-main);
+    border: 2px solid var(--button-clr);
     border-radius: 100vw;
     aspect-ratio: 1;
     transition: background-color 95ms ease-in-out;
-    text-align: center;
 }
 
 .button--icon--primary.btn--icon--sm {
@@ -74,7 +71,7 @@
 }
 
 .button--icon--primary:is(:hover, :focus) {
-    background-color: var(--inpt-shadow);
+    background-color: var(--button-clr-hollow);
     border-radius: 100vw;
 }
 
@@ -84,7 +81,11 @@
     font-size: calc(var(--fs-400) * 0.5);
 }
 
-[class*='button--'].vis--hidden .button--loader {
+[class*='button'].vis--hidden {
+    pointer-events: none;
+}
+
+[class*='button'].vis--hidden .button--loader {
     visibility: visible;
 }
 
@@ -104,7 +105,7 @@
     font-weight: 100;
     padding: 0.3em 1em;
     border: 1px solid var(--txt-muted);
-    background-color: hsl(var(--bg-secondary));
+    background-color: transparent;
     border-radius: 3px;
     outline: 0;
 }
