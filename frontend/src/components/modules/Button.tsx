@@ -28,7 +28,7 @@ function focusContextMenu(e: Event) {
   menu.focus()
 }
 
-export function toggleButton(param: HTMLButtonElement | string, removeCls: boolean) {
+export function toggleButton(param: HTMLButtonElement | string, removeCls?: boolean) {
   if(typeof(param) === 'string')
     param = document.getElementById(param as string)! as HTMLButtonElement;
 
