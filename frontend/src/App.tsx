@@ -11,6 +11,7 @@ import PageNotFound from './components/layouts/PageNotFound';
 import { useAuth } from './hooks/useAuth';
 import { useAuthenticateMutation } from './services/authApi';
 import Modal from './components/layouts/Modal';
+import Search from './components/main/Search';
 
 function App() {
   const [authenticate] = useAuthenticateMutation();
@@ -34,6 +35,8 @@ function App() {
           <Route path='' element={<Home />} />
           <Route path='watch/:video_id' element={<VideoTab />} />
           <Route path='channels/:channel_id/*' element={<ChannelRouter />} />
+
+          <Route path='search' element={<Search />} />
 
           <Route path='*' element={<PageNotFound />} />
         </Routes>

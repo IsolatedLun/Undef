@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BARS_ICO, ENTER_ICO, SEARCH_ICO } from '../../consts';
 import { useAppDispatch } from '../../hooks/state';
 import { useAuth } from '../../hooks/useAuth';
+import { useSearchMutation } from '../../services/channelApi';
 import { logout } from '../../slices/auth-slice';
 import { toggleElement } from '../funcs/utilFuncs';
 import Button from '../modules/Button';
@@ -11,22 +12,30 @@ import Input from '../modules/inputs/Input';
 import Profile from '../modules/Profile';
 
 const PrimaryNav = () => {
+  const [ getSearchResults ] = useSearchMutation();
+
   const { user, isLogged } = useAuth();
   const dispatch = useAppDispatch();
 
   const [search, setSearch] = useState('');
+  const [searchResults, setSearchResults] = useState<string[]>([]);
 
   const logoutCommence = () => {
     dispatch(logout());
     window.location.href = '/';
   }
 
+  useEffect(() => {
+    if(search.length > 0)
+      getSearchResults({ query: search, searchType: 'text' })
+      .then((res: any) => setSearchResults(res.data.data))
+  }, [search])
+
   const navContextMenu = <ContextMenu props={{ id: 'nav-context', 
     options: 
     [
       { icon: ENTER_ICO, text: 'My channel', to: '/channels/' + user.channel_id }
     ] 
-  
   }} />
 
   return(
@@ -43,9 +52,15 @@ const PrimaryNav = () => {
               <Input props={{ setter: setSearch, type: 'text',
                 placeholder: 'Search', id: 'nav-search', name: 'search', realType: 'oneWord' }} />
 
-              { search.length > 0 && (
+              { (searchResults.length > 0 && search.length > 0) && (
                 <ul className="search__results">
-                  <Link className='search__result text--elliptic' to='/search?s='></Link>
+                  {
+                    searchResults.map((result: string) => (
+                      <Link className='search__result' to={`/search?s=${result}`}>
+                        { result }
+                      </Link>
+                    ))
+                  }
                 </ul>
               ) }
             </div>

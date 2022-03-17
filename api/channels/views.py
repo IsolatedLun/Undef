@@ -3,6 +3,7 @@ from rest_framework.views import APIView, Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.core.files.uploadedfile import TemporaryUploadedFile, InMemoryUploadedFile
+from videos.serializers import VideoSerializer
 from users.models import cUser
 
 from users.views import decode_user_id
@@ -135,3 +136,20 @@ class EditChannelDetails(APIView):
             return Response({'detail': 'Updated channel.'}, OK)
         else:
             return Response({'detail': 'User and channel mismatch'}, ERR)
+
+class SearchQuery(APIView):
+    def post(self, req):
+        text = req.data['data']
+
+        results = []
+        videos = Video.objects.filter(title__icontains=text)
+        channels = models.Channel.objects.filter(user__username__icontains=text)
+        
+        if req.data['type'] == 'text':
+            results.extend([x.title for x in videos])
+            results.extend([x.user.username for x in channels])
+        elif req.data['type'] == 'queryset':
+            results.extend([{'obj': VideoPreviewSerializer(x).data, 'type': 'video'} for x in videos])
+            results.extend([{'obj': serializers.ChannelSerializer(x).data, 'type': 'channel'} for x in channels])
+
+        return Response({ 'data': results }, OK)

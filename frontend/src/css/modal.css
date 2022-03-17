@@ -14,7 +14,7 @@
     padding: 1em;
     background-color: var(--bg-secondary);
     border-radius: 6px;
-    max-width: 90vw;
+    max-width: 100ch;
 }
 
 .modal .modal__title {

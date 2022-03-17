@@ -69,8 +69,16 @@ export const ChannelApi = createApi({
                 method: 'POST',
             })
         }),
+
+        search: builder.mutation<ExtraResponse, any>({
+            query: ({ query, searchType }) => ({
+                url: `/search`,
+                method: 'POST',
+                body: { 'data': query, 'type': searchType }
+            })
+        }),
     })
 })
 
 export const { useGetChannelQuery, useUploadVideoMutation, useSubscribleMutation,
-useEditVideoMutation, useEditChannelDetailsMutation } = ChannelApi;
+useEditVideoMutation, useEditChannelDetailsMutation, useSearchMutation } = ChannelApi;

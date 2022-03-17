@@ -15,6 +15,8 @@ export interface INF_Video {
     duration: number;
     description: string;
     created_at: string;
+
+    direction?: string;
 }
 
 export interface I_INF_Video {
@@ -23,7 +25,7 @@ export interface I_INF_Video {
 
 const Video = ({ props } : { props : INF_Video }) => {
   return(
-    <div className="video">
+    <div className={`video ${props.direction ? props.direction : 'vertical'}`}>
         <Link to={'/watch/' + props.id}>
             <div className="video__thumbnail skel">
                 <img src={ API_URL + props.thumbnail } alt={`${props.title}'s thumbnail`} />

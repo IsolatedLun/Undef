@@ -38,20 +38,26 @@
 }
 
 .primary-nav .search__results {
-    display: none;
     position: absolute;
+    visibility: hidden;
     flex-direction: column;
     width: 100%;
-    height: 10rem;
+    max-height: 14rem;
     background-color: var(--bg-secondary);
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 9999999999999;
 }
 
+.primary-nav .search-inpt__container:focus-within .search__results {
+    visibility: visible;
+}
+
 .primary-nav .search__results .search__result {
-    padding: 0.45em 0.8em;
-    border-bottom: 1px solid var(--txt-muted);
+    display: block;
+    padding: 0.7em 0.8em;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .primary-nav .search__results .search__result:is(:hover, :focus) {
