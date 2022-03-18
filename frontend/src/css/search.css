@@ -1,0 +1,32 @@
+.search-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    margin-block: 0.85em;
+}
+
+.search-items > * {
+    outline: 0px solid var(--txt-muted);
+}
+
+.search-items > *:is(:focus, :hover) {
+    outline-width: 0.25px;
+}
+
+.search-items .video {
+    display: flex;
+    gap: 0.75em;
+}
+
+.search-items .video .video__thumbnail-link {
+    width: 20%;
+    min-width: 20%;
+}
+
+.search-items .video__info {
+    width: 95%;
+}
+
+.search-items .channel-item {
+    padding: 0.25em;
+}

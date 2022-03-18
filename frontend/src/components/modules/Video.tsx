@@ -26,7 +26,7 @@ export interface I_INF_Video {
 const Video = ({ props } : { props : INF_Video }) => {
   return(
     <div className={`video ${props.direction ? props.direction : 'vertical'}`}>
-        <Link to={'/watch/' + props.id}>
+        <Link to={'/watch/' + props.id} className='video__thumbnail-link'>
             <div className="video__thumbnail skel">
                 <img src={ API_URL + props.thumbnail } alt={`${props.title}'s thumbnail`} />
             </div>

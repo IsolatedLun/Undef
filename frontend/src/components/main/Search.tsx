@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSearchMutation } from '../../services/channelApi';
+import Loader from '../layouts/Loader';
+import Channeltem from '../modules/Channeltem';
 import Video, { INF_Video } from '../modules/Video';
 import { INF_Channel } from './channel/ChannelRouter';
 
@@ -23,16 +25,22 @@ const Search = () => {
             .then((res: any) => setQuerySet(res.data));
     }, [searchParams.get('s')])
 
-    return (
-    <div className='flex flex--col gap--1'>
-        {
-            querySet.map(item => {
-                if(item.type === 'video')
-                    return <Video props={{ ...(item.obj as INF_Video), direction: 'side' }} />
-            })
-        }
-    </div>
-    )
+    if(querySet.length > 0)
+        return (
+            <div className='search-items'>
+                {
+                    querySet.map(item => {
+                        if(item.type === 'video')
+                            return <Video props={{ ...(item.obj as INF_Video), direction: 'side' }} />
+                        else if(item.type === 'channel')
+                            return <Channeltem props={{ ...(item.obj as INF_Channel) }} />
+                    })
+                }
+            </div>
+        )
+
+    else
+        return <Loader />
 }
 
 export default Search
