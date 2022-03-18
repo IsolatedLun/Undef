@@ -62,6 +62,10 @@
     font-size: calc(var(--fs-400) * 0.8);
 }
 
+.icon--m {
+    font-size: calc(var(--fs-500) * 0.75);
+}
+
 .multi--ellipsis {
     display: -webkit-box;
     -webkit-line-clamp: 2;

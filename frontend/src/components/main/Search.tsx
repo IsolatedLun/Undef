@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSearchMutation } from '../../services/channelApi';
 import Loader from '../layouts/Loader';
+import PageNotFound from '../layouts/PageNotFound';
 import Channeltem from '../modules/Channeltem';
 import Video, { INF_Video } from '../modules/Video';
 import { INF_Channel } from './channel/ChannelRouter';
@@ -13,7 +14,7 @@ interface QuerySetList {
 
 const Search = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [getSearchQuerySets] = useSearchMutation();
+    const [getSearchQuerySets, { status }] = useSearchMutation();
 
     const [querySet, setQuerySet] = useState<QuerySetList[]>([]);
 
@@ -38,9 +39,12 @@ const Search = () => {
                 }
             </div>
         )
-
+    else if(querySet.length === 0 && status === 'fulfilled')
+        return (<PageNotFound props={{ 
+            status: 200, 
+            text: `No match for "${searchParams.get('s')}" was found.` }} />)
     else
-        return <Loader />
+        return (<>{ status }</>)
 }
 
 export default Search

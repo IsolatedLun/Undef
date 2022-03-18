@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 from users.models import cUser
 from users.serializers import cUserChannelSerializer
@@ -30,6 +29,11 @@ class Channel(models.Model):
     def delete(self, using=None, keep_parents=False):
         self.banner.storage.delete(self.banner.path)
         super().delete()
+
+    def get_video_count(self):
+        from videos.models import Video
+        
+        return Video.objects.filter(channel__id=self.id).count()
 
 class SubscribedChannel(models.Model):
     user = models.ForeignKey(cUser, on_delete=models.CASCADE)

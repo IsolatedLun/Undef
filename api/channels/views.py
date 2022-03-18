@@ -149,7 +149,7 @@ class SearchQuery(APIView):
             results.extend([x.title for x in videos])
             results.extend([x.user.username for x in channels])
         elif req.data['type'] == 'queryset':
-            results.extend([{'obj': VideoPreviewSerializer(x).data, 'type': 'video'} for x in videos])
             results.extend([{'obj': serializers.ChannelSerializer(x).data, 'type': 'channel'} for x in channels])
+            results.extend([{'obj': VideoPreviewSerializer(x).data, 'type': 'video'} for x in videos])
 
         return Response({ 'data': results }, OK)

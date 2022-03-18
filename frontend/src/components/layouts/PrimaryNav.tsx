@@ -10,9 +10,12 @@ import Button from '../modules/Button';
 import ContextMenu from '../modules/ContextMenu';
 import Input from '../modules/inputs/Input';
 import Profile from '../modules/Profile';
+import Loader from './Loader';
 
+let searchTimeout: number = -1;
 const PrimaryNav = () => {
   const [ getSearchResults ] = useSearchMutation();
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const { user, isLogged } = useAuth();
   const dispatch = useAppDispatch();
@@ -26,9 +29,18 @@ const PrimaryNav = () => {
   }
 
   useEffect(() => {
-    if(search.length > 0)
-      getSearchResults({ query: search, searchType: 'text' })
-      .then((res: any) => setSearchResults(res.data.data))
+    clearTimeout(searchTimeout);
+
+    if(search.length > 0) {
+      setIsFetching(true);
+
+      searchTimeout = setTimeout(() => {
+        getSearchResults({ query: search, searchType: 'text' })
+          .then((res: any) => setSearchResults(res.data.data));
+        
+        setIsFetching(false);
+      }, 500)
+    }
   }, [search])
 
   const navContextMenu = <ContextMenu props={{ id: 'nav-context', 
@@ -65,7 +77,13 @@ const PrimaryNav = () => {
               ) }
             </div>
 
-            <Button props={{ content: SEARCH_ICO, action: () => null, tooltip: 'Search' }} />
+            {
+              !isFetching
+              ? <Link className='button--icon icon--m fa' to={'/search?s=' + search}>{ SEARCH_ICO }</Link>
+              : <div className="pos--relative">
+                  <Loader radius={25} />
+                </div>
+            }
           </div>
 
           <div className="nav__static">

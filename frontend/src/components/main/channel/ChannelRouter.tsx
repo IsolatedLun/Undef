@@ -24,6 +24,7 @@ export interface INF_Channel {
     banner: string;
     channel_description: string;
     channel_details: INF_ChannelDetail[];
+    video_count: number;
     subscribed: boolean;
     total_views: number;
     created_at: string;

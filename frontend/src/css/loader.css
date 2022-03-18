@@ -3,14 +3,23 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-width: 250ch;
+    overflow: hidden;
 }
 
 .pos--relative > .primary-loader {
     position: absolute;
 }
 
-.loader-404 .loader__text {
+[class*='loader-'] .loader__text {
     font-size: var(--fs-500);
+    word-break: break-all;
+}
+
+.loader-404 .loader__text {
     color: var(--txt-err);
-    white-space: nowrap;
+}
+
+.loader-200 .loader__text {
+    color: var(--inpt-main);
 }

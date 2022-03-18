@@ -16,7 +16,11 @@ const Channeltem = ({ props } : { props: INF_Channel }) => {
 
         <div className="channel-item__info">
             <p className="channel__name">{ props.user_data.username }</p>
-            <p className="channel__subscribers txt--muted">{ props.user_data.subscribers } subscribers</p>
+            <div className="flex flex--center--all gap--05">
+              <p className="channel__subscribers txt--muted">{ props.user_data.subscribers } subscribers</p>
+              <div className="dot--split"></div>
+              <p className="channel__subscribers txt--muted">{ props.video_count } videos</p>
+            </div>
         </div>
     </Link>
   )
