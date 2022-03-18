@@ -20,7 +20,7 @@ export interface VideoData extends INF_Video {
 
 const VideoTab = () => {
   const { video_id } = useParams();
-  const { data: video, isFetching: hasRecVideo, isError } = 
+  const { data: video, isFetching: isFetchingVideo, isError } = 
     useGetVideoQuery({ video_id: Number(video_id)!, type: 'all' });
   const { data: nextVideos, isFetching: hasRecVideos } = useGetVideosQuery();
 
@@ -28,11 +28,19 @@ const VideoTab = () => {
     return(
         <div className="video-tab-container">
             <section>
-                <VideoPlayer videoData={{ 
-                  videoUrl: video.video, thumbnailUrl: video.thumbnail, duration: video.duration }} />
-
-                <VideoDetails videoDetails={video} />
-                <VideoComments props={{ id: 'desktop-comments', videoId: video_id }} />
+                {
+                  isFetchingVideo
+                  ? <Loader />
+                  : (
+                    <>
+                      <VideoPlayer videoData={{ 
+                      videoUrl: video.video, thumbnailUrl: video.thumbnail, duration: video.duration }} />
+    
+                      <VideoDetails videoDetails={video} />
+                      <VideoComments props={{ id: 'desktop-comments', videoId: video_id }} />
+                    </>
+                  )
+                }
             </section>
             
             <div>

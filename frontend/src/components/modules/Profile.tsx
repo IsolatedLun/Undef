@@ -11,6 +11,8 @@ interface ProfileState {
     to?: string;
     contextMenu?: JSX.Element;
     ariaLabel?: string;
+
+    isEditable?: boolean;
 }
 
 function removeLoader(el: HTMLElement) {
@@ -20,7 +22,8 @@ function removeLoader(el: HTMLElement) {
 const Profile = ({ props } : { props: ProfileState }) => {
   const element = 
   (
-    <div className={`${props.cls} pos--relative`} aria-label={props.ariaLabel + ' container'}>
+    <div className={`${props.cls} pos--relative ${props.isEditable ? 'profile--editable' : ''}`} 
+      aria-label={props.ariaLabel + ' container'}>
       { props.loaderId && <Loader id={props.loaderId} /> }
       <img 
       aria-label={props.ariaLabel}

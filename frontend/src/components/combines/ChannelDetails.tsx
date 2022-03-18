@@ -55,14 +55,19 @@ const ChannelDetailInput = ({ idx, state } : { idx: number, state: Function }) =
     )
 }
 
-const ChannelDetail = ({ detail, setDetails } : { detail: INF_ChannelDetail, setDetails: Function }) => {
+const ChannelDetail = ({ detail, setDetails, isChannelOwner } : 
+    { detail: INF_ChannelDetail, setDetails: Function, isChannelOwner: boolean }) => {
+
     return(
-        <div onClick={() => setDetails((prevState: any) => {
-            let tempState = { ...prevState }; // new copy to avoid non-config error.
-            delete tempState[detail.key];
-            return tempState;
-        })}
-            className="channel__detail flex align--items--center gap--1">
+        <div onClick={() => {
+            if(isChannelOwner)
+                setDetails((prevState: any) => {
+                    let tempState = { ...prevState }; // new copy to avoid non-config error.
+                    delete tempState[detail.key];
+                    return tempState;
+                })
+        }}
+            className={`channel__detail ${isChannelOwner ? 'editable' : ''} flex align--items--center gap--1`}>
             <p className="detail__key">{ detail.clean_key }: </p>
             { constructValue(detail.key, detail.clean_key, detail.value) }
         </div>
@@ -99,7 +104,9 @@ const ChannelDetails = ({ channelDetails, isChannelOwner, id } :
                 {
                     ( typeof(details) === 'object' && Object.entries(details).map((detail, idx) => {
                         const toShow = { key: detail[0], ...(detail[1] as object) } as INF_ChannelDetail;
-                        return <ChannelDetail key={idx} detail={toShow} setDetails={setDetails} />
+                        return <ChannelDetail isChannelOwner={isChannelOwner} 
+                            key={idx} detail={toShow} 
+                            setDetails={setDetails} />
                     }) )
                 }
 

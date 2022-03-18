@@ -9,6 +9,7 @@
     color: var(--txt-primary);
     padding: 0.2em;
     background-color: var(--bg-secondary);
+    border-radius: 6px;
     z-index: 999999;
 }
 

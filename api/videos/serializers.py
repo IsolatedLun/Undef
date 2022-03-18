@@ -36,6 +36,7 @@ class VideoCommentSerializer(serializers.ModelSerializer):
     created_at = serializers.ReadOnlyField(source='format_date')
     profile = serializers.ReadOnlyField(source='get_profile')
     username = serializers.ReadOnlyField(source='get_username')
+    channel_id  = serializers.ReadOnlyField(source='get_comment_channel_id')
 
     class Meta:
         model = models.Comment

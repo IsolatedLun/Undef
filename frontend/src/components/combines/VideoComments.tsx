@@ -10,6 +10,7 @@ import { useAuth } from "../../hooks/useAuth";
 import ContextMenu, { INF_ContextMenuOption } from "../modules/ContextMenu";
 import { INF_User } from "../../slices/auth-slice";
 import { popup } from "../funcs/popupFuncs";
+import { Link } from "react-router-dom";
 
 interface INF_VideoComments {
   videoId: number | string;
@@ -18,6 +19,7 @@ interface INF_VideoComments {
 
 export interface Comment {
   id: number;
+  channel_id: number;
   user: number;
   username: string;
   profile: string;
@@ -50,7 +52,7 @@ const VideoComment = ({ props, user, deletor }: { props: Comment, user?: INF_Use
       <div className="flex flex--col gap--05 flex--g--1">
         <div className="flex justify--between">
           <div className="flex gap--05">
-            <p className="comment__user">{props.username}</p>
+            <Link to={'/channels/' + props.channel_id} className="comment__user">{props.username}</Link>
             <p className="comment__date txt--muted">{props.created_at} ago</p>
           </div>
 

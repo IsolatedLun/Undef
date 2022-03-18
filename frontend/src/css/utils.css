@@ -110,6 +110,38 @@
     background-color: var(--txt-muted);
 }
 
+/* Editable Profile */
+.profile--editable {
+    cursor: pointer;
+}
+
+.profile--editable:is(:hover, :focus)::after,
+.profile--editable:is(:hover, :focus)::before {
+    opacity: 1;
+}
+
+.profile--editable::before {
+    content: '\f044';
+    position: absolute;
+    font-size: var(--fs-500);
+    font-family: 'Font Awesome 5 Free';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 100ms ease-in-out;
+    z-index: 999;
+}
+
+.profile--editable::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgb(0 0 0 / 0.26);
+    opacity: 0;
+    transition: opacity 100ms ease-in-out;
+}
+
 /* Links */
 .link {
     color: var(--clr-link);

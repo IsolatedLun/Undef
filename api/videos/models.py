@@ -85,3 +85,8 @@ class Comment(models.Model):
 
     def get_username(self):
         return self.user.username
+
+    def get_comment_channel_id(self):
+        from channels.models import Channel
+
+        return Channel.objects.get(user__id=self.user.id).id

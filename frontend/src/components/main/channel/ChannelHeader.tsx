@@ -20,7 +20,8 @@ const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserSta
     return (
         <nav className="channel__nav flex flex--col gap--1" role='Channel Navigation' aria-label='Channel Header'>
           <Profile props={{ cls: 'channel__banner', ariaLabel: 'Channel Banner',
-            url: channel.banner, alt: '', loaderId: 'channel-banner-loader' }} />
+            url: channel.banner, alt: '', isEditable: channel.user_data.id === user.user.id,
+            loaderId: 'channel-banner-loader' }} />
 
           <div className="channel__details flex flex--center--between mt--1">
 

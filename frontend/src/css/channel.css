@@ -27,14 +27,18 @@
     color: var(--txt-muted);
 }
 
-.channel .channel__user-details .channel__detail {
+.channel .channel__user-details .channel__detail.editable {
     position: relative;
     padding: 0.2em 0.4em;
     transition: background-color 100ms ease-in-out;
     cursor: pointer;
 }
 
-.channel .channel__user-details .channel__detail::after {
+.channel .channel__user-details .channel__detail.editable:is(:hover, :focus) {
+    background-color: var(--bg-err);
+}
+
+.channel .channel__user-details .channel__detail.editable::after {
     content: "\f1f8";
     font-family: "Font Awesome 5 Free"; 
     font-weight: 900;
@@ -46,7 +50,7 @@
     transition: transform 120ms ease-in-out;
 }
 
-.channel .channel__user-details .channel__detail:is(:hover, :focus)::after {
+.channel .channel__user-details .channel__detail.editable:is(:hover, :focus)::after {
     animation: popIcon 120ms linear forwards;
 }
 
@@ -58,10 +62,6 @@
     100% {
         transform: scale(1);
     }
-}
-
-.channel .channel__user-details .channel__detail:is(:hover, :focus) {
-    background-color: var(--bg-err);
 }
 
 .channel .channel__stats {
