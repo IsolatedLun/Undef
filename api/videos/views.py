@@ -4,7 +4,6 @@ from rest_framework.views import APIView, Response
 from rest_framework import status
 
 from users.views import decode_user_id
-from users.models import cUser
 from . import models
 from . import serializers
 
@@ -155,7 +154,7 @@ class CommentVideo(APIView):
         return Response(comments, OK)
 
     def post(self, req, video_id):
-        user = cUser.objects.get(id=decode_user_id(req.headers))
+        user = models.cUser.objects.get(id=decode_user_id(req.headers))
         comment = models.Comment.objects.create(video_id=video_id, user=user, text=req.data['text'])
 
         return Response({ 'detail': 'Comment posted' }, OK)

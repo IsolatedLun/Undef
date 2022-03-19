@@ -47,6 +47,21 @@
     color: var(--txt-primary);
 }
 
+.button--icon:not(.tooltip)::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    background-color: var(--btn-icon-hov);
+    border-radius: 100vw;
+    opacity: 0;
+    z-index: 999;
+    transition: opacity 120ms ease-in-out;
+}
+
+.button--icon:not(.tooltip):is(:hover, .active)::after {
+    opacity: 1;
+}
+
 .button--icon.show--after::before {
     content: attr(data-after);
     position: absolute;

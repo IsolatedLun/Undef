@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import cUser
+import users.models as userModels
 from channels.models import Channel
 
 video_choices = (
@@ -12,7 +12,7 @@ class Video(models.Model):
         UNLISTED = 2, 'Unlisted'
         PRIVATE = 3, 'Private'
     
-    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=120)
     description = models.CharField(max_length=512, default='')
@@ -65,12 +65,12 @@ class Video(models.Model):
         super().delete()
 
 class RatedVideo(models.Model):
-    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     rate_type = models.CharField(max_length=16, default='')
 
 class Comment(models.Model):
-    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
     text = models.CharField(max_length=512)

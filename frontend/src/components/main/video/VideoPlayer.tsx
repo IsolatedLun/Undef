@@ -80,7 +80,7 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
                   <Button props={{ content: SETTINGS_ICO, 
                     tooltip: 'Settings', action: () => null }} />
                   <Button props={{ content: FULLSCREEN_ICO,
-                    tooltip: 'Fullscreen', action: fullscreen, params: ['video-el'] }} />
+                    tooltip: 'Fullscreen', action: () => document.getElementById('video-el')?.requestFullscreen() }} />
                 </div>
               </div>
 

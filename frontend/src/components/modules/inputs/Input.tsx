@@ -25,7 +25,7 @@ export interface INF_Input {
 }
 
 export interface InputState {
-  setter: Function;
+  setter?: Function;
   nested?: string // key
 }
 
@@ -122,7 +122,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                 <label htmlFor={`radio-${props.name}-${props.value}-label`}
                     className="input--radio--label pos--relative">
                     <input 
-                        onInput={() => props.setter(props.value)}
+                        onInput={() => props.setter!(props.value)}
                         id={`radio-${props.name}-${props.value}-radio`}
                         className={'input--radio'}
                         name={props.name}

@@ -130,7 +130,7 @@ const VideoComments = ({ props }: { props: INF_VideoComments }) => {
       </div>
     );
   else
-    return <Loader radius={20} />
+    return <Loader radius={20} posRelative />
 };
 
 export default VideoComments;

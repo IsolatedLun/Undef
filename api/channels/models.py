@@ -1,6 +1,5 @@
 from django.db import models
-from users.models import cUser
-from users.serializers import cUserChannelSerializer
+import users.models as userModels
 
 DEFAULT_CHANNEL_DETAILS = {
     "business_email": { "clean_key": "Business email", "value": "" },
@@ -9,7 +8,7 @@ DEFAULT_CHANNEL_DETAILS = {
 }
 
 class Channel(models.Model):
-    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
     banner = models.ImageField(upload_to='channels/banners/')
 
     channel_description = models.CharField(max_length=1028)
@@ -20,7 +19,7 @@ class Channel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def get_channel_user(self):
-        return cUserChannelSerializer(self.user).data
+        return userModels.cUserChannelSerializer(self.user).data
 
     def format_date(self):
         from django.utils.timesince import timesince
@@ -36,6 +35,6 @@ class Channel(models.Model):
         return Video.objects.filter(channel__id=self.id).count()
 
 class SubscribedChannel(models.Model):
-    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
     subscribed = models.BooleanField(default=False)

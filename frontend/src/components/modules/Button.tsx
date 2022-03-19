@@ -24,8 +24,12 @@ interface ButtonProps {
 }
 
 function focusContextMenu(e: Event) {
-  const menu = (e.target as HTMLElement).lastChild as HTMLElement;
-  menu.focus()
+  const target = e.target as HTMLElement;
+
+  if(target.tagName === 'BUTTON') {
+    const menu = target.lastChild as HTMLElement;
+    menu.focus()
+  }
 }
 
 export function toggleButton(param: HTMLButtonElement | string, removeCls?: boolean) {
@@ -64,6 +68,7 @@ const Button = ({ props } : { props: ButtonProps }) => {
 
     if(props.contextMenu !== undefined) {
       props.action = focusContextMenu;
+      props.passEvent = true
     }
 
     if(!props.id)

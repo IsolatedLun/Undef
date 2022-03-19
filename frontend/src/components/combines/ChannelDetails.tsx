@@ -58,6 +58,7 @@ const ChannelDetailInput = ({ idx, state } : { idx: number, state: Function }) =
 const ChannelDetail = ({ detail, setDetails, isChannelOwner } : 
     { detail: INF_ChannelDetail, setDetails: Function, isChannelOwner: boolean }) => {
 
+    const el = constructValue(detail.key, detail.clean_key, detail.value);
     return(
         <div onClick={() => {
             if(isChannelOwner)
@@ -69,7 +70,7 @@ const ChannelDetail = ({ detail, setDetails, isChannelOwner } :
         }}
             className={`channel__detail ${isChannelOwner ? 'editable' : ''} flex align--items--center gap--1`}>
             <p className="detail__key">{ detail.clean_key }: </p>
-            { constructValue(detail.key, detail.clean_key, detail.value) }
+            { el }
         </div>
     )
 }

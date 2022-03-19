@@ -45,7 +45,7 @@
     position: absolute;
     width: 1em;
     aspect-ratio: 1;
-    right: -12%;
+    right: -25px;
     transform: scale(0);
     transition: transform 120ms ease-in-out;
 }

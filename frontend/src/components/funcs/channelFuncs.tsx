@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { emailRegex, urlRegex } from "../../consts";
 
 export function constructValue(key: string, clean_key: string, val: string) {
@@ -12,14 +13,8 @@ export function constructValue(key: string, clean_key: string, val: string) {
     else
         type = 'text';
 
-    console.log(['email', 'url'].includes(type))
-
     if(['email', 'url'].includes(type)) {
-        return <a href={val}>{ val }</a>;
-    }
-
-    else {
-        console.log('esh')
+        return <Link to={val}>{ val }</Link>;
     }
         
     return <p>{ type === 'empty' ? `No ${clean_key}` : val }</p>

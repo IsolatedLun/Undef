@@ -30,7 +30,7 @@ const VideoTab = () => {
             <section>
                 {
                   isFetchingVideo
-                  ? <Loader />
+                  ? <Loader centerSelf />
                   : (
                     <>
                       <VideoPlayer videoData={{ 
@@ -59,7 +59,7 @@ const VideoTab = () => {
   else if(isError)
       return (<PageNotFound />)
   else
-      return(<Loader />)
+      return(<Loader centerSelf />)
 };
 
 export default VideoTab;

@@ -3,7 +3,7 @@ from jwt import ExpiredSignatureError
 from rest_framework.views import APIView, Response
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-from .models import cUser
+import users.models as userModels
 from . import serializers
 from channels.models import Channel
 from django.contrib.auth.hashers import make_password, check_password
@@ -37,7 +37,7 @@ class Register(APIView):
         channel_data = {'banner': req.data['banner'], 'channel_description': req.data['channel_description']}
 
         try:
-            user, created = cUser.objects.get_or_create(**user_data)
+            user, created = userModels.cUser.objects.get_or_create(**user_data)
 
             if created:
                 Channel.objects.create(**channel_data, user=user)
@@ -54,7 +54,7 @@ class JWTLogin(APIView):
 
     def post(self, req):
         try:
-            user = cUser.objects.get(email_address=req.data['email_address'])
+            user = userModels.cUser.objects.get(email_address=req.data['email_address'])
             
             if not check_password(req.data['password'], user.password):
                 raise Exception()
@@ -67,7 +67,7 @@ class JWTLogin(APIView):
                     'refresh': str(refresh),
                     'access': str(refresh.access_token),
                 },
-                'user': serializers.cUserChannelSerializer(user).data
+                'user': serializers.userModels.cUserChannelSerializer(user).data
             }, OK)
         except Exception as e:
             print(e)
@@ -80,7 +80,7 @@ class JWTCredentials(APIView):
         id = decode_user_id(req.headers)
 
         try:
-            user = serializers.cUserSerializer(cUser.objects.get(id=id)).data
+            user = serializers.userModels.cUserSerializer(userModels.cUser.objects.get(id=id)).data
             return Response({'data': user}, OK)
         except ExpiredSignatureError:
             return Response({'detail': 'expired'}, ERR)

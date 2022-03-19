@@ -6,6 +6,7 @@
     position: absolute;
     visibility: hidden;
     font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     color: var(--txt-primary);
     padding: 0.2em;
     background-color: var(--bg-secondary);
@@ -31,4 +32,10 @@
 
 .context-menu .menu__option:is(:hover) {
     background-color: var(--bg-hov);
+}
+
+/* Notifications */
+.notifications {
+    font-size: var(--fs-400);
+    font-weight: normal;
 }

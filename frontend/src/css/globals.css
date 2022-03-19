@@ -93,6 +93,8 @@ textarea {
     --bg-tooltip: black;
     --bg-err: rgba(233, 0, 0, 0.24);
 
+    --btn-icon-hov: rgb(255 255 255 / 0.12);
+
     --inpt-main: hsl(220, 97%, 45%);
     --inpt-shadow: hsla(220, 97%, 45%, 0.36);
 }

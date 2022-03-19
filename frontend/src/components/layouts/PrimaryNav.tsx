@@ -5,9 +5,10 @@ import { useAppDispatch } from '../../hooks/state';
 import { useAuth } from '../../hooks/useAuth';
 import { useSearchMutation } from '../../services/channelApi';
 import { logout } from '../../slices/auth-slice';
+import Notifications from '../combines/Notifications';
 import { toggleElement } from '../funcs/utilFuncs';
 import Button from '../modules/Button';
-import ContextMenu from '../modules/ContextMenu';
+import ContextMenu, { INF_ContextMenuOption } from '../modules/ContextMenu';
 import Input from '../modules/inputs/Input';
 import Profile from '../modules/Profile';
 import Loader from './Loader';
@@ -50,6 +51,11 @@ const PrimaryNav = () => {
     ] 
   }} />
 
+  const notificationMenu = <ContextMenu props={{ 
+    id: 'esh', 
+    children: <Notifications notifications={[]} /> 
+  }} />
+
   return(
       <nav className='primary-nav flex flex--center--between' role='primary nav'>
           <a href="#main-content" className="nav__skip">Skip navigation</a>
@@ -89,7 +95,7 @@ const PrimaryNav = () => {
           <div className="nav__static">
               { isLogged && (
                 <div className='flex flex--center gap--1'>
-                  <Button props={{ content: BELL_ICO, action: () => null }} />
+                  <Button props={{ content: BELL_ICO, action: () => null, contextMenu: notificationMenu }} />
                   
                   <Profile props={{ url: user.profile, alt: user.username, 
                     cls: 'nav__user-profile profile round skel', to: '/channels/' + user.channel_id,
