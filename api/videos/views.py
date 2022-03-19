@@ -11,6 +11,13 @@ from . import serializers
 OK = status.HTTP_200_OK
 ERR = status.HTTP_400_BAD_REQUEST
 
+MIN_REPORT_PERCENT = 0.40
+
+def has_abnormal_reports(video):
+    if (video.reports / video.views) > MIN_REPORT_PERCENT: 
+        return True
+    return False
+
 class VideoPreview(APIView):
     def get(self, req):
         from random import shuffle
@@ -51,6 +58,9 @@ class Video(APIView):
 
         return Response(serializer, OK)
 
+# =================
+# Video Alterations
+# =================
 class RateVideo(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -120,6 +130,23 @@ class DeleteVideo(APIView):
         except:
             return Response({ 'detail': 'Something went wrong' }, ERR)
 
+class ReportVideo(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, video_id):
+        video = models.Video.objects.get(id=video_id);
+        video.reports += 1
+
+        if has_abnormal_reports(video):
+            video.delete()
+            return Response({ 'detail': 'Video has been deleted to due many reports.' }, OK)
+        else:
+            video.save()
+            return Response({ 'detail': 'Reported video.' }, OK)
+
+# =================
+# Video Comments
+# =================
 class CommentVideo(APIView):
     def get(self, req, video_id):
         comments = serializers.VideoCommentSerializer(models.Comment.objects.filter(video_id=video_id),

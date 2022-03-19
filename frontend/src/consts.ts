@@ -15,6 +15,7 @@ export const EDIT_ICO = '\uf044';
 export const TRASH_ICO = '\uf1f8';
 export const PLUS_ICO = '\uf067';
 export const SAVE_ICO = '\uf0c7';
+export const BELL_ICO = '\uf0f3';
 
 export const emailRegex = /\S+@\S+\.\S+/;
 export const urlRegex = /(https?:\/\/[^\s]+)/g;

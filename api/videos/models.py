@@ -21,6 +21,7 @@ class Video(models.Model):
     views = models.PositiveBigIntegerField(default=0)
     likes = models.BigIntegerField(default=0)
     dislikes = models.BigIntegerField(default=0)
+    reports = models.BigIntegerField(default=0)
 
     thumbnail = models.ImageField(upload_to='videos/thumbnails/')
     video = models.FileField(upload_to='videos/files/')

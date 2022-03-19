@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BARS_ICO, ENTER_ICO, SEARCH_ICO } from '../../consts';
+import { BARS_ICO, BELL_ICO, ENTER_ICO, SEARCH_ICO } from '../../consts';
 import { useAppDispatch } from '../../hooks/state';
 import { useAuth } from '../../hooks/useAuth';
 import { useSearchMutation } from '../../services/channelApi';
@@ -89,10 +89,12 @@ const PrimaryNav = () => {
           <div className="nav__static">
               { isLogged && (
                 <div className='flex flex--center gap--1'>
+                  <Button props={{ content: BELL_ICO, action: () => null }} />
+                  
                   <Profile props={{ url: user.profile, alt: user.username, 
                     cls: 'nav__user-profile profile round skel', to: '/channels/' + user.channel_id,
                     contextMenu: navContextMenu }} />
-                    
+                  
                   <Button props={{ content: 'Logout', action: () => logoutCommence(), 
                     modifiers: 'btn--hollow' }} />
                 </div>

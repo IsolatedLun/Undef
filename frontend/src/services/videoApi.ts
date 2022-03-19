@@ -65,6 +65,13 @@ export const VideoApi = createApi({
             })
         }),
 
+        reportVideo: builder.mutation<ExtraResponse, any>({
+            query: (video_id) => ({
+                url: `/video/${video_id}/report`,
+                method: 'POST',
+            })
+        }),
+
         deleteVideoComment: builder.mutation<ExtraResponse, any>({
             query: (comment_id) => ({
                 url: `/comment/${comment_id}/delete`,
@@ -77,4 +84,4 @@ export const VideoApi = createApi({
 
 export const { useGetVideosQuery, useGetVideoQuery, useRateVideoMutation,
     useDeleteVideoMutation, useGetVideoCommentsQuery, useCommentVideoMutation,
-    useDeleteVideoCommentMutation } = VideoApi;
+    useDeleteVideoCommentMutation, useReportVideoMutation } = VideoApi;

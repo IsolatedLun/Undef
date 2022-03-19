@@ -3,9 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { API_URL, CLOCK_ICO, DISLIKE_ICO, 
   EDIT_ICO, ELLIPSE_V_ICO, FLAG_ICO, LIKE_ICO } from '../../../consts';
 import { useAuth } from '../../../hooks/useAuth';
-import { useRateVideoMutation } from '../../../services/videoApi';
+import { useRateVideoMutation, useReportVideoMutation } from '../../../services/videoApi';
 import { positionTooltip } from '../../funcs/accessibilityFuncs';
 import { loggedAction } from '../../funcs/authFuncs';
+import { handleResponse } from '../../funcs/utilFuncs';
 import Button from '../../modules/Button';
 import ContextMenu from '../../modules/ContextMenu';
 import { VideoData } from './VideoTab';
@@ -27,15 +28,23 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
     dislikes: videoDetails.dislikes
   })
 
-  const [rateSong, {  }] = useRateVideoMutation();
+  const [rateVideo, {  }] = useRateVideoMutation();
+  const [reportVideo, {  }] = useReportVideoMutation();
+
 
   const videoOptionsMenu = <ContextMenu props={{ id: 'options-menu', options: [
     { action: () => null, icon: CLOCK_ICO, text: 'Add to watch later' },
-    { action: () => null, icon: FLAG_ICO, text: 'Report' },
+    { action: () => {
+      loggedAction(isLogged, () => 
+      reportVideo(videoDetails.id).unwrap()
+        .then(res => handleResponse(res, { popup: res.detail }))
+        .catch(res => handleResponse(res)))
+    }, 
+      icon: FLAG_ICO, text: 'Report' },
   ] }} />
 
-  function rateSongWrapper(type: string) {
-    rateSong({ video_id: videoDetails.id, type: type }).unwrap()
+  function rateVideoWrapper(type: string) {
+    rateVideo({ video_id: videoDetails.id, type: type }).unwrap()
       .then((res: RateSongResponse) => {
         setRateType(res.data.rate_type)
         setRating({ likes: res.data.likes, dislikes: res.data.dislikes })
@@ -64,12 +73,12 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
                         tooltip: 'Add to watch later' }} />
 
                 <Button props={{ content: LIKE_ICO, action: () => 
-                  loggedAction(isLogged, () => rateSongWrapper('like'), true),
+                  loggedAction(isLogged, () => rateVideoWrapper('like'), true),
                     tooltip: 'Like', extraAfter: rating.likes, 
                     modifiers: rateType === 'like' ? 'active' : ''}} />
                 
                 <Button props={{ content: DISLIKE_ICO, action: () => 
-                  loggedAction(isLogged, () => rateSongWrapper('dislike'), true),
+                  loggedAction(isLogged, () => rateVideoWrapper('dislike'), true),
                         tooltip: 'Dislike', extraAfter: rating.dislikes,
                         modifiers: rateType === 'dislike' ? 'active' : '' }} />
 
