@@ -26,7 +26,11 @@ const Notifications = ({ notifications } : { notifications: INF_Notification[] }
             </div>
         )
     else
-        return (<p className="txt--sm">No notifications.</p>)
+        return (
+            <div className="notifications">
+                <p>No notifications.</p>
+            </div>
+        )
 }
 
 export default Notifications

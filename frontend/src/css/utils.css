@@ -74,6 +74,11 @@
     overflow: hidden;
 }
 
+/* Context Menu */
+.ctx--right {
+    right: 0;
+}
+
 /* Paddings & Margins */
 .m--inl--1 {
     margin-inline: 1em;

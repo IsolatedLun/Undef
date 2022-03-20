@@ -1,0 +1,7 @@
+.notifications {
+    text-align: center;
+    min-height: 12rem;
+    min-width: 12rem;
+    overflow-y: auto;
+    font-size: var(--fs-420);
+}

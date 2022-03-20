@@ -10,6 +10,7 @@
     color: var(--txt-primary);
     padding: 0.2em;
     background-color: var(--bg-secondary);
+    box-shadow: 0 0 6px 4px rgb(0 0 0 / 0.26);
     border-radius: 6px;
     z-index: 999999;
 }
@@ -32,10 +33,4 @@
 
 .context-menu .menu__option:is(:hover) {
     background-color: var(--bg-hov);
-}
-
-/* Notifications */
-.notifications {
-    font-size: var(--fs-400);
-    font-weight: normal;
 }

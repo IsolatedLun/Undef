@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 export interface ContextMenu {
     id: string;
+    cls?: string;
+
     options?: INF_ContextMenuOption[];
     children?: JSX.Element;
 }
@@ -38,7 +40,7 @@ const ContextMenuOption = ({ props, idx } : { props: INF_ContextMenuOption, idx:
 const ContextMenu = ({ props } : { props: ContextMenu }) => {
   return(
       <div tabIndex={0} className='context-menu-container no--outline'>
-          <ul className="context-menu flex flex--col">
+          <ul className={`context-menu flex flex--col ${props.cls}`}>
             {
                 props.options 
                 ? props.options.map((option, idx) => (

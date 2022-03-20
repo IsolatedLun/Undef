@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BARS_ICO, BELL_ICO, ENTER_ICO, SEARCH_ICO } from '../../consts';
 import { useAppDispatch } from '../../hooks/state';
@@ -8,13 +8,14 @@ import { logout } from '../../slices/auth-slice';
 import Notifications from '../combines/Notifications';
 import { toggleElement } from '../funcs/utilFuncs';
 import Button from '../modules/Button';
-import ContextMenu, { INF_ContextMenuOption } from '../modules/ContextMenu';
+import ContextMenu from '../modules/ContextMenu';
 import Input from '../modules/inputs/Input';
 import Profile from '../modules/Profile';
 import Loader from './Loader';
 
 let searchTimeout: number = -1;
 const PrimaryNav = () => {
+  const navigate = useNavigate();
   const [ getSearchResults ] = useSearchMutation();
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
@@ -52,7 +53,7 @@ const PrimaryNav = () => {
   }} />
 
   const notificationMenu = <ContextMenu props={{ 
-    id: 'esh', 
+    id: 'esh', cls: 'ctx--right',
     children: <Notifications notifications={[]} /> 
   }} />
 
@@ -68,6 +69,7 @@ const PrimaryNav = () => {
           <div className='nav__search-part flex flex--center--gap--1 flex--g--1 m--inl--1'>
             <div className="search-inpt__container">
               <Input props={{ setter: setSearch, type: 'text',
+                onEnterCb: () => navigate('/search?s=' + search),
                 placeholder: 'Search', id: 'nav-search', name: 'search', realType: 'oneWord' }} />
 
               { (searchResults.length > 0 && search.length > 0) && (

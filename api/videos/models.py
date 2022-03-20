@@ -1,10 +1,4 @@
 from django.db import models
-import users.models as userModels
-from channels.models import Channel
-
-video_choices = (
-
-)
 
 class Video(models.Model):
     class Visibility(models.IntegerChoices):
@@ -12,8 +6,8 @@ class Video(models.Model):
         UNLISTED = 2, 'Unlisted'
         PRIVATE = 3, 'Private'
     
-    user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
-    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
+    channel = models.ForeignKey('channels.Channel', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=120)
     description = models.CharField(max_length=512, default='')
     visibility = models.PositiveSmallIntegerField(choices=Visibility.choices, default=Visibility.PUBLIC)
@@ -65,12 +59,12 @@ class Video(models.Model):
         super().delete()
 
 class RatedVideo(models.Model):
-    user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
+    user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     rate_type = models.CharField(max_length=16, default='')
 
 class Comment(models.Model):
-    user = models.ForeignKey(userModels.cUser, on_delete=models.CASCADE)
+    user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
     text = models.CharField(max_length=512)

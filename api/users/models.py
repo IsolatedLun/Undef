@@ -42,7 +42,12 @@ class cUser(AbstractUser):
         self.profile.storage.delete(self.profile.path)
         super().delete()
 
-# class Notification(models.Model):
-#     user = models.ForeignKey(cUser, on_delete=models.CASCADE)
-#     video = models.ForeignKey(Video, on_delete=models.CASCADE)
-#     text = models.CharField(max_length=120)
+class Notification(models.Model):
+    user = models.ForeignKey(cUser, on_delete=models.CASCADE)
+    video = models.ForeignKey('videos.Video', on_delete=models.CASCADE)
+
+    text = models.CharField(max_length=120)
+    
+    read = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)

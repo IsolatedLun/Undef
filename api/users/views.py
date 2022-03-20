@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework import status
 import users.models as userModels
 from . import serializers
-from channels.models import Channel
+import channels.models as channelModels
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from jwt import decode
@@ -40,7 +40,7 @@ class Register(APIView):
             user, created = userModels.cUser.objects.get_or_create(**user_data)
 
             if created:
-                Channel.objects.create(**channel_data, user=user)
+                channelModels.Channel.objects.create(**channel_data, user=user)
             else:
                 raise Exception('User already exists')
 
@@ -67,7 +67,7 @@ class JWTLogin(APIView):
                     'refresh': str(refresh),
                     'access': str(refresh.access_token),
                 },
-                'user': serializers.userModels.cUserChannelSerializer(user).data
+                'user': serializers.cUserChannelSerializer(user).data
             }, OK)
         except Exception as e:
             print(e)
@@ -80,7 +80,7 @@ class JWTCredentials(APIView):
         id = decode_user_id(req.headers)
 
         try:
-            user = serializers.userModels.cUserSerializer(userModels.cUser.objects.get(id=id)).data
+            user = serializers.cUserSerializer(userModels.cUser.objects.get(id=id)).data
             return Response({'data': user}, OK)
         except ExpiredSignatureError:
             return Response({'detail': 'expired'}, ERR)

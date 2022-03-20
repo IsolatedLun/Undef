@@ -22,6 +22,8 @@ export interface INF_Input {
     labelCls?: string; 
     placeholder?: string;
     isOptional?: boolean; // Validation boolean
+
+    onEnterCb?: Function;
 }
 
 export interface InputState {
@@ -44,6 +46,10 @@ const Input = ({ props } : { props: INF_Input_State }) => {
             <input
             onInput={(e) => useAutoState(e, props.setter, props.cb, props.cbParams,
                 props.cbOverride)}
+            onKeyPress={(e) => {
+                if(e.key === 'Enter' && props.onEnterCb)
+                    props.onEnterCb();
+            }}
 
             id={props.id}
             placeholder={props.placeholder ? props.placeholder : ''}
@@ -70,7 +76,7 @@ const Input = ({ props } : { props: INF_Input_State }) => {
                     
                 <input 
                 onInput={(e) => useAutoState(e, props.setter, props.cb, props.cbParams)}
-                
+
                 id={props.id}
                 className={props.cls}
                 type="file" 

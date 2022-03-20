@@ -44,7 +44,7 @@ const Search = () => {
             status: 200, 
             text: `No match for "${searchParams.get('s')}" was found.` }} />)
     else
-        return (<>{ status }</>)
+        return (<Loader />)
 }
 
 export default Search

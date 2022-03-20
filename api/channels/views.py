@@ -3,14 +3,12 @@ from rest_framework.views import APIView, Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.core.files.uploadedfile import TemporaryUploadedFile, InMemoryUploadedFile
-from videos.serializers import VideoSerializer
-from users.models import cUser
 
 from users.views import decode_user_id
 from . import models
 from . import serializers
 
-from videos.models import Video
+import videos.models as videoModels
 from videos.serializers import VideoPreviewSerializer
 
 OK = status.HTTP_200_OK
@@ -23,7 +21,7 @@ class ChannelView(APIView):
             channel = models.Channel.objects.get(id=channel_id)
             channel_serializer = serializers.ChannelSerializer(channel).data
 
-            channel_videos = Video.objects.filter(channel_id=channel_id)
+            channel_videos = videoModels.Video.objects.filter(channel_id=channel_id)
             videos_serializer = VideoPreviewSerializer(channel_videos, many=True).data
             
             if int(user_id) > -1:
@@ -54,7 +52,7 @@ class ChannelUpload(APIView):
             'thumbnail': req.data['thumbnail']
         }
 
-        new_video = Video.objects.create(**new_video_data)
+        new_video = videoModels.Video.objects.create(**new_video_data)
         return Response({'detail': 'Video uploaded'}, status=OK)
 
 class ChannelSubscribe(APIView):
@@ -110,7 +108,7 @@ class EditChannelVideo(APIView):
 
             return edit_video_dict
 
-        video = Video.objects.get(id=video_id, channel_id=channel_id)
+        video = videoModels.Video.objects.get(id=video_id, channel_id=channel_id)
 
         data = clean_data(req.data)
 
@@ -142,7 +140,7 @@ class SearchQuery(APIView):
         text = req.data['data']
 
         results = []
-        videos = Video.objects.filter(title__icontains=text)
+        videos = videoModels.Video.objects.filter(title__icontains=text)
         channels = models.Channel.objects.filter(user__username__icontains=text)
         
         if req.data['type'] == 'text':

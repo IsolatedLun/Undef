@@ -14,3 +14,8 @@ class cUserChannelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.cUser
         fields = ['id', 'username', 'profile', 'subscribers', 'channel_id']
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = models.Notification
+        fields = '__all__'
