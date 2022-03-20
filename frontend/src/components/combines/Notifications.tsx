@@ -1,16 +1,24 @@
+import { Link } from "react-router-dom";
 import Profile from "../modules/Profile";
 
 interface INF_Notification {
-    profile: string;
-    text: string;
+    video: number;
+    video_data: {
+        profile: string;
+        title: string;
+    },
+    created_at: string;
 }
 
 const Notification = ({ props } : { props: INF_Notification }) => {
     return (
-        <div className="notification">
-            <Profile props={{ url: props.profile, cls: 'notification__profile', alt: '' }} />
-            <p className="notification__text">{ props.text }</p>
-        </div>
+        <Link to={'/watch/' + props.video} className="notification">
+            <Profile props={{ url: props.video_data.profile, cls: 'notification__profile', alt: '' }} />
+            <div className="notification__details">
+                <p className="notification__text text--elliptic">{ props.video_data.title }</p>
+                <p className="notification__date">Uploaded { props.created_at } ago</p>
+            </div>
+        </Link>
     )
 }
 

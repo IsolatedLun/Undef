@@ -16,6 +16,9 @@ class cUserChannelSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'profile', 'subscribers', 'channel_id']
 
 class NotificationSerializer(serializers.ModelSerializer):
+    video_data = serializers.ReadOnlyField(source='get_video_details')
+    created_at = serializers.ReadOnlyField(source='format_date');
+
     class Meta:
-        models = models.Notification
+        model = models.Notification
         fields = '__all__'

@@ -5,6 +5,7 @@ from rest_framework import status
 from django.core.files.uploadedfile import TemporaryUploadedFile, InMemoryUploadedFile
 
 from users.views import decode_user_id
+from users.models import Notification
 from . import models
 from . import serializers
 
@@ -14,6 +15,13 @@ from videos.serializers import VideoPreviewSerializer
 OK = status.HTTP_200_OK
 ERR = status.HTTP_400_BAD_REQUEST
 NULL = status.HTTP_404_NOT_FOUND
+
+def send_notifications(video, channel_id):
+    subsribers = models.SubscribedChannel.objects.filter(channel_id=channel_id)
+
+    for x in subsribers:
+        if x.subscribed:
+            Notification.objects.create(user_id=x.user.id, video=video)
 
 class ChannelView(APIView):
     def get(self, req, channel_id, user_id):
@@ -34,8 +42,7 @@ class ChannelView(APIView):
 
             return Response({ 'channel': channel_serializer, 
                 'videos': videos_serializer}, OK)
-        except Exception as e:
-            print(e)
+        except:
             return Response({'detail': 'Channel does not exist'}, NULL)
 
 class ChannelUpload(APIView):
@@ -53,6 +60,8 @@ class ChannelUpload(APIView):
         }
 
         new_video = videoModels.Video.objects.create(**new_video_data)
+        send_notifications(new_video, channel_id)
+
         return Response({'detail': 'Video uploaded'}, status=OK)
 
 class ChannelSubscribe(APIView):

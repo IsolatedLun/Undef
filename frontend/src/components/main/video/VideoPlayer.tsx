@@ -25,7 +25,7 @@ const VideoPlayer = ({ videoData } : { videoData: VideoData }) => {
 
   return(
       <div 
-        className="video-player" 
+        className="video-player pos--relative" 
         onMouseDown={() => setMouseDown(true)}
         onMouseUp={() => setMouseDown(false)}
         >

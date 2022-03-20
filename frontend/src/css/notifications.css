@@ -1,7 +1,36 @@
 .notifications {
     text-align: center;
-    min-height: 12rem;
     min-width: 12rem;
+    width: 24rem;
+    max-height: 50vw;
+    overflow-x: hidden;
     overflow-y: auto;
     font-size: var(--fs-420);
+    z-index: 999999999999999999;
+}
+
+.notifications .notification {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    font-weight: normal;
+    padding: 0.5em;
+}
+
+.notifications .notification:is(:hover, :focus) {
+    background-color: var(--bg-hov);
+}
+
+.notifications .notification__profile {
+    width: 3em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.notifications .notification__text {
+    max-width: 50ch;
+}
+
+.notifications .notification__date {
+    margin-top: 0.85em;
+    font-size: calc(var(--fs-400) * 0.85);
 }

@@ -45,9 +45,19 @@ class cUser(AbstractUser):
 class Notification(models.Model):
     user = models.ForeignKey(cUser, on_delete=models.CASCADE)
     video = models.ForeignKey('videos.Video', on_delete=models.CASCADE)
-
-    text = models.CharField(max_length=120)
     
     read = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def format_date(self):
+        from django.utils.timesince import timesince
+        return timesince(self.created_at, depth=1)
+
+    def get_video_details(self):
+        data = {
+            'profile': self.video.user.profile.url,
+            'title': self.video.title,
+        }
+
+        return data

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BARS_ICO, BELL_ICO, ENTER_ICO, SEARCH_ICO } from '../../consts';
 import { useAppDispatch } from '../../hooks/state';
 import { useAuth } from '../../hooks/useAuth';
+import { useNotificationsQuery } from '../../services/authApi';
 import { useSearchMutation } from '../../services/channelApi';
 import { logout } from '../../slices/auth-slice';
 import Notifications from '../combines/Notifications';
@@ -14,12 +15,16 @@ import Profile from '../modules/Profile';
 import Loader from './Loader';
 
 let searchTimeout: number = -1;
+let notificationInterval: number = -1;
 const PrimaryNav = () => {
+  const { user, isLogged } = useAuth();
   const navigate = useNavigate();
+
   const [ getSearchResults ] = useSearchMutation();
+  const { data: notifications } = useNotificationsQuery();
+
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  const { user, isLogged } = useAuth();
   const dispatch = useAppDispatch();
 
   const [search, setSearch] = useState('');
@@ -52,10 +57,11 @@ const PrimaryNav = () => {
     ] 
   }} />
 
-  const notificationMenu = <ContextMenu props={{ 
+  const notificationMenu = ( notifications && 
+  <ContextMenu props={{ 
     id: 'esh', cls: 'ctx--right',
-    children: <Notifications notifications={[]} /> 
-  }} />
+    children: <Notifications notifications={notifications} /> 
+  }} />)
 
   return(
       <nav className='primary-nav flex flex--center--between' role='primary nav'>

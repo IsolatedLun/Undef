@@ -1,8 +1,9 @@
 from django.db import IntegrityError
 from jwt import ExpiredSignatureError
 from rest_framework.views import APIView, Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
+from users.models import Notification
 import users.models as userModels
 from . import serializers
 import channels.models as channelModels
@@ -86,3 +87,17 @@ class JWTCredentials(APIView):
             return Response({'detail': 'expired'}, ERR)
         except Exception:
             return Response({'detail': 'User is not logged'}, ERR)
+
+# ==============
+# Notifications
+# ==============
+class NotificationView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, req):
+        user_id = decode_user_id(req.headers)
+
+        notifications = Notification.objects.filter(user__id=user_id)
+        serializer = serializers.NotificationSerializer(notifications, many=True).data
+
+        return Response(data=serializer, status=OK)

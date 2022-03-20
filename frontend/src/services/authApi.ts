@@ -38,11 +38,22 @@ export const AuthApi = createApi({
                 url: '/token/get',
                 method: 'GET',
                 headers: {
-                    'authorization': `Bearer: ${localStorage.getItem('access')!}`
+                    'authorization': `Bearer ${localStorage.getItem('access')!}`
                 }
             })
-        })
+        }),
+
+        notifications: builder.query<any, void>({
+            query: () => ({
+                url: '/notifications',
+                method: 'GET',
+                headers: {
+                    'authorization': `Bearer ${localStorage.getItem('access')!}`
+                }
+            })
+        }),
     })
 })
 
-export const { useRegisterMutation, useLoginMutation, useAuthenticateMutation } = AuthApi;
+export const { useRegisterMutation, useLoginMutation, useAuthenticateMutation,
+    useNotificationsQuery } = AuthApi;

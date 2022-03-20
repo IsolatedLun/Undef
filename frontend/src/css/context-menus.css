@@ -4,7 +4,6 @@
 
 .context-menu {
     position: absolute;
-    visibility: hidden;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     color: var(--txt-primary);
@@ -12,11 +11,15 @@
     background-color: var(--bg-secondary);
     box-shadow: 0 0 6px 4px rgb(0 0 0 / 0.26);
     border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
     z-index: 999999;
+    transition: opacity 160ms ease-in-out;
 }
 
 .context-menu-container:is(:hover, :focus, :focus-within) > .context-menu {
-    visibility: visible;
+    opacity: 1;
+    pointer-events: inherit;
 }
 
 .context-menu .menu__option {
@@ -33,4 +36,12 @@
 
 .context-menu .menu__option:is(:hover) {
     background-color: var(--bg-hov);
+}
+
+@media(max-width: 768px) {
+    .context-menu-container {
+        position: absolute;
+        left: 50%;
+        right: -50%;
+    }
 }

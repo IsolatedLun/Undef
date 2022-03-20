@@ -4,7 +4,7 @@
     width: 100%;
     aspect-ratio: 16 / 9;
     background-color: black;
-    z-index: 9999999999999999;
+    z-index: 1;
 }
 
 .video-player .player__controls {

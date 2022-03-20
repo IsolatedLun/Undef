@@ -59,7 +59,7 @@ const VideoTab = () => {
   else if(isError)
       return (<PageNotFound />)
   else
-      return(<Loader centerSelf />)
+      return(<Loader />)
 };
 
 export default VideoTab;
