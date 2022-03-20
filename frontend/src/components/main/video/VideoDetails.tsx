@@ -6,7 +6,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import { useRateVideoMutation, useReportVideoMutation } from '../../../services/videoApi';
 import { positionTooltip } from '../../funcs/accessibilityFuncs';
 import { loggedAction } from '../../funcs/authFuncs';
-import { handleResponse } from '../../funcs/utilFuncs';
+import { calculateRating, handleResponse } from '../../funcs/utilFuncs';
 import Button from '../../modules/Button';
 import ContextMenu from '../../modules/ContextMenu';
 import { VideoData } from './VideoTab';
@@ -37,7 +37,7 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
     { action: () => {
       loggedAction(isLogged, () => 
       reportVideo(videoDetails.id).unwrap()
-        .then(res => handleResponse(res, { popup: res.detail }))
+        .then(res => handleResponse(res, { popup: res.data.detail }))
         .catch(res => handleResponse(res)))
     }, 
       icon: FLAG_ICO, text: 'Report' },
@@ -55,6 +55,10 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
     setRateType(videoDetails.rate_type);
     setRating({ likes: videoDetails.likes, dislikes: videoDetails.dislikes })
   }, [videoDetails])
+
+  useEffect(() => {
+    console.log(calculateRating(rating.likes, rating.dislikes))
+  }, [rating])
 
   return(
       <section aria-label='Video details' className='video-details'>
@@ -92,11 +96,11 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
               </div>
               <div className="controls__rating-bar btn--tooltip">
 
-                <div style={{ transform: `scaleX(${videoDetails.ratio})` }}
+                <div style={{ transform: `scaleX(${calculateRating(rating.likes, rating.dislikes)})` }}
                   className="rating-bar__display"></div>
 
                 <div className="tooltip span" 
-                  data-tooltip={`${videoDetails.ratio * 100}% of people like this`}></div>
+                  data-tooltip={`${Number(calculateRating(rating.likes, rating.dislikes)) * 100}% of people like this`}></div>
               </div>
             </div>
         </div>

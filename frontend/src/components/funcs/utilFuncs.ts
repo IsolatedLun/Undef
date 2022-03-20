@@ -95,3 +95,13 @@ export function unFocusGlb() {
 export function toUnderscore(s: string): string {
     return s.split(' ').map(word => word.toLowerCase()).join('_');
 }
+
+export function calculateRating(likes: number, dislikes: number): string | number {
+    try {
+        return ((likes  / (likes + dislikes)).toFixed(2))
+    }
+
+    catch {
+        return 0
+    }
+}

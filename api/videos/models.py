@@ -33,12 +33,6 @@ class Video(models.Model):
     def format_dislikes(self):
         return f'{self.dislikes:,}'
 
-    def calculate_ratio(self):
-        try:
-            return (self.likes  / (self.likes + self.dislikes)).__round__(2)
-        except:
-            return 0
-
     def get_duration(self):
         from moviepy import editor
 

@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView, Response
 from rest_framework import status
 
+from users.models import cUser
 from users.views import decode_user_id
 from . import models
 from . import serializers
@@ -99,7 +100,7 @@ class RateVideo(APIView):
             
             return 'un' + rate_type
 
-        user = models.cUser.objects.get(id=decode_user_id(req.headers))        
+        user = cUser.objects.get(id=decode_user_id(req.headers))        
         video = models.Video.objects.get(id=video_id)
         rated_video = models.RatedVideo.objects.get_or_create(video_id=video_id, user_id=user.id)[0]
         rate_type = req.data['type']
@@ -141,7 +142,7 @@ class ReportVideo(APIView):
             return Response({ 'detail': 'Video has been deleted to due many reports.' }, OK)
         else:
             video.save()
-            return Response({ 'detail': 'Reported video.' }, OK)
+            return Response({ 'data': { 'detail': 'Reported video.' } }, OK)
 
 # =================
 # Video Comments
