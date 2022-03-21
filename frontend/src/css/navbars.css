@@ -69,6 +69,40 @@
 }
 
 /* Side Navbar */
+.side-nav {
+    position: fixed;
+    top: 0;
+    transform: translateX(-45vw);
+    width: 200px;
+    height: 100%;
+    background-color: var(--bg-secondary);
+    transition: transform 250ms ease-in-out;
+    z-index: 10000000000000000;
+}
+
+.side-nav.active {
+    transform: translateX(0);
+}
+
+.side-nav .side-nav__links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.side-nav .side-nav__links li {
+    display: flex;
+    align-items: center;
+    padding: 0.65em 1.25em;
+    width: 100%;
+    gap: 0.65em;
+    cursor: pointer;
+    transition: background-color 95ms ease-in-out;
+}
+
+.side-nav .side-nav__links li:is(:hover, :focus) {
+    background-color: var(--bg-hov);
+}
 
 /* Channel Navbar */
 .channel .channel__nav {

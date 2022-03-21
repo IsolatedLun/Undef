@@ -84,6 +84,14 @@
     margin-inline: 1em;
 }
 
+.m-bl--025 {
+    margin-block: 0.25em;
+}
+
+.mbl--1 {
+    margin-block: 1em;
+}
+
 .mb--1 {
     margin-bottom: 1em;
 }
@@ -186,4 +194,8 @@
 
 .w--100 {
     width: 100%;
+}
+
+.align--self--c {
+    align-self: center;
 }

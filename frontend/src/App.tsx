@@ -13,6 +13,7 @@ import { useAuthenticateMutation } from './services/authApi';
 import Modal from './components/layouts/Modal';
 import Search from './components/main/Search';
 import ForgotPassword from './components/auth/ForgotPassword';
+import SideNav from './components/layouts/SideNav';
 
 function App() {
   const [authenticate] = useAuthenticateMutation();
@@ -27,6 +28,7 @@ function App() {
   return (
     <Router>
       <PrimaryNav />
+      <SideNav />
 
       <main className="main-container" id='main-content'>
         <Routes>

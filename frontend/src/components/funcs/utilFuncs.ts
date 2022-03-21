@@ -1,7 +1,10 @@
 import { toggleButton } from '../modules/Button';
 import { popup } from './popupFuncs'
 
-export function toggleElement(e: Event | null, el: HTMLElement): void {
+export function toggleElement(e: Event | null, el: HTMLElement | string): void {
+    if(typeof el === 'string')
+        el = document.getElementById(el)!;
+        
     el.classList.toggle('active')
 }
 

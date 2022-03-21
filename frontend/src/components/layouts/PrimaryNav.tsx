@@ -68,14 +68,18 @@ const PrimaryNav = () => {
           <a href="#main-content" className="nav__skip">Skip navigation</a>
 
           <div className='flex flex--center--gap--1'>
-            <Button props={{ content: BARS_ICO, action: toggleElement }} />
+            <Button props={{ content: BARS_ICO, action: () => 
+              toggleElement(null, 'side-nav') }} />
             <Link to='/'><h1 className="nav__title">Undef</h1></Link>
           </div>
 
           <div className='nav__search-part flex flex--center--gap--1 flex--g--1 m--inl--1'>
             <div className="search-inpt__container">
               <Input props={{ setter: setSearch, type: 'text',
-                onEnterCb: () => navigate('/search?s=' + search),
+                onEnterCb: () => {
+                  if(search.length > 0) 
+                    navigate('/search?s=' + search)
+                },
                 placeholder: 'Search', id: 'nav-search', name: 'search', realType: 'oneWord' }} />
 
               { (searchResults.length > 0 && search.length > 0) && (
@@ -93,7 +97,8 @@ const PrimaryNav = () => {
 
             {
               !isFetching
-              ? <Link className='button--icon icon--m fa' to={'/search?s=' + search}>{ SEARCH_ICO }</Link>
+              ? <Link className={`button--icon icon--m fa ${search.length === 0 ? 'disabled' : ''}`}
+                to={'/search?s=' + search}>{ SEARCH_ICO }</Link>
               : <div className="pos--relative">
                   <Loader radius={25} />
                 </div>
