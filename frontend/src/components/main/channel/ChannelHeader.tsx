@@ -7,14 +7,20 @@ import { loggedAction } from '../../funcs/authFuncs'
 import Profile from '../../modules/Profile'
 import Button from '../../modules/Button'
 import { INF_Channel } from './ChannelRouter'
+import { useAppDispatch, useAppSelector } from '../../../hooks/state'
+import { setCurrentlySubscribed } from '../../../slices/channel-slice'
 
 const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserState }) => {
-    const [subbed, setSubbed] = useState(channel.subscribed);
-    const [subCount, setSubCount] = useState(user.user.subscribers);
+    const subbed = useAppSelector(state => state.channel.isCurrentlySubscribed);
+    const dispatch = useAppDispatch();
+
+    const [subCount, setSubCount] = useState(0);
     const [subscribe, {  }] = useSubscribleMutation();
 
     useEffect(() => {
       setSubCount(channel.user_data.subscribers);
+      if(subbed === undefined)
+        dispatch(setCurrentlySubscribed(channel.subscribed));
     }, [channel])
     
     return (
@@ -44,7 +50,6 @@ const ChannelHeader = ({ channel, user } : { channel: INF_Channel, user: UserSta
                   action: () => loggedAction(user.isLogged, async() => {
                     await subscribe(channel.id).unwrap()
                       .then(res => {
-                        setSubbed(res.data.subscribed);
                         setSubCount(res.data.subscribers);
                       })
                   }, true)}} />

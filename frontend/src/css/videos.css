@@ -46,6 +46,15 @@
     gap: 0.45em;
 }
 
+/* Video.side */
+.video.side .video__details {
+    width: 100%;
+}
+
+.video.side .video__inner-details {
+    flex-grow: 1;
+}
+
 .video #home-video-options {
     position: absolute;
     inset: 10px 10px auto auto;

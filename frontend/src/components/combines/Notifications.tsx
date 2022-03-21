@@ -27,8 +27,8 @@ const Notifications = ({ notifications } : { notifications: INF_Notification[] }
         return (
             <div className='notifications flex flex--col'>
             {
-                notifications.map(notification => (
-                    <Notification props={{ ...notification }} />
+                notifications.map((notification, idx: number) => (
+                    <Notification key={idx} props={{ ...notification }} />
                 ))
             }
             </div>

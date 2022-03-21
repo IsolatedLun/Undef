@@ -81,8 +81,8 @@ const PrimaryNav = () => {
               { (searchResults.length > 0 && search.length > 0) && (
                 <ul className="search__results">
                   {
-                    searchResults.map((result: string) => (
-                      <Link className='search__result' to={`/search?s=${result}`}>
+                    searchResults.map((result: string, idx: number) => (
+                      <Link key={idx} className='search__result' to={`/search?s=${result}`}>
                         { result }
                       </Link>
                     ))
