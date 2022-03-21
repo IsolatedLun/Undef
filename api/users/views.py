@@ -4,7 +4,7 @@ from rest_framework.views import APIView, Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from users.models import Notification
-import users.models as userModels
+from . import models
 from . import serializers
 import channels.models as channelModels
 from django.contrib.auth.hashers import make_password, check_password
@@ -38,7 +38,7 @@ class Register(APIView):
         channel_data = {'banner': req.data['banner'], 'channel_description': req.data['channel_description']}
 
         try:
-            user, created = userModels.cUser.objects.get_or_create(**user_data)
+            user, created = models.cUser.objects.get_or_create(**user_data)
 
             if created:
                 channelModels.Channel.objects.create(**channel_data, user=user)
@@ -55,7 +55,7 @@ class JWTLogin(APIView):
 
     def post(self, req):
         try:
-            user = userModels.cUser.objects.get(email_address=req.data['email_address'])
+            user = models.cUser.objects.get(email_address=req.data['email_address'])
             
             if not check_password(req.data['password'], user.password):
                 raise Exception()
@@ -81,12 +81,21 @@ class JWTCredentials(APIView):
         id = decode_user_id(req.headers)
 
         try:
-            user = serializers.cUserSerializer(userModels.cUser.objects.get(id=id)).data
+            user = serializers.cUserSerializer(models.cUser.objects.get(id=id)).data
             return Response({'data': user}, OK)
         except ExpiredSignatureError:
             return Response({'detail': 'expired'}, ERR)
         except Exception:
             return Response({'detail': 'User is not logged'}, ERR)
+
+class ChangePassword(APIView):
+    def post(self, req):
+        user = models.cUser.objects.get(email_address=req.data['email_address'])
+
+        user.password = make_password(req.data['new_password'])
+        user.save()
+
+        return Response({ 'detail': 'Changed password' }, OK);
 
 # ==============
 # Notifications

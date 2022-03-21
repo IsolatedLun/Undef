@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { useLoginMutation } from "../../services/authApi"
 import { validateForm } from "../funcs/formFuncs"
 import { handleResponse } from "../funcs/utilFuncs"
@@ -25,13 +26,15 @@ const Login = () => {
         <InputPart props={{id: 'password', label: 'Password', setter: setLoginUser,
             inputData: {name: 'password', type: 'password', realType: 'password'}}} />,
 
+        <Link to={'/auth/forgot-password'} className='mb--1 link'>Change password</Link>,
+
         <Button props={{ content: 'Login', action: async() => {
            if(validateForm('form__inpt'))
             await login(loginUser)
             .unwrap()
             .then(res => handleResponse(res, { redirectTo: '/' }))
             .catch(res => handleResponse(res))
-        }, modifiers: 'w--100' }} />
+        }, modifiers: 'w--100 mt--1' }} />
     ]
 
   return (

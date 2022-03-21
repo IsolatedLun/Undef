@@ -12,6 +12,7 @@ import { useAuth } from './hooks/useAuth';
 import { useAuthenticateMutation } from './services/authApi';
 import Modal from './components/layouts/Modal';
 import Search from './components/main/Search';
+import ForgotPassword from './components/auth/ForgotPassword';
 
 function App() {
   const [authenticate] = useAuthenticateMutation();
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path='auth/sign-up' element={<SignUp />} />
           <Route path='auth/login' element={<Login />} />
+          <Route path='auth/forgot-password' element={<ForgotPassword />} />
 
           <Route path='' element={<Home />} />
           <Route path='watch/:video_id' element={<VideoTab />} />

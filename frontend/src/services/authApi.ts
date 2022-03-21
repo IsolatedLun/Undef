@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { INF_ForgotPassword } from "../components/auth/ForgotPassword";
 import { LoginUser } from "../components/auth/Login";
 import { NewUser } from "../components/auth/SignUp";
 import { JWT_Tokens } from "../components/funcs/authFuncs";
@@ -43,6 +44,14 @@ export const AuthApi = createApi({
             })
         }),
 
+        changePassword: builder.mutation<ExtraResponse, INF_ForgotPassword>({
+            query: (changePasswordData) => ({
+                url: '/change-password',
+                method: 'POST',
+                body: changePasswordData
+            })
+        }),
+
         notifications: builder.query<any, void>({
             query: () => ({
                 url: '/notifications',
@@ -56,4 +65,4 @@ export const AuthApi = createApi({
 })
 
 export const { useRegisterMutation, useLoginMutation, useAuthenticateMutation,
-    useNotificationsQuery } = AuthApi;
+    useNotificationsQuery, useChangePasswordMutation } = AuthApi;
