@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView, Response
 from rest_framework import status
 
@@ -29,12 +29,10 @@ class VideoPreview(APIView):
         return Response(previews, OK)
 
 class Video(APIView):
-    permission_classes = [AllowAny, IsAuthenticated]
-
-    def check_permissions(self, request):
-        return True
+    permission_classes = [AllowAny]
 
     def post(self, req, video_id):
+        print(req.headers)
         user_id = None
         if req.headers.get('Authorization', False):
             user_id = decode_user_id(req.headers)
@@ -46,7 +44,6 @@ class Video(APIView):
             video.increment_views()
             
             serializer = serializers.VideoSerializer(video).data
-
             if user_id is not None:
                 rated_video = models.RatedVideo.objects.get_or_create(video_id=video.id, user_id=user_id)[0]
                 serializer['rate_type'] = rated_video.rate_type

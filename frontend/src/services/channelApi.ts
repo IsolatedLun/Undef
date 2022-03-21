@@ -18,7 +18,7 @@ export const ChannelApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL + '/api/channels', 
         prepareHeaders: (headers, { getState }) => {
-            if((getState() as any).auth.isLogged)
+            if((getState() as any).auth.isLogged || getAccess())
                 headers.append('authorization', `Bearer ${localStorage.getItem('access')}`);
 
             return headers

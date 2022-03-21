@@ -56,10 +56,6 @@ const VideoDetails = ({ videoDetails } : { videoDetails: VideoData }) => {
     setRating({ likes: videoDetails.likes, dislikes: videoDetails.dislikes })
   }, [videoDetails])
 
-  useEffect(() => {
-    console.log(calculateRating(rating.likes, rating.dislikes))
-  }, [rating])
-
   return(
       <section aria-label='Video details' className='video-details'>
         <div className="main-video__details">

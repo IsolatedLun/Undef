@@ -40,7 +40,10 @@ const ForgotPassword = () => {
     )
 
   return (
-    <Form props={{ children: forgotPasswordElements, id: '1' }} />
+    <div className="form--container">
+        <h1 className="form_head txt--center">Change password</h1>
+        <Form props={{ children: forgotPasswordElements, id: '1' }} />
+    </div>
   )
 }
 

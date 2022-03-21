@@ -11,8 +11,9 @@ export const VideoApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL + '/api/videos', 
         prepareHeaders: (headers, { getState }) => {
-            if((getState() as any).auth.isLogged)
-                headers.append('authorization', `Bearer ${getAccess()!}`);
+            if((getState() as any).auth.isLogged || getAccess()) {
+                headers.append('Authorization', `Bearer ${getAccess()!}`);
+            }
 
             return headers;
         }
