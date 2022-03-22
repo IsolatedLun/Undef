@@ -123,6 +123,12 @@
     background-color: var(--txt-muted);
 }
 
+.view--header {
+    font-size: calc(var(--fs-500) * 0.9);
+    font-weight: normal;
+    margin-block: 0.2em;
+}
+
 /* Editable Profile */
 .profile--editable {
     cursor: pointer;

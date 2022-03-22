@@ -13,21 +13,6 @@
     outline-width: 0.25px;
 }
 
-.search-items .video {
-    display: flex;
-    gap: 0.75em;
-}
-
-.search-items .video .video__thumbnail-link {
-    width: 20%;
-    min-width: 20%;
-    max-width: 40%;
-}
-
-.search-items .video__info {
-    width: 95%;
-}
-
 .search-items .channel-item {
     padding: 0.25em;
 }

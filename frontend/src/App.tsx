@@ -14,6 +14,8 @@ import Modal from './components/layouts/Modal';
 import Search from './components/main/Search';
 import ForgotPassword from './components/auth/ForgotPassword';
 import SideNav from './components/layouts/SideNav';
+import Subscriptions from './components/layouts/views/Subscriptions';
+import WatchHistory from './components/layouts/WatchHistory';
 
 function App() {
   const [authenticate] = useAuthenticateMutation();
@@ -39,6 +41,9 @@ function App() {
           <Route path='' element={<Home />} />
           <Route path='watch/:video_id' element={<VideoTab />} />
           <Route path='channels/:channel_id/*' element={<ChannelRouter />} />
+
+          <Route path='subscriptions' element={<Subscriptions />} />
+          <Route path='watch-history' element={<WatchHistory />} />
 
           <Route path='search' element={<Search />} />
 

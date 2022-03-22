@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { getAccess } from "../components/funcs/authFuncs";
 import { ExtraResponse } from "../components/funcs/utilFuncs";
-import { ChannelData } from "../components/main/channel/ChannelRouter";
+import { ChannelData, INF_Channel } from "../components/main/channel/ChannelRouter";
 import { INF_Video } from "../components/modules/Video";
 import { API_URL } from "../consts";
 
@@ -18,7 +19,7 @@ export const ChannelApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL + '/api/channels', 
         prepareHeaders: (headers, { getState }) => {
-            if((getState() as any).auth.isLogged || getAccess())
+            if((getState() as any).auth.isLogged || getAccess()!)
                 headers.append('authorization', `Bearer ${localStorage.getItem('access')}`);
 
             return headers
@@ -35,6 +36,13 @@ export const ChannelApi = createApi({
         getChannel: builder.query<ExtraResponseAndChannelData, any>({
             query: ({ channel_id, user_id }) => ({
                 url: `/channel/${channel_id}/${user_id}`,
+                method: 'GET',
+            })
+        }),
+
+        getChannelPreviews: builder.query<INF_Channel[], void>({
+            query: () => ({
+                url: `/subscriptions`,
                 method: 'GET',
             })
         }),
@@ -81,4 +89,5 @@ export const ChannelApi = createApi({
 })
 
 export const { useGetChannelQuery, useUploadVideoMutation, useSubscribleMutation,
-useEditVideoMutation, useEditChannelDetailsMutation, useSearchMutation } = ChannelApi;
+    useEditVideoMutation, useEditChannelDetailsMutation, useSearchMutation,
+    useGetChannelPreviewsQuery } = ChannelApi;

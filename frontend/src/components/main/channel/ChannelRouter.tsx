@@ -19,6 +19,14 @@ export interface ChannelData {
     
 }
 
+export interface INF_ChannelUser {
+    id: number;
+    channel_id: number;
+    username: string;
+    profile: string;
+    subscribers: number;
+}
+
 export interface INF_Channel {
     id: number;
     banner: string;
@@ -29,12 +37,7 @@ export interface INF_Channel {
     total_views: number;
     created_at: string;
     
-    user_data: {
-      id: number;
-      username: string;
-      profile: string;
-      subscribers: number;
-    }
+    user_data: INF_ChannelUser;
 }
 
 const ChannelRouter = () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { API_URL, ELLIPSE_V_ICO } from '../../consts';
+import { calculateDuration } from '../funcs/videoPlayerFuncs';
 import Button from './Button';
 
 export interface INF_Video {
@@ -15,19 +16,18 @@ export interface INF_Video {
     duration: number;
     description: string;
     created_at: string;
-
-    direction?: string;
 }
 
 export interface I_INF_Video {
     [key: string]: INF_Video
 }
 
-const Video = ({ props } : { props : INF_Video }) => {
+const Video = ({ props, direction } : { props : INF_Video, direction: undefined | 'vertical' | 'side' }) => {
+    console.log(props.duration)
   return(
-    <div className={`video ${props.direction ? props.direction : 'vertical'}`}>
+    <div className={`video ${direction ? direction : ''}`}>
         <Link to={'/watch/' + props.id} className='video__thumbnail-link'>
-            <div className="video__thumbnail skel">
+            <div className="video__thumbnail skel" data-duration={calculateDuration(props.duration)}>
                 <img src={ API_URL + props.thumbnail } alt={`${props.title}'s thumbnail`} />
             </div>
         </Link>

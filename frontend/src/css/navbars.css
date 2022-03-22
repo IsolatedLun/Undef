@@ -90,7 +90,11 @@
     width: 100%;
 }
 
-.side-nav .side-nav__links li {
+.side-nav .side-nav__item {
+    display: inline-block;
+}
+
+.side-nav .side-nav__link {
     display: flex;
     align-items: center;
     padding: 0.65em 1.25em;

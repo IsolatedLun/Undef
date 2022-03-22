@@ -15,9 +15,21 @@
 }
 
 .video .video__thumbnail {
+    position: relative;
     width: 100%;
     background-color: black;
     aspect-ratio: 16 / 9;
+}
+
+.video .video__thumbnail::after {
+    content: attr(data-duration);
+    font-size: calc(var(--fs-400) * 0.85);
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+    padding: 0.1em 0.25em;
+    border-radius: 6px;
+    background-color: rgb(0 0 0 / 0.86);
 }
 
 .video .video__details {
@@ -55,11 +67,25 @@
     flex-grow: 1;
 }
 
+.video.side {
+    display: flex;
+    gap: 0.75em;
+}
+
+.video.side .video__thumbnail-link {
+    width: 20%;
+    min-width: 20%;
+    max-width: 40%;
+}
+
+.video.side .video__info {
+    width: 95%;
+}
+
 .video #home-video-options {
     position: absolute;
     inset: 10px 10px auto auto;
     visibility: hidden;
-    /* mix-blend-mode: difference; */
 }
 
 .video:hover #home-video-options {

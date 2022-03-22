@@ -34,6 +34,13 @@ export const VideoApi = createApi({
             })
         }),
 
+        getVideoHistory: builder.query<INF_Video[], void>({
+            query: () => ({
+                url: `/video/history`,
+                method: 'GET',
+            })
+        }),
+
         getVideoComments: builder.query<Comment[], any>({
             query: ({ video_id }) => ({
                 url: `/video/${video_id}/comments`,
@@ -85,4 +92,5 @@ export const VideoApi = createApi({
 
 export const { useGetVideosQuery, useGetVideoQuery, useRateVideoMutation,
     useDeleteVideoMutation, useGetVideoCommentsQuery, useCommentVideoMutation,
-    useDeleteVideoCommentMutation, useReportVideoMutation } = VideoApi;
+    useDeleteVideoCommentMutation, useReportVideoMutation,
+    useGetVideoHistoryQuery } = VideoApi;

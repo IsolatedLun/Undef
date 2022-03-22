@@ -6,6 +6,7 @@ import Video, { INF_Video } from "../modules/Video";
 interface Videos {
   videos: INF_Video[] | undefined;
   filters?: any | object | undefined;
+  direction?: 'vertical' | 'side';
 }
 
 const Videos = ({ props }: { props: Videos }) => {
@@ -14,7 +15,7 @@ const Videos = ({ props }: { props: Videos }) => {
     return (
       <>
         { props.videos.map((video, idx) => (
-          <Video key={idx} props={video} />
+          <Video key={idx} props={video} direction={props.direction} />
         )) }
       </>
     );
@@ -22,7 +23,7 @@ const Videos = ({ props }: { props: Videos }) => {
     return (
       <>
         { useFilters(props.videos, props.filters, "").map((video, idx) => (
-          <Video key={idx} props={video} />
+          <Video key={idx} props={video} direction={props.direction} />
         ))}
       </>
     );

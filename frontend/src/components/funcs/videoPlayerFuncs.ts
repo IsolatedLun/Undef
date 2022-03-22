@@ -16,11 +16,17 @@ export function handleBufferBar(videoEl: HTMLVideoElement, barEl: HTMLElement) {
 }
 
 export function calculateDuration(t: number): string {
-  if (t < 3600) {
-    return new Date(t * 1000).toISOString().substr(14, 5);
+  try {
+    if (t < 3600) {
+      return new Date(t * 1000).toISOString().substr(14, 5);
+    }
+    
+    return new Date(t * 1000).toISOString().substr(11, 8);
   }
-  
-  return new Date(t * 1000).toISOString().substr(11, 8);
+
+  catch {
+    return '0';
+  }
 }
 
 export function updateCurrentTime(el: HTMLElement, t: number) {
