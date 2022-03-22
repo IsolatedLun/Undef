@@ -25,11 +25,12 @@ class VideoPreviewSerializer(serializers.ModelSerializer):
     profile =  serializers.ReadOnlyField(source='user.profile.url')
     created_at = serializers.ReadOnlyField(source='format_date')
     views = serializers.ReadOnlyField(source='format_views')
+    duration = serializers.ReadOnlyField(source='get_duration')
 
     class Meta:
         model = models.Video
         fields = ['id', 'thumbnail', 'title', 'views', 'user', 'channel',
-            'username', 'profile', 'created_at']
+            'username', 'profile', 'created_at', 'duration']
 
 class VideoCommentSerializer(serializers.ModelSerializer):
     created_at = serializers.ReadOnlyField(source='format_date')

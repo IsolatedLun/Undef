@@ -32,10 +32,10 @@ class Video(APIView):
     permission_classes = [AllowAny]
 
     def post(self, req, video_id):
-        print(req.headers)
         user_id = None
         if req.headers.get('Authorization', False):
             user_id = decode_user_id(req.headers)
+            models.WatchedVideo.objects.get_or_create(user_id=user_id, video_id=video_id)
 
         video = models.Video.objects.get(id=video_id)
         serializer = None
@@ -140,6 +140,15 @@ class ReportVideo(APIView):
         else:
             video.save()
             return Response({ 'data': { 'detail': 'Reported video.' } }, OK)
+
+
+class VideoWatchHistory(APIView):
+    def get(self, req):
+        user_id = decode_user_id(req.headers)
+        watched_videos = list(models.WatchedVideo.objects.filter(user_id=user_id))
+        videos = [serializers.VideoPreviewSerializer(x.video).data for x in watched_videos]
+
+        return Response(videos, OK)
 
 # =================
 # Video Comments

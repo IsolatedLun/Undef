@@ -17,5 +17,6 @@ urlpatterns = [
     path('channel/<int:channel_id>/edit/details', views.EditChannelDetails.as_view(), 
         name='post-edit-video'),
 
-    path('search', views.SearchQuery.as_view(), name='get-search')
+    path('search', views.SearchQuery.as_view(), name='get-search'),
+    path('subscriptions', views.Subscriptions.as_view(), name='get-subsriptions')
 ]

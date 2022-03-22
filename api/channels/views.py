@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.views import APIView, Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
@@ -160,3 +159,14 @@ class SearchQuery(APIView):
             results.extend([{'obj': VideoPreviewSerializer(x).data, 'type': 'video'} for x in videos])
 
         return Response({ 'data': results }, OK)
+
+class Subscriptions(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, req):
+        user_id = decode_user_id(req.headers)
+
+        subscribed_channels = list(models.SubscribedChannel.objects.filter(user_id=user_id, subscribed=True))
+        channels = [serializers.ChannelPreviewSerializer(x.channel).data for x in subscribed_channels]
+
+        return Response(channels, OK)

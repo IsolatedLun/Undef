@@ -57,6 +57,12 @@ class RatedVideo(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     rate_type = models.CharField(max_length=16, default='')
 
+class WatchedVideo(models.Model):
+    user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
 class Comment(models.Model):
     user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)

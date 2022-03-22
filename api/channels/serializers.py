@@ -9,3 +9,11 @@ class ChannelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Channel
         fields = '__all__'
+
+class ChannelPreviewSerializer(serializers.ModelSerializer):
+    user_data = serializers.ReadOnlyField(source='get_channel_user')
+    video_count = serializers.ReadOnlyField(source='get_video_count')
+
+    class Meta:
+        model = models.Channel
+        fields = ['user_data', 'video_count']
